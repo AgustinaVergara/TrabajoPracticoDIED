@@ -21,8 +21,8 @@ public class Camino {
 	}
 	Camino(int id, Sucursal sO, Sucursal sD, int t, boolean estado, double c){
 		this.id=id;
-		this.sucursalOrigen= sO;
-		this.sucursalDestino= sD;
+		this.sucursalOrigen.add(sD);
+		this.sucursalDestino.add(sD);
 		this.tiempoTransito=t;
 		this.esOperativa=estado;
 		this.capacidadMax=c;
