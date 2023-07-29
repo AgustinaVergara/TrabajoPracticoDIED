@@ -1,13 +1,17 @@
 package clases;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-public class Camino {
+import enums.EstadoSucursal;
+
+
+
+public class Camino  {
 	int id;
-	ArrayList<Sucursal> sucursalOrigen =new ArrayList<Sucursal>();
-	ArrayList<Sucursal> sucursalDestino=new ArrayList<Sucursal>();
+	Sucursal sucursalOrigen;
+	Sucursal sucursalDestino;
 	int tiempoTransito; //tiempo del transito en minutos
-	boolean esOperativa; // Estado de la ruta
+	EstadoSucursal estado; // Estado de la ruta
 	double capacidadMax; // en kilos
 
 	Camino(){
@@ -15,36 +19,37 @@ public class Camino {
 		this.sucursalOrigen= null ;
 		this.sucursalDestino= null;
 		this.tiempoTransito=0;
-		this.esOperativa=false;
+		this.estado=EstadoSucursal.NO_OPERATIVA;
 		this.capacidadMax=0.0;
 	
 	}
-	Camino(int id, Sucursal sO, Sucursal sD, int t, boolean estado, double c){
+	public Camino(int id, Sucursal sO, Sucursal sD, int t, EstadoSucursal estado, double c){
 		this.id=id;
-		this.sucursalOrigen.add(sD);
-		this.sucursalDestino.add(sD);
+		this.sucursalOrigen=(sD);
+		this.sucursalDestino=(sD);
 		this.tiempoTransito=t;
-		this.esOperativa=estado;
+		this.estado=estado;
 		this.capacidadMax=c;
 	
 	}
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public ArrayList<Sucursal> getlistaSO() {
+	public Sucursal getSO() {
 		return sucursalOrigen;
 	}
 	public void setSucursalOrigen(Sucursal sO) {
-		this.sucursalOrigen.add(sO) ;
+		this.sucursalOrigen=(sO) ;
 	}
-	public ArrayList<Sucursal> getlistaSD() {
+	public Sucursal getSD() {
 		return sucursalDestino;
 	}
 	public void setSucursalDestino(Sucursal sD) {
-		this.sucursalDestino.add(sD);
+		this.sucursalDestino=(sD);
 	}
 	public int getTiempoTransito() {
 		return tiempoTransito;
@@ -52,11 +57,11 @@ public class Camino {
 	public void setTiempoTransito(int tiempoTransito) {
 		this.tiempoTransito = tiempoTransito;
 	}
-	public boolean isEsOperativa() {
-		return esOperativa;
+	public EstadoSucursal getEsOperativa() {
+		return this.estado;
 	}
-	public void setEsOperativa(boolean esOperativa) {
-		this.esOperativa = esOperativa;
+	public void setEsOperativa(EstadoSucursal estado) {
+		this.estado = estado;
 	}
 	public double getCapacidadMax() {
 		return capacidadMax;
