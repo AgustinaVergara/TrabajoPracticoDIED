@@ -70,8 +70,8 @@ public class GestorCamino {
 		public List<Camino> getCaminoSaliente(Sucursal s) {
 			List<Camino> retorno = new ArrayList<>();
 			
-			for (Camino r : caminos) {
-				if (r.activa() && r.getOrigen().equals(e)) retorno.add(r);
+			for (Camino c : caminos) {
+				if (c.esActivo() && c.getSO().equals(s)) retorno.add(c);
 			}
 			
 			return retorno;

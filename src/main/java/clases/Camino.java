@@ -69,6 +69,10 @@ public class Camino  {
 	public void setCapacidadMax(double capacidadMax) {
 		this.capacidadMax = capacidadMax;
 	}
+	public boolean esActivo() {
+		if (this.estado== EstadoSucursal.OPERATIVA) return true;
+		else return false;
+	}
 	
 	
 }
