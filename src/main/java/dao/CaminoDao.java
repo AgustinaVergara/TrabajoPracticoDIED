@@ -7,10 +7,13 @@ import clases.Camino;
 import conexion.Conexion;
 
 
-public interface CaminoDao extends Dao {
-	public List<Camino> buscar();
+public interface CaminoDao   {
+	/*public List<Camino> buscar();
 	public void eliminar();
 	public void insertar(List<Camino> camino);
 	public void modificarCaminos(List<Camino> listaCaminosAEditar);
-	public Integer getSiguienteIdCamino();
+	public Integer getSiguienteIdCamino();*/
+	
+	
+	
 }

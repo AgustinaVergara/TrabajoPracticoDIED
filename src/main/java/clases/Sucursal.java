@@ -44,6 +44,9 @@ public class Sucursal {
 	}
 	
 	//Constructors
+	public Sucursal() {
+		
+	};
 	public Sucursal(Integer id, String nombre, LocalTime horarioApertura, LocalTime horarioCierre,
 			EstadoSucursal estado) {
 		super();

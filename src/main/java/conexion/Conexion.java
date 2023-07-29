@@ -9,7 +9,7 @@ public class Conexion {
 	private static final String CONTROLADOR = "com.mysql.cj.jdbc.Driver";
 	private static final String URL =  "jdbc:mysql://localhost:3306/tpdied";
 	private static final String USUARIO = "root";
-	private static final String CLAVE =  "died2023";
+	private static final String CLAVE =  "tpdied2023";
 	
 	/*El metodo conectar se debe llamar que necesitemos hacer algo en la bd por eso es mejor cargar el controlador en 
 	en un bloque static aparte, de este modo se carga una unica vez cuando se ejecuta la aplicacion independientemente
@@ -30,6 +30,7 @@ public class Conexion {
 		Connection conexion = null;
 		try {
 			//Hacer la conexion
+			
 			conexion = DriverManager.getConnection(URL,USUARIO,CLAVE);
 			System.out.println("Conexion a la bd exitosa");
 		}  catch(SQLException e) {

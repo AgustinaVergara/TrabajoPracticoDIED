@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class SucursalDaoImpl implements SucursalDao{
 	//Para poder probar el sucursal necesito la interfaz
 	public void crearSucursal(Sucursal sucursal) {
 		String consulta = 	"INSERT INTO tpdied.sucursal "
-				+ 	"VALUES (?, ?, ?, ?);";
+				+ 	"VALUES (?,?, ?, ?, ?);";
 		
 		Conexion conexion = new Conexion();
 		
@@ -47,7 +48,7 @@ public class SucursalDaoImpl implements SucursalDao{
 		try {
 			cn = conexion.conectar();
 			st = cn.prepareStatement(consulta);
-			//st.setInt(1, this.getUltimoIdEstacion()+1);
+			st.setInt(1, this.getUltimoIdSucursal()+1);
 			st.setString(2, sucursal.getNombre());
 			st.setTime(3, Time.valueOf(sucursal.getHorarioApertura()));
 			st.setTime(4, Time.valueOf(sucursal.getHorarioCierre()));	
@@ -127,12 +128,44 @@ public class SucursalDaoImpl implements SucursalDao{
 		
 		return sucursales;
 	}
-	
-	
-	public static void main(String[] args) {
+
+	@Override
+	public Integer getUltimoIdSucursal() {
+		String consultaObtenerID = "SELECT MAX(idsucursal) "
+						+  "FROM tpdied.sucursal";
 		
+		Integer id = null;
 		
+
+		Conexion conexion = new Conexion();
+		
+		Connection cn = null; //para conectar a la bd
+		PreparedStatement st = null; //para hacer las consultas SQL
+		ResultSet rs = null;
+		
+		try {
+			cn = conexion.conectar();
+			st = cn.prepareStatement(consultaObtenerID);
+			rs = st.executeQuery();
+			
+			rs.next();
+			id = rs.getInt(1);
+			if (rs.wasNull()) {
+				id = 0;
+			}
+			rs.close();
+			st.close();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally {
+			if (rs != null) {try {rs.close();} catch (Exception e) {e.printStackTrace();}}
+			if (st != null) {try {st.close();} catch (Exception e) {e.printStackTrace();}}
+			if (cn != null) {try {cn.close();} catch (Exception e) {e.printStackTrace();}}
+		}
+		
+		return id;
 	}
-	
 
 }

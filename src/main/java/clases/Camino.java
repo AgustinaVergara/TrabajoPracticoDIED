@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.ArrayList;
+
 //import java.util.ArrayList;
 
 import enums.EstadoSucursal;
@@ -10,14 +12,17 @@ public class Camino  {
 	int id;
 	Sucursal sucursalOrigen;
 	Sucursal sucursalDestino;
+	ArrayList<Sucursal> listaSucursales; // LO HICE PARA VER A LAS SUCURSALES QUE SE 
+									//ASOCIAN PQ NECESITO AL MOMENTO DE GUARDAR CDO DOY DE ALTA 
 	int tiempoTransito; //tiempo del transito en minutos
 	EstadoSucursal estado; // Estado de la ruta
 	double capacidadMax; // en kilos
 
-	Camino(){
+	public Camino(){
 		this.id=0;
 		this.sucursalOrigen= null ;
 		this.sucursalDestino= null;
+		this.listaSucursales= new ArrayList<Sucursal>();
 		this.tiempoTransito=0;
 		this.estado=EstadoSucursal.NO_OPERATIVA;
 		this.capacidadMax=0.0;
@@ -27,10 +32,22 @@ public class Camino  {
 		this.id=id;
 		this.sucursalOrigen=(sD);
 		this.sucursalDestino=(sD);
+		this.listaSucursales.add(sD);
+		this.listaSucursales.add(sO);
 		this.tiempoTransito=t;
 		this.estado=estado;
 		this.capacidadMax=c;
 	
+	}
+	// en realidad deberia sacar el nombre de la sucursal de la bd pero para que ande lo hice asi
+	
+	public final Sucursal buscarSucursal(String nombre){
+		Sucursal s= new Sucursal();
+		for (int i=0; i<this.listaSucursales.size();i++) {
+			if(this.listaSucursales.get(i).getNombre()==nombre) return this.listaSucursales.get(i);
+		}
+		
+		return s;
 	}
 	
 	public int getId() {

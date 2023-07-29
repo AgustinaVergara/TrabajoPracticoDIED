@@ -5,7 +5,8 @@ import java.util.List;
 import clases.Sucursal;
 
 public interface SucursalDao {
-	void crearSucursal(Sucursal sucursal);
-	List<Sucursal> buscarSucursales();
+	public void crearSucursal(Sucursal sucursal);
+	public List<Sucursal> buscarSucursales();
+	public Integer getUltimoIdSucursal();
 	
 }
