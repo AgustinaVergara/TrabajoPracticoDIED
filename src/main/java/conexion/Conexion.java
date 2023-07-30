@@ -18,7 +18,7 @@ public class Conexion {
 	static {
 		try {
 			//Cargar controlador
-			//Class.forName("com.mysql.jdbc.Driver"); deprecated si funciona el otro borrar esto
+			//Class.forName("com.mysql.jdbc.Driver"); //deprecated si funciona el otro borrar esto
 			Class.forName(CONTROLADOR);
 		}catch (ClassNotFoundException e) {
 			System.out.println("Error al cargar el controlador");

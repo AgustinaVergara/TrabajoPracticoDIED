@@ -1,6 +1,9 @@
 package dao;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
 
@@ -13,17 +16,17 @@ public class CaminoSQLimplementacion {
 
 	public static void crearCamino(Camino camino) {
 		// CREO UN CAMINO ES DECIR ALTA CAMINO
-		Conexion conexion = new Conexion();
-		String consulta = "insert into camino (id_camino," //1
-				+ "sucursal_origen," //2
-				+ "sucursal_destino," //3
-				+ "estado," //4
-				+ "capacidad_max," //5
-				+ "tiempo_transito) values (?,?,?,?,?,?);"; //6
 		
+		String consulta = "insert into tpdied.camino (id_camino,"+ "sucursal_origen," + "sucursal_destino,"+ "estado," + "capacidad_max," + "tiempo_transito) values (?,?,?,?,?,?);"; 
+		Conexion conexion = new Conexion();
+		Connection cn = null; //para conectar a la bd
+		PreparedStatement cs = null;//para hacer las consultas SQL
+		ResultSet rs = null;
 		try {
-			// utulizamos la conexion de la clase CONEXION del paquete CONEXION 
-			CallableStatement cs= conexion.conectar().prepareCall(consulta); 
+			
+		//	CallableStatement cs= conexion.conectar().prepareCall(consulta); 
+			cn = conexion.conectar();
+			cs = cn.prepareStatement(consulta);
 			//INCORPORAMOS PARAMETROS DE ARRIBA (los values)
 			cs.setInt(1, camino.getId());
 			cs.setString(2, camino.getSO().getNombre());
@@ -37,12 +40,27 @@ public class CaminoSQLimplementacion {
 			cs.setDouble(5, camino.getCapacidadMax());
 			cs.setInt(6, camino.getTiempoTransito());
 			//EJECUTAMOS
-			cs.execute();
+			cs.executeUpdate();
 			//mensaje de confirmacion
 			JOptionPane.showMessageDialog(null, "Se insertaron correctamente los datos");
 				
 		}catch(Exception e) {
 			JOptionPane.showMessageDialog(null, "No se insertaron correctamente los datos, error "+ e.toString());
+		}finally {
+			//Para liberar recursos
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(cs != null) {
+					cs.close();
+				}
+				if(cn != null) {
+					cn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 	
