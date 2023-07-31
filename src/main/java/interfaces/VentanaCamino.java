@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+//import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import clases.Camino;
 import clases.Sucursal;
@@ -30,6 +30,8 @@ public class VentanaCamino extends JFrame {
 	private JTextField sucursalDtxt;
 	private JTextField capacidadKgTxt;
 	private JTextField tiemTransitoTxt;
+	
+	public GestorCamino gestorCamino= GestorCamino.getInstance();
 
 	/**
 	 * Launch the application.
@@ -51,13 +53,18 @@ public class VentanaCamino extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaCamino() {
-		JLabel tituloVentana = DefaultComponentFactory.getInstance().createTitle("ALTA CAMINO");
+		JLabel tituloVentana = new JLabel("ALTA CAMINO");
 		JLabel idCaminoLabel = new JLabel("Codigo de ruta (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
 		JLabel sucursalDLabel = new JLabel("Sucursal Destino (*)");
 		JLabel tiempTransitoLabel = new JLabel("Tiempo de transito en min (*)");
 		JLabel capacidadLabel = new JLabel("Capacidad maxima en kg (*)");
 		JLabel estadoLabel = new JLabel("Estado (*)");
+		JLabel labelErrorSucursalO = new JLabel("");
+		JLabel labelErrorSD = new JLabel("");
+		JLabel labelErrorEstado = new JLabel("");
+		JLabel labelErrorTiempo = new JLabel("");
+		JLabel labelErrorCapacidad = new JLabel("");
 		idRutaTxt = new JTextField();
 		sucursalOtxt = new JTextField();
 		sucursalDtxt = new JTextField();
@@ -66,7 +73,7 @@ public class VentanaCamino extends JFrame {
 		JButton botonCancelar = new JButton("Cancelar");
 		JButton botonGuardar = new JButton("Guardar");
 		JComboBox estadoComBox = new JComboBox();
-		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"OPERATIVA", "NO OPERATIVA"}));
+		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-", "OPERATIVA", "NO OPERATIVA"}));
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,33 +140,86 @@ public class VentanaCamino extends JFrame {
 		tiemTransitoTxt.setColumns(10);
 		
 		//Combo box de Estado Ruta
-				estadoComBox.setToolTipText("Operativa\r\nNo operativa\r\n");
-				estadoComBox.setEditable(true);
-				estadoComBox.setBounds(204, 133, 116, 22);
-				contentPane.add(estadoComBox);
+		estadoComBox.setToolTipText("Operativa\r\nNo operativa\r\n");
+		estadoComBox.setEditable(true);
+		estadoComBox.setBounds(204, 133, 116, 22);
+		contentPane.add(estadoComBox);
+				
+				
+		//label Error Sucursal Origen
+		labelErrorSucursalO.setBounds(176, 88, 164, 14);;
+		labelErrorSucursalO.setForeground(Color.RED);
+		contentPane.add(labelErrorSucursalO);
+			
+		//labelError Sucursal Destino
+		labelErrorSD.setBounds(176, 122, 164, 14);
+		labelErrorSD.setForeground(Color.RED);
+		contentPane.add(labelErrorSD);
+				
+		//Label Error Estado
+		labelErrorEstado.setBounds(233, 152, 46, 14);
+		labelErrorEstado.setForeground(Color.RED);
+		contentPane.add(labelErrorEstado);
+				
+		//Label Error Tiempo
+		labelErrorTiempo.setBounds(176, 215, 144, 14);
+		labelErrorTiempo.setForeground(Color.RED);
+		contentPane.add(labelErrorTiempo);
+				
+		//label Error Capacidad
+		labelErrorCapacidad.setBounds(179, 176, 46, 14);
+		labelErrorCapacidad.setForeground(Color.RED);
+		contentPane.add(labelErrorCapacidad);
 		
+
 		//Boton Guardar
 		botonGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String tiempoS, sucursalO, sucursalD, capMaxS, idS, estadoS;
-				int id, tiempo;
-				Sucursal so;
+				
+				String sucursalO, sucursalD, capMaxS, estadoS;
+				int tiempo;
+				Sucursal so, sd;
 				EstadoSucursal estado;
 				double capacidad;
-				//EstadoSucursal estado;
-				idS= (idRutaTxt.getText());
-				id= Integer.parseInt(idS);
-				tiempoS=tiemTransitoTxt.getText();
-				tiempo= Integer.parseInt(tiempoS);
+				/*idS= (idRutaTxt.getText());
+				id= Integer.parseInt(idS);*/
+				
+				//VALIDACION DE DATOS
+				if (tiemTransitoTxt.getText().isEmpty()) {
+					labelErrorTiempo.setText("Por favor ingrese un tiempo para el camino");
+				}
+				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
+				if(sucursalOtxt.getText().isEmpty()) {
+					labelErrorSucursalO.setText("Por favor, ingrese una sucursal de Origen");}
 				sucursalO= sucursalOtxt.getText();
-				//so= Camino.buscarSucursal(sucursalO);
+				so= Camino.buscarSucursal(sucursalO);
+				if(so == null) {
+					labelErrorSucursalO.setText("Por favor, ingrese una sucursal Existente");
+				}
+				
+				if(sucursalDtxt.getText().isEmpty()) {
+					labelErrorSD.setText("Por favor, ingrese una sucursal de Destino");
+				}
 				sucursalD= sucursalDtxt.getText();
+				sd= Camino.buscarSucursal(sucursalD);
+				if(sd == null) {
+					labelErrorSD.setText("Por favor, ingrese una sucursal Existente");
+				}
+				if(capacidadKgTxt.getText().isEmpty()) {
+					labelErrorCapacidad.setText("Por favor ingrese una capacidad en kg para el camino");
+				}
 				capMaxS= capacidadKgTxt.getText();
 				capacidad= Double.parseDouble(capMaxS);
 				estadoS= estadoComBox.getToolTipText();
+				if(estadoS == "-Seleccione-") {
+					labelErrorEstado.setText("Por favor ingrese un estado para el camino");
+				}
 				if(estadoS == "Operativa") estado = EstadoSucursal.OPERATIVA;
 					else estado = EstadoSucursal.NO_OPERATIVA;
-				GestorCamino.crearCamino(id,sucursalO,sucursalD,capacidad, estado);
+
+				Camino nuevoCamino = gestorCamino.crearCaminoGestor(so,sd,capacidad, estado, tiempo);
+				gestorCamino.agregarCamino(nuevoCamino);
+				
 				}
 			});
 		botonGuardar.setBounds(361, 236, 81, 23);
@@ -169,5 +229,9 @@ public class VentanaCamino extends JFrame {
 		botonCancelar.setBounds(263, 236, 88, 23);
 		contentPane.add(botonCancelar);
 		
+		
+		
 	}
+	
+
 }

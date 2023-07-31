@@ -15,7 +15,7 @@ public class GestorSucursal {
 	private List<Sucursal> sucursales;
 	private static Integer siguienteIdSucursal;
 	
-	private GestorSucursal(){
+	public GestorSucursal(){
 		dao = new SucursalDaoImpl();
 		sucursales = new  ArrayList<>(dao.buscarSucursales());
 	}
@@ -30,6 +30,17 @@ public class GestorSucursal {
 
 	public List<Sucursal> getSucursales() {
 		return sucursales;
+	}
+	
+	public final Sucursal buscarSucursalxNombre(String nombre){
+		Sucursal s= new Sucursal();
+		//que pasa si no existe esa sucursal? deberia hacer un try catch?
+		//List<Sucursal> sucursalesA = this.dao.buscarSucursales();
+		for (int i=0; i<this.sucursales.size();i++) {
+			if(this.sucursales.get(i).getNombre()==nombre) return this.sucursales.get(i);
+		}
+		
+		return s;
 	}
 
 	public void agregarSucursal(Sucursal s) {

@@ -1,29 +1,68 @@
 package gestores;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import clases.*;
+import conexion.Conexion;
 import dao.*;
+//import gestores.GestorSucursal;
 import enums.*;
 
 public class GestorCamino {
 	private List<Camino> caminos;
 	private static GestorCamino gestor;
 	private CaminoDao caminoDAO;
-	private static int siguienteIdCamino; 
+	private static Integer siguienteIdCamino; 
+	
+	//CONSTRUCTOR
+	public GestorCamino(){
+		caminoDAO = new CaminoSQLimplementacion();
+		caminos = new  ArrayList<>(caminoDAO.buscarCaminos());
+		
+	}
 	
 	
-	public static void crearCamino(int id, String sucursalO, String sucursalD, double capacidad, EstadoSucursal estado) {
-		// TODO Auto-generated method stub
+	//INSTANCIA CONSTRUCTOR
+	public static GestorCamino getInstance() {
+		if (gestor == null) {
+			gestor = new GestorCamino();
+		}
+		
+		return gestor;
+	}
+	
+	public List<Camino> getCaminos() {
+		return caminos;
+	}
+	
+	//BUSCAMOS SUCURSAL POR NOMBRE
+	public final Sucursal buscarSucursal(String nombre){
+		Sucursal s= new Sucursal();
+		GestorSucursal buscar = new GestorSucursal();
+		s= buscar.buscarSucursalxNombre(nombre);
+		
+		return s;
+	}
+	
+	public Camino crearCaminoGestor(Sucursal sucursalO, Sucursal sucursalD, double capacidad, EstadoSucursal estado, int t) {
+		
 		//CREAMOS UNA INSTANCIA DE CAMINO Y CARGAMOS VALORES INSERTADOS EN LA VENTANA ALTA CAMINO
-		Camino camino= new Camino();
-		camino.setId(id);
-		camino.setSucursalOrigen(camino.buscarSucursal(sucursalO));
-		camino.setSucursalDestino(camino.buscarSucursal(sucursalD));
-		camino.setCapacidadMax(capacidad);
-		camino.setEsOperativa(estado);
-		CaminoSQLimplementacion.crearCamino(camino);
+	/*	CaminoSQLimplementacion caminoSQLimplementacion = new CaminoSQLimplementacion();
+		caminoSQLimplementacion.crearCamino(camino);*/
+		siguienteIdCamino = caminoDAO.getUltimoIdCamino() + 1;
+		
+		return new Camino(siguienteIdCamino, sucursalO, sucursalD, t, estado, capacidad);
+		
+	}
+	public void agregarCamino(Camino camino) {
+		caminos.add(camino);
+		caminoDAO.crearCamino(camino);
 	}
 
 	
