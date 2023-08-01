@@ -31,7 +31,7 @@ public class Camino  {
 	public Camino(int id, Sucursal sO, Sucursal sD, int t, EstadoSucursal estado, double capacidad){
 		super();
 		this.id=id;
-		this.sucursalOrigen=(sD);
+		this.sucursalOrigen=(sO);
 		this.sucursalDestino=(sD);
 		this.tiempoTransito=t;
 		this.estado=estado;

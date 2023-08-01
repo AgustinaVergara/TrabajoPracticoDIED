@@ -50,9 +50,9 @@ public class CaminoSQLimplementacion implements CaminoDao{
 			cs.setInt(6, camino.getTiempoTransito());
 
 			//EJECUTAMOS
-			System.out.println("antes del execute");
+			//System.out.println("antes del execute");
 			cs.executeUpdate();
-			System.out.println("dsp del execute");
+			//System.out.println("dsp del execute");
 			
 			//mensaje de confirmacion
 			//JOptionPane.showMessageDialog(null, "Se insertaron correctamente los datos");

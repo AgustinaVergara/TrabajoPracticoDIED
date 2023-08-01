@@ -39,7 +39,7 @@ public class GestorSucursal {
 		//List<Sucursal> sucursalesA = this.dao.buscarSucursales();
 		System.out.println("parametro nombre: " + nombre);
 		for (int i=0; i<this.sucursales.size();i++) {
-			System.out.println("esta es la sucursal: "+ this.sucursales.get(i).getNombre());
+			//System.out.println("esta es la sucursal: "+ this.sucursales.get(i).getNombre());
 			if(this.sucursales.get(i).getNombre().equals(nombre)) return this.sucursales.get(i);
 		}
 		
@@ -54,7 +54,7 @@ public class GestorSucursal {
 	
 	public Sucursal crearSucursalGestor(String nombre, LocalTime horarioApertura, LocalTime horarioCierre, EstadoSucursal estado ) {
 		siguienteIdSucursal = dao.getUltimoIdSucursal() + 1;
-		System.out.println("SIGUIENTE SUCURSAL " +siguienteIdSucursal);
+		//System.out.println("SIGUIENTE SUCURSAL " +siguienteIdSucursal);
 		return new Sucursal(siguienteIdSucursal, nombre, horarioApertura, horarioCierre, estado);
 	}
 

@@ -47,18 +47,18 @@ public class GestorCamino {
 		Sucursal s= new Sucursal();
 		GestorSucursal buscar = new GestorSucursal();
 		s= buscar.buscarSucursalxNombre(nombre);
-		System.out.println("nombre sucursal: "+ s.getNombre());
+		//System.out.println("nombre sucursal: "+ s.getNombre());
 		return s;
 	}
 	
-	public Camino crearCaminoGestor(Sucursal sucursalO, Sucursal sucursalD, double capacidad, EstadoSucursal estado, int t) {
+	public Camino crearCaminoGestor(int id,Sucursal sucursalO, Sucursal sucursalD, double capacidad, EstadoSucursal estado, int t) {
 		
 		//CREAMOS UNA INSTANCIA DE CAMINO Y CARGAMOS VALORES INSERTADOS EN LA VENTANA ALTA CAMINO
 	/*	CaminoSQLimplementacion caminoSQLimplementacion = new CaminoSQLimplementacion();
-		caminoSQLimplementacion.crearCamino(camino);*/
-		siguienteIdCamino = caminoDAO.getUltimoIdCamino() + 1;
+		caminoSQLimplementacion.crearCamino(camino);
+		siguienteIdCamino = caminoDAO.getUltimoIdCamino() + 1;*/
 		
-		return new Camino(siguienteIdCamino, sucursalO, sucursalD, t, estado, capacidad);
+		return new Camino(id, sucursalO, sucursalD, t, estado, capacidad);
 		
 	}
 	public void agregarCamino(Camino camino) {
