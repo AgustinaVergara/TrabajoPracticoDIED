@@ -23,7 +23,8 @@ public class GestorCamino {
 	//CONSTRUCTOR
 	public GestorCamino(){
 		caminoDAO = new CaminoSQLimplementacion();
-		caminos = new  ArrayList<>(caminoDAO.buscarCaminos());
+		this.caminos=new ArrayList<Camino>();
+		//caminos = new  ArrayList<>(caminoDAO.buscarCaminos());
 		
 	}
 	
@@ -46,7 +47,7 @@ public class GestorCamino {
 		Sucursal s= new Sucursal();
 		GestorSucursal buscar = new GestorSucursal();
 		s= buscar.buscarSucursalxNombre(nombre);
-		
+		System.out.println("nombre sucursal: "+ s.getNombre());
 		return s;
 	}
 	

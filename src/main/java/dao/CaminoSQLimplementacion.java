@@ -50,7 +50,9 @@ public class CaminoSQLimplementacion implements CaminoDao{
 			cs.setInt(6, camino.getTiempoTransito());
 
 			//EJECUTAMOS
+			System.out.println("antes del execute");
 			cs.executeUpdate();
+			System.out.println("dsp del execute");
 			
 			//mensaje de confirmacion
 			//JOptionPane.showMessageDialog(null, "Se insertaron correctamente los datos");
@@ -71,6 +73,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				if(cn != null) {
 					cn.close();
 				}
+				
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -90,6 +93,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 		Connection cn = null; //para conectar a la bd
 		PreparedStatement st = null; //para hacer las consultas SQL
 		ResultSet rs = null;
+		GestorCamino gestorCamino = GestorCamino.getInstance();
 		
 		try {
 			cn = conexion.conectar();
@@ -97,6 +101,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 			rs = st.executeQuery();
 			
 			//En rs esta la tabla de sucursal y ahora hay que recorrerla fila por fila
+			
 			while(rs.next()) {
 				Integer id = rs.getInt(1);
 				String nombreSo = rs.getString(2);
@@ -104,8 +109,6 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				String estado = rs.getString(4);
 				Double capacidad= rs.getDouble(5);
 				Integer tiempo= rs.getInt(6);
-				
-				GestorCamino gestorCamino = GestorCamino.getInstance();
 				
 				Sucursal so = gestorCamino.buscarSucursal(nombreSo);
 				Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
@@ -118,23 +121,24 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				System.out.println(id + " " + so + " " + sd + " " + tiempo + " " + estado+" "+capacidad );
 				
 			}
+			
+			if(rs != null) {
+				rs.close();
+			}
+			if(st != null) {
+				st.close();
+			}
+			if(cn != null) {
+				cn.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			//Para liberar recursos
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				if(st != null) {
-					st.close();
-				}
-				if(cn != null) {
-					cn.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+
+			if (rs != null) {try {rs.close();} catch (Exception e) {e.printStackTrace();}}
+			if (st != null) {try {st.close();} catch (Exception e) {e.printStackTrace();}}
+			if (cn != null) {try {cn.close();} catch (Exception e) {e.printStackTrace();}}
 		}
 		
 		return caminos;

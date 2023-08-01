@@ -66,13 +66,13 @@ public class VentanaCamino extends JFrame {
 		JLabel labelErrorTiempo = new JLabel("");
 		JLabel labelErrorCapacidad = new JLabel("");
 		idRutaTxt = new JTextField();
-		sucursalOtxt = new JTextField();
-		sucursalDtxt = new JTextField();
 		tiemTransitoTxt = new JTextField();
 		capacidadKgTxt = new JTextField();
 		JButton botonCancelar = new JButton("Cancelar");
 		JButton botonGuardar = new JButton("Guardar");
 		JComboBox estadoComBox = new JComboBox();
+		JComboBox comboBoxSO = new JComboBox();
+		JComboBox comboBoxSD = new JComboBox();
 		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-", "OPERATIVA", "NO OPERATIVA"}));
 		
 		
@@ -104,18 +104,22 @@ public class VentanaCamino extends JFrame {
 		contentPane.add(SucursalOlabel);
 		
 		// TXT Sucursal Origen
-		sucursalOtxt.setBounds(204, 71, 116, 20);
-		contentPane.add(sucursalOtxt);
-		sucursalOtxt.setColumns(10);
+		
+		comboBoxSO.setEditable(true);
+		comboBoxSO.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-"}));
+		comboBoxSO.setBounds(204, 70, 116, 22);
+		contentPane.add(comboBoxSO);
 		
 		// Label Sucursal Destino
 		sucursalDLabel.setBounds(25, 105, 128, 14);
 		contentPane.add(sucursalDLabel);
 		
-		// TXT Sucursal Destino
-		sucursalDtxt.setBounds(204, 102, 116, 20);
-		contentPane.add(sucursalDtxt);
-		sucursalDtxt.setColumns(10);
+		// COMBOBOX Sucursal Destino
+		
+		comboBoxSD.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-"}));
+		comboBoxSD.setEditable(true);
+		comboBoxSD.setBounds(204, 101, 116, 22);
+		contentPane.add(comboBoxSD);
 		
 		// Label estado de camino
 		estadoLabel.setBounds(25, 137, 56, 14);
@@ -189,18 +193,22 @@ public class VentanaCamino extends JFrame {
 					labelErrorTiempo.setText("Por favor ingrese un tiempo para el camino");
 				}
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
-				if(sucursalOtxt.getText().isEmpty()) {
+				//SUCURSAL ORIGEN
+				sucursalO= sucursalOtxt.getToolTipText();
+				if(sucursalO == "-SELECCIONE-") {
 					labelErrorSucursalO.setText("Por favor, ingrese una sucursal de Origen");}
-				sucursalO= sucursalOtxt.getText();
+				
 				so= Camino.buscarSucursal(sucursalO);
 				if(so == null) {
 					labelErrorSucursalO.setText("Por favor, ingrese una sucursal Existente");
 				}
 				
-				if(sucursalDtxt.getText().isEmpty()) {
+				// SUCURSAL DESTINO
+				 sucursalD= sucursalDtxt.getToolTipText();
+				if(sucursalD == "-SELECCIONE-") {
 					labelErrorSD.setText("Por favor, ingrese una sucursal de Destino");
 				}
-				sucursalD= sucursalDtxt.getText();
+				
 				sd= Camino.buscarSucursal(sucursalD);
 				if(sd == null) {
 					labelErrorSD.setText("Por favor, ingrese una sucursal Existente");
@@ -231,7 +239,9 @@ public class VentanaCamino extends JFrame {
 		
 		
 		
+		
+		
+		
+		
 	}
-	
-
 }
