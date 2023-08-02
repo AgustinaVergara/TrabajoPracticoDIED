@@ -57,7 +57,12 @@ public class GestorSucursal {
 		//System.out.println("SIGUIENTE SUCURSAL " +siguienteIdSucursal);
 		return new Sucursal(siguienteIdSucursal, nombre, horarioApertura, horarioCierre, estado);
 	}
+	
+	public void eliminarSucursal(Sucursal s) {
+		dao.eliminar(s);
+		sucursales.remove(s);
 
+	}
 	
 
 
