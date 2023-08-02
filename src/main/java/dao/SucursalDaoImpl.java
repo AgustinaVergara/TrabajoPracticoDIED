@@ -150,6 +150,68 @@ public class SucursalDaoImpl implements SucursalDao{
 		return id;
 	}
 
-	
+
+	@Override
+	public void eliminar(Sucursal s) {
+		//Modificar consulta una vez que conecte a los caminos. Borrar una tupla de la tabla implica 
+		//borrar todas las instancias que la tengan como clave for
+		String consulta = "DELETE FROM tpdied.sucursal WHERE idsucursal = (?);";
+		
+		Conexion conexion = new Conexion();
+		
+		Connection cn = null; //para conectar a la bd
+		PreparedStatement st = null; //para hacer las consultas SQL
+		
+		
+		try {
+			cn = conexion.conectar();
+			cn.setAutoCommit(false);
+			
+			st = cn.prepareStatement(consulta);
+			
+
+			/*Esto se utiliza para establecer los valores de los parámetros (?) en la declaración SQL usando el 
+			 * método setInt() del objeto st. */
+			st.setInt(1, s.getId());
+
+
+			Integer nro = st.executeUpdate();
+			cn.commit();
+			
+		}  catch(SQLException e) {
+			try {
+				cn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			if (st != null) {
+				try {
+					st.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (cn != null) {
+				try {
+					cn.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}	
+		}
+		
+	}
+
+	@Override
+	public void modificar(Sucursal s) {
+		// TODO Auto-generated method stub
+		
+	}	
+
 
 }

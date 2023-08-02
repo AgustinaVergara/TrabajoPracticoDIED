@@ -37,23 +37,6 @@ public class InterfazAltaSucursal extends JFrame {
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 
 	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfazAltaSucursal frame = new InterfazAltaSucursal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
 	 * Create the frame.
 	 */
 	public InterfazAltaSucursal() {
