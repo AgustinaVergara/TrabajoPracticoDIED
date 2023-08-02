@@ -35,12 +35,10 @@ public class VentanaModificarCamino extends JFrame {
 	private DefaultTableModel model;
 	
 	private InterfazGestionarSucursal ventanaModificarCaminos;
-	private JTextField txtid;
+	
 	private JTable table;
-	JComboBox comboBoxSD = new JComboBox();
-	JComboBox comboBoxSO = new JComboBox();
-	JLabel labelSucursalDestino = new JLabel("Sucursal de destino:");
-	JLabel sucursalO = new JLabel("Sucursal de origen:");
+
+	
 
 
 	/**
@@ -48,8 +46,12 @@ public class VentanaModificarCamino extends JFrame {
 	 */
 	
 	
-	public VentanaModificarCamino() {
-		
+	public VentanaModificarCamino(InterfazGestionarCaminos ventanaGestionarCaminos) {
+		JTextField textId;
+		JLabel labelSucursalDestino = new JLabel("Sucursal de destino:");
+		JLabel sucursalO = new JLabel("Sucursal de origen:");
+
+		JComboBox comboBoxSDestino = new JComboBox();
 	
 		List<Sucursal> sucursales = new ArrayList<Sucursal>();
 		SucursalDao dao = new SucursalDaoImpl();
@@ -132,10 +134,10 @@ public class VentanaModificarCamino extends JFrame {
 		labelId.setBounds(36, 70, 64, 13);
 		contentPane.add(labelId);
 		
-		
-		txtid.setBounds(91, 66, 108, 19);
-		contentPane.add(txtid);
-		txtid.setColumns(10);
+		textId = new JTextField();
+		textId.setBounds(91, 62, 108, 20);
+		contentPane.add(textId);
+		textId.setColumns(10);
 
 		//ESTADO
 		JLabel labelEstado = new JLabel("Estado:");
@@ -148,48 +150,63 @@ public class VentanaModificarCamino extends JFrame {
 		comboBoxEstado.setBounds(91, 101, 108, 21);
 		contentPane.add(comboBoxEstado);
 		
-		// SUCURSAL ORIGEN
+		// BUSCAMOS SUCURSALES PARA CARGAR
+		sucursales = dao.buscarSucursales();
 		
-		sucursalO.setBounds(225, 69, 136, 13);
+		// SUCURSAL ORIGEN
+		JComboBox comboBoxOrigen = new JComboBox();
+		comboBoxOrigen.setEditable(true);
+		comboBoxOrigen.setBounds(379, 65, 130, 22);
+	
+		sucursalO.setBounds(236, 70, 155, 13);
 		contentPane.add(sucursalO);
 		
-		// combo box SUCURSAL ORIGEN
-		comboBoxSO.setEditable(true);
-		comboBoxSO.setBounds(337, 65, 130, 22);
-		sucursales = dao.buscarSucursales();
-		DefaultComboBoxModel modelo;
-		// ARMANDO COMBOBOX Sucursal Origen
-		modelo =new DefaultComboBoxModel();
-		// COMENZAMOS CON MODELO DEL COMBOBOX
-				String seleccionar = "-SELECCIONE-";
-				modelo.addElement(seleccionar);
+		String seleccionar = "-SELECCIONE-";
+	
+		comboBoxOrigen.setEditable(true);
+		DefaultComboBoxModel modeloOrigen;
+		modeloOrigen =new DefaultComboBoxModel();
+		modeloOrigen.addElement(seleccionar);
+		for(Sucursal s: sucursales) {
+			Object nombre = new Object();
+			nombre = s.getNombre();
+			modeloOrigen.addElement(nombre);
+ 		}
+		comboBoxOrigen.setModel(modeloOrigen);
+		contentPane.add(comboBoxOrigen);
+		String eleccion = modeloOrigen.getSelectedItem().toString();
+		
+		
+		// SUCURSAL DESTINO
+		labelSucursalDestino.setBounds(236, 105, 155, 13);
+		contentPane.add(labelSucursalDestino);
+		
+		comboBoxSDestino.setEditable(true);
+		comboBoxSDestino.setBounds(379, 100, 130, 22);
+		
+		DefaultComboBoxModel modeloDestino;
+		modeloDestino =new DefaultComboBoxModel();
+		modeloDestino.addElement(seleccionar);
 		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
 				for(Sucursal s: sucursales) {
 					Object nombre = new Object();
 					nombre = s.getNombre();
-					modelo.addElement(nombre);
+					if(nombre!= eleccion)modeloDestino.addElement(nombre);
 		 		}
-		comboBoxSO.setModel(modelo);
-		contentPane.add(comboBoxSO);
+		comboBoxSDestino.setModel(modeloDestino);
+		contentPane.add(comboBoxSDestino);
 
-		// SUCURSAL DESTINO
-		
-		labelSucursalDestino.setBounds(225, 102, 136, 13);
-		contentPane.add(labelSucursalDestino);
-		
+
+		// BOTON FILTRO
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
 		btnAplicarFiltros.setBounds(206, 142, 113, 21);
 		contentPane.add(btnAplicarFiltros);
 		
-
 		
-		// combo box SUCURSAL DESTINO
-		comboBoxSD.setEditable(true);
-		comboBoxSD.setBounds(337, 98, 130, 22);
-		contentPane.add(comboBoxSD);
+		
 	}
 	
-	public void llenarTabla(List<Camino> listaCaminos) {
+	public void llenarTablaCamino(List<Camino> listaCaminos) {
 		
 		for(Camino c : listaCaminos) {
 			Object[] fila = new Object[6];//columnas
@@ -198,19 +215,16 @@ public class VentanaModificarCamino extends JFrame {
 			fila[1] = c.getSO();
 			fila[2] = c.getSD();
 			fila[3] = c.getEsOperativa();
-			/*n Se debe renderizar  los botones
+		//	Se debe renderizar  los botones
 			JButton btnEliminar = new JButton("Eliminar");
 			JButton btnModificar = new JButton("Modificar");
 			
 			fila[4] = btnModificar; 
-			fila[5] = btnEliminar;*/
+			fila[5] = btnEliminar;
 			
 			model.addRow(fila);
 		}
 	}
-	
-
-	
 }
 
 
