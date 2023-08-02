@@ -2,6 +2,7 @@
 package interfaces;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -14,6 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Camino;
+import clases.Sucursal;
+import dao.CaminoDao;
+import dao.CaminoSQLimplementacion;
+import dao.SucursalDao;
+import dao.SucursalDaoImpl;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,22 +30,34 @@ import javax.swing.DefaultComboBoxModel;
 
 public class VentanaModificarCamino extends JFrame {
 
+
 	private JPanel contentPane;
 	private DefaultTableModel model;
 	
 	private InterfazGestionarSucursal ventanaModificarCaminos;
 	private JTextField txtid;
-	private JTextField txtSO;
-	private JTextField txtSucursalDestino;
 	private JTable table;
+	JComboBox comboBoxSD = new JComboBox();
+	JComboBox comboBoxSO = new JComboBox();
+	JLabel labelSucursalDestino = new JLabel("Sucursal de destino:");
+	JLabel sucursalO = new JLabel("Sucursal de origen:");
 
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaModificarCamino(VentanaModificarCamino ventanaModificarCaminos) {
+	
+	
+	public VentanaModificarCamino() {
+		
+	
+		List<Sucursal> sucursales = new ArrayList<Sucursal>();
+		SucursalDao dao = new SucursalDaoImpl();
+		CaminoDao daocamino = new CaminoSQLimplementacion();
+		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 543, 420);
+		setBounds(100, 100, 593, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -47,14 +66,38 @@ public class VentanaModificarCamino extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("LISTADO DE CAMINOS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(157, 23, 196, 13);
+		lblNewLabel.setBounds(184, 11, 196, 13);
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 173, 519, 127);
+		scrollPane.setBounds(10, 173, 557, 140);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"ID", "Sucursal Origen", "Sucursal Destino", "Estado", "Capacidad Maxima[kg]", "Tiempo de transito"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(36);
+		table.getColumnModel().getColumn(1).setPreferredWidth(98);
+		table.getColumnModel().getColumn(2).setPreferredWidth(98);
+		table.getColumnModel().getColumn(3).setPreferredWidth(94);
+		table.getColumnModel().getColumn(4).setPreferredWidth(124);
+		table.getColumnModel().getColumn(5).setPreferredWidth(106);
 		scrollPane.setViewportView(table);
 		
 		//Defino mi propio default table model para cargar los datos en la tabla
@@ -81,7 +124,7 @@ public class VentanaModificarCamino extends JFrame {
 		
 		//FILTRADO
 		JLabel labelFiltro = new JLabel("Filtrar por:");
-		labelFiltro.setBounds(57, 46, 79, 13);
+		labelFiltro.setBounds(21, 38, 79, 13);
 		contentPane.add(labelFiltro);
 		
 		// ID
@@ -89,7 +132,7 @@ public class VentanaModificarCamino extends JFrame {
 		labelId.setBounds(36, 70, 64, 13);
 		contentPane.add(labelId);
 		
-		txtid= new JTextField();
+		
 		txtid.setBounds(91, 66, 108, 19);
 		contentPane.add(txtid);
 		txtid.setColumns(10);
@@ -106,28 +149,44 @@ public class VentanaModificarCamino extends JFrame {
 		contentPane.add(comboBoxEstado);
 		
 		// SUCURSAL ORIGEN
-		JLabel sucursalO = new JLabel("Sucursal de origen:");
+		
 		sucursalO.setBounds(225, 69, 136, 13);
 		contentPane.add(sucursalO);
 		
-		txtSO = new JTextField();
-		txtSO.setColumns(10);
-		txtSO.setBounds(340, 65, 113, 19);
-		contentPane.add(txtSO);
+		// combo box SUCURSAL ORIGEN
+		comboBoxSO.setEditable(true);
+		comboBoxSO.setBounds(337, 65, 130, 22);
+		sucursales = dao.buscarSucursales();
+		DefaultComboBoxModel modelo;
+		// ARMANDO COMBOBOX Sucursal Origen
+		modelo =new DefaultComboBoxModel();
+		// COMENZAMOS CON MODELO DEL COMBOBOX
+				String seleccionar = "-SELECCIONE-";
+				modelo.addElement(seleccionar);
+		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
+				for(Sucursal s: sucursales) {
+					Object nombre = new Object();
+					nombre = s.getNombre();
+					modelo.addElement(nombre);
+		 		}
+		comboBoxSO.setModel(modelo);
+		contentPane.add(comboBoxSO);
 
 		// SUCURSAL DESTINO
-		JLabel labelSucursalDestino = new JLabel("Sucursal de destino:");
+		
 		labelSucursalDestino.setBounds(225, 102, 136, 13);
 		contentPane.add(labelSucursalDestino);
-		
-		txtSucursalDestino = new JTextField();
-		txtSucursalDestino.setColumns(10);
-		txtSucursalDestino.setBounds(340, 99, 113, 19);
-		contentPane.add(txtSucursalDestino);
 		
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
 		btnAplicarFiltros.setBounds(206, 142, 113, 21);
 		contentPane.add(btnAplicarFiltros);
+		
+
+		
+		// combo box SUCURSAL DESTINO
+		comboBoxSD.setEditable(true);
+		comboBoxSD.setBounds(337, 98, 130, 22);
+		contentPane.add(comboBoxSD);
 	}
 	
 	public void llenarTabla(List<Camino> listaCaminos) {
@@ -149,6 +208,9 @@ public class VentanaModificarCamino extends JFrame {
 			model.addRow(fila);
 		}
 	}
+	
+
+	
 }
 
 
