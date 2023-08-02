@@ -1,50 +1,71 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Camino {
-	int id;
-	ArrayList<Sucursal> sucursalOrigen =new ArrayList<Sucursal>();
-	ArrayList<Sucursal> sucursalDestino=new ArrayList<Sucursal>();
+//import java.util.ArrayList;
+
+import enums.EstadoSucursal;
+import gestores.*;
+
+
+
+public class Camino  {
+	Integer id;
+	Sucursal sucursalOrigen;
+	Sucursal sucursalDestino;
 	int tiempoTransito; //tiempo del transito en minutos
-	boolean esOperativa; // Estado de la ruta
+	EstadoSucursal estado; // Estado de la ruta
 	double capacidadMax; // en kilos
 
-	Camino(){
+	public Camino(){
 		this.id=0;
 		this.sucursalOrigen= null ;
 		this.sucursalDestino= null;
+		
 		this.tiempoTransito=0;
-		this.esOperativa=false;
+		this.estado=EstadoSucursal.NO_OPERATIVA;
 		this.capacidadMax=0.0;
 	
 	}
-	Camino(int id, Sucursal sO, Sucursal sD, int t, boolean estado, double c){
+	public Camino(int id, Sucursal sO, Sucursal sD, int t, EstadoSucursal estado, double capacidad){
+		super();
 		this.id=id;
-		this.sucursalOrigen.add(sD);
-		this.sucursalDestino.add(sD);
+		this.sucursalOrigen=(sO);
+		this.sucursalDestino=(sD);
 		this.tiempoTransito=t;
-		this.esOperativa=estado;
-		this.capacidadMax=c;
+		this.estado=estado;
+		this.capacidadMax=capacidad;
 	
 	}
+	// en realidad deberia sacar el nombre de la sucursal de la bd pero para que ande lo hice asi
+	
+	public final static Sucursal buscarSucursal(String nombre){
+		Sucursal s= new Sucursal();
+		GestorCamino buscar = new GestorCamino();
+		s= buscar.buscarSucursal(nombre);
+		
+		return s;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public ArrayList<Sucursal> getlistaSO() {
+	public Sucursal getSO() {
 		return sucursalOrigen;
 	}
 	public void setSucursalOrigen(Sucursal sO) {
-		this.sucursalOrigen.add(sO) ;
+		this.sucursalOrigen=(sO) ;
 	}
-	public ArrayList<Sucursal> getlistaSD() {
+	public Sucursal getSD() {
 		return sucursalDestino;
 	}
 	public void setSucursalDestino(Sucursal sD) {
-		this.sucursalDestino.add(sD);
+		this.sucursalDestino=(sD);
 	}
 	public int getTiempoTransito() {
 		return tiempoTransito;
@@ -52,17 +73,21 @@ public class Camino {
 	public void setTiempoTransito(int tiempoTransito) {
 		this.tiempoTransito = tiempoTransito;
 	}
-	public boolean isEsOperativa() {
-		return esOperativa;
+	public EstadoSucursal getEsOperativa() {
+		return this.estado;
 	}
-	public void setEsOperativa(boolean esOperativa) {
-		this.esOperativa = esOperativa;
+	public void setEsOperativa(EstadoSucursal estado) {
+		this.estado = estado;
 	}
 	public double getCapacidadMax() {
 		return capacidadMax;
 	}
 	public void setCapacidadMax(double capacidadMax) {
 		this.capacidadMax = capacidadMax;
+	}
+	public boolean esActivo() {
+		if (this.estado== EstadoSucursal.OPERATIVA) return true;
+		else return false;
 	}
 	
 	

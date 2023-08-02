@@ -15,29 +15,11 @@ import conexion.Conexion;
 import enums.EstadoSucursal;
 
 public class SucursalDaoImpl implements SucursalDao{
-	/*
-	public Sucursal crearSucursal(Sucursal sucursal) {
-		Conexion conexion = new Conexion();
-		
-		Connection cn = null; //para conectar a la bd
-		Statement st = null; //para hacer las consultas SQL
-		ResultSet rs = null;
-		
-		try {
-			cn = conexion.conectar();
-			st = cn.createStatement();
-			st.executeQuery("INSERT INTO sucursal (idSucursal, nombre, horarioApertura, horarioCierre, estado) " +
-                    "VALUES (?, ?, ?, ?, ?)");
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-	}
-	*/
 	
-	//Para poder probar el sucursal necesito la interfaz
+	
 	public void crearSucursal(Sucursal sucursal) {
 		String consulta = 	"INSERT INTO tpdied.sucursal "
-				+ 	"VALUES (?,?, ?, ?, ?);";
+				+ 	"VALUES (?, ?, ?, ?, ?);";
 		
 		Conexion conexion = new Conexion();
 		
@@ -167,5 +149,7 @@ public class SucursalDaoImpl implements SucursalDao{
 		
 		return id;
 	}
+
+	
 
 }
