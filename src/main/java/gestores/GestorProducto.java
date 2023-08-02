@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clases.Producto;
+import clases.Sucursal;
 import dao.ProductoDao;
 import dao.ProductoDaoImpl;
 
@@ -11,6 +12,7 @@ public class GestorProducto {
 	private static GestorProducto gestorP;
 	private ProductoDao dao;
 	private List<Producto> productos;
+	private static Integer siguienteIdP;
 	
 	private GestorProducto(){
 		dao = new ProductoDaoImpl();
@@ -34,7 +36,9 @@ public class GestorProducto {
 	}
 	
 	public Producto crearProductoGestor(String nom, String descrip, Double precio, Double peso) {
-		return new Producto(nom, descrip, precio, peso);
+		siguienteIdP = dao.getUltimoIdP() + 1;
+		System.out.println("SIGUIENTE PRODUCTO " +siguienteIdP);
+		return new Producto(siguienteIdP, nom, descrip, precio, peso);
 	}
 	
 	public List<Producto> eliminarProducto(Producto p) {
