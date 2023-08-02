@@ -21,18 +21,6 @@ public class InterfazGestionarCaminos extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfazGestionarCaminos frame = new InterfazGestionarCaminos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -54,7 +42,7 @@ public class InterfazGestionarCaminos extends JFrame {
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
 		btnListadoDeCaminos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ventanaListadoCamino.llenarTabla(gestorCamino.getCaminos());
+				//ventanaListadoCamino.llenarTablaCamino(gestorCamino.getCaminos());
 				ventanaListadoCamino.setVisible(true);
 				setVisible(false);
 			}

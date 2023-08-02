@@ -20,6 +20,7 @@ import dao.CaminoDao;
 import dao.CaminoSQLimplementacion;
 import dao.SucursalDao;
 import dao.SucursalDaoImpl;
+import gestores.GestorCamino;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -34,9 +35,11 @@ public class VentanaModificarCamino extends JFrame {
 	private JPanel contentPane;
 	private DefaultTableModel model;
 	
-	private InterfazGestionarSucursal ventanaModificarCaminos;
+	private InterfazGestionarCaminos ventanaModificarCaminos;
 	
 	private JTable table;
+	
+	GestorCamino gestorCamino = new GestorCamino();
 
 	
 
@@ -76,6 +79,8 @@ public class VentanaModificarCamino extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		llenarTablaCamino(gestorCamino.getCaminos());
+		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null},
@@ -118,7 +123,8 @@ public class VentanaModificarCamino extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				model.setRowCount(0); //Limpiar tabla
-				ventanaModificarCaminos.setVisible(true);
+				ventanaGestionarCaminos.setVisible(true);
+				
 			}
 		});
 		btnVolver.setBounds(225, 324, 85, 21);
@@ -215,12 +221,14 @@ public class VentanaModificarCamino extends JFrame {
 			fila[1] = c.getSO();
 			fila[2] = c.getSD();
 			fila[3] = c.getEsOperativa();
+			fila[4] = c.getCapacidadMax();
+			fila[5] = c.getTiempoTransito();
 		//	Se debe renderizar  los botones
-			JButton btnEliminar = new JButton("Eliminar");
-			JButton btnModificar = new JButton("Modificar");
+			//JButton btnEliminar = new JButton("Eliminar");
+			//JButton btnModificar = new JButton("Modificar");
 			
-			fila[4] = btnModificar; 
-			fila[5] = btnEliminar;
+			//fila[4] = btnModificar; 
+			//fila[5] = btnEliminar;
 			
 			model.addRow(fila);
 		}
