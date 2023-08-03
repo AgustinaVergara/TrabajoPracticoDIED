@@ -37,29 +37,13 @@ public class VentanaCamino extends JFrame {
 	public GestorCamino gestorCamino= GestorCamino.getInstance();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaCamino frame = new VentanaCamino();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 
 			
 	public VentanaCamino() {
 		JLabel tituloVentana = new JLabel("ALTA CAMINO");
-		JLabel idCaminoLabel = new JLabel("Codigo de ruta (*)");
+		JLabel idCaminoLabel = new JLabel("ID (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
 		JLabel sucursalDLabel = new JLabel("Sucursal Destino (*)");
 		JLabel tiempTransitoLabel = new JLabel("Tiempo de transito en min (*)");
@@ -145,7 +129,6 @@ public class VentanaCamino extends JFrame {
 		contentPane.add(sucursalDLabel);
 		
 		// COMBOBOX Sucursal Destino
-		
 		
 		// ARMANDO COMBOBOX Sucursal Destino
 		modelo2 =new DefaultComboBoxModel();
