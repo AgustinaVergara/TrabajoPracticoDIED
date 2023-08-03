@@ -116,6 +116,16 @@ public class AltaProducto extends JFrame {
 		botomcancelar.setBounds(202, 267, 112, 28);
 		contentPane.add(botomcancelar);
 		
+		 botomcancelar.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					cerrar();
+				}
+			 
+			 });
+		
 		JButton botonguardar = new JButton("Guardar");
 		botonguardar.setBounds(324, 267, 108, 28);
 		contentPane.add(botonguardar);
@@ -172,4 +182,13 @@ public class AltaProducto extends JFrame {
 		}
 				
 	}
+	
+	 public void cerrar() {
+			String [] botones = {"Si", "Cancelar"};
+			int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de cancelar la operacion?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
+			/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
+			if(i==0) 
+				System.exit((WIDTH));
+			
+		}
 }

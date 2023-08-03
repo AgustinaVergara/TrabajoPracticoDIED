@@ -8,6 +8,6 @@ public interface ProductoDao {
 	public void crearProducto(Producto p);
 	public Integer getUltimoIdP();
 	public List<Producto> buscarProducto();
-	public List<Producto> eliminarProducto();
+	public void eliminarP(Producto p);
 	public void modificarProducto(Producto p);
 }

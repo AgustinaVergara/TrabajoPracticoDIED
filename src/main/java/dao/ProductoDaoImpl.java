@@ -141,8 +141,55 @@ public class ProductoDaoImpl implements ProductoDao {
 			
 			return productos;
 		}
-		public List<Producto> eliminarProducto(){
-			return null;
+		
+		@Override
+		public void eliminarP(Producto p) {
+			String consulta = "DELETE FROM tpdied.producto WHERE idProducto = (?);";
+			
+			Conexion conexion = new Conexion();
+			
+			Connection cn = null; //para conectar a la bd
+			PreparedStatement st = null; //para hacer las consultas SQL
+			
+			
+			try {
+				cn = conexion.conectar();
+				cn.setAutoCommit(false);
+				
+				st = cn.prepareStatement(consulta);
+		
+				st.setInt(1, p.getidP());
+
+
+				Integer nro = st.executeUpdate();
+				cn.commit();
+				
+			}  catch(SQLException e) {
+				try {
+					cn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+			finally {
+				if (st != null) {
+					try {
+						st.close();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if (cn != null) {
+					try {
+						cn.close();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}	
+			}	
 		}
 		
 		public void modificarProducto(Producto p) {
