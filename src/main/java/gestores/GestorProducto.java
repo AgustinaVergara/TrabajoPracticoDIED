@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clases.Producto;
-import clases.Sucursal;
 import dao.ProductoDao;
 import dao.ProductoDaoImpl;
 
@@ -41,45 +40,9 @@ public class GestorProducto {
 		return new Producto(siguienteIdP, nom, descrip, precio, peso);
 	}
 	
-	public List<Producto> eliminarProducto(Producto p) {
-		List<Producto> eliminarP = new ArrayList<>() ; 
-		
-		if(!(p.getNombre().isEmpty())) {
-			for(Producto i : productos) {
-				if(p.getNombre() == i.getNombre()) eliminarP.add(i);
-			}
-		}
-		else if(p.getPrecioUnitario() > 0) {
-			for(Producto i : productos) {
-				if(p.getPrecioUnitario() == i.getPrecioUnitario()) eliminarP.add(i);
-			}
-		}
-		else if(p.getPesoKg() > 0) {
-			for(Producto i : productos) {
-				if(p.getPesoKg() == i.getPesoKg()) eliminarP.add(i);
-			}
-		}
-		return eliminarP;
-	}
-	
-	public List<Producto> buscarProducto(Producto p){
-		List <Producto> listaBusqueda = new ArrayList<>();
-		if(!(p.getNombre().isEmpty())) {
-			for(Producto i : productos) {
-				if(p.getNombre() == i.getNombre()) listaBusqueda.add(i);
-			}
-		}
-		else if(p.getPrecioUnitario() > 0) {
-			for(Producto i : productos) {
-				if(p.getPrecioUnitario() == i.getPrecioUnitario()) listaBusqueda.add(i);
-			}
-		}
-		else if(p.getPesoKg() > 0) {
-			for(Producto i : productos) {
-				if(p.getPesoKg() == i.getPesoKg()) listaBusqueda.add(i);
-			}
-		}
-		
-		return listaBusqueda;
+	public void eliminarProducto(Producto p) {
+		dao.eliminarP(p);
+		productos.remove(p);
+
 	}
 }

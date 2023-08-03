@@ -50,7 +50,14 @@ public class MenuPrincipal extends JFrame {
 		btnGestionarCamino.setBounds(264, 64, 215, 37);
 		contentPane.add(btnGestionarCamino);
 		
+		final InterfazGestionarProducto ventanaGestionarProducto = new InterfazGestionarProducto();
 		JButton btnGestionarProducto = new JButton("Gestionar productos");
+		btnGestionarProducto.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			ventanaGestionarProducto.setVisible(true);
+			dispose(); //cierra la ventana actual
+		}
+	});
 		btnGestionarProducto.setBounds(39, 118, 215, 37);
 		contentPane.add(btnGestionarProducto);
 		
