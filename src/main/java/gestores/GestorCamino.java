@@ -28,6 +28,10 @@ public class GestorCamino {
 		
 	}
 	
+	public List<Camino> buscarCaminos() {
+		return this.caminos= caminoDAO.buscarCaminos();
+		
+	}
 	
 	//INSTANCIA CONSTRUCTOR
 	public static GestorCamino getInstance() {
@@ -65,7 +69,12 @@ public class GestorCamino {
 		caminos.add(camino);
 		caminoDAO.crearCamino(camino);
 	}
-
+	
+	public void eliminarCamino(Camino camino) {
+		caminos = caminoDAO.buscarCaminos();
+		caminoDAO.eliminar(camino);
+		caminos.remove(camino);
+	}
 	
 	
 }

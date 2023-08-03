@@ -68,7 +68,6 @@ public class InterfazListadoSucursal extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int column = tableSucursales.getColumnModel().getColumnIndexAtX(e.getX());
 				int row = e.getY()/tableSucursales.getRowHeight();
-				
 				if(row < tableSucursales.getRowCount() && row >= 0 && column < tableSucursales.getColumnCount() && column >=0) {
 					Object value = tableSucursales.getValueAt(row, column);
 					if(value instanceof JButton) {
