@@ -69,7 +69,12 @@ public class GestorCamino {
 		caminos.add(camino);
 		caminoDAO.crearCamino(camino);
 	}
-
+	
+	public void eliminarCamino(Camino camino) {
+		caminos = caminoDAO.buscarCaminos();
+		caminoDAO.eliminar(camino);
+		caminos.remove(camino);
+	}
 	
 	
 }

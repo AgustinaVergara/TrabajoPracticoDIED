@@ -3,21 +3,25 @@ package interfaces;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import clases.Camino;
 import gestores.GestorCamino;
 import gestores.GestorSucursal;
-
+import dao.*;
 public class InterfazGestionarCaminos extends JFrame {
 
 	private JPanel contentPane;
-	private GestorCamino gestorCamino = GestorCamino.getInstance();
-
-
+	//private GestorCamino gestorCamino = GestorCamino.getInstance();
+	private CaminoDao caminoDAO;//= new CaminoSQLimplementacion();
+	//private Camino caminos;
+	private List<Camino> listacaminos;
 	/**
 	 * Launch the application.
 	 */
@@ -26,6 +30,9 @@ public class InterfazGestionarCaminos extends JFrame {
 	 * Create the frame.
 	 */
 	public InterfazGestionarCaminos() {
+		caminoDAO = new CaminoSQLimplementacion();
+		listacaminos = caminoDAO.buscarCaminos();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -42,7 +49,7 @@ public class InterfazGestionarCaminos extends JFrame {
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
 		btnListadoDeCaminos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ventanaListadoCamino.llenarTablaCamino(gestorCamino.getCaminos());
+				ventanaListadoCamino.llenarTablaCamino(caminoDAO.buscarCaminos());
 				ventanaListadoCamino.setVisible(true);
 				setVisible(false);
 			}
@@ -59,10 +66,8 @@ public class InterfazGestionarCaminos extends JFrame {
 			}
 		});
 		btnNuevoCamino.setBounds(96, 64, 248, 23);
-		contentPane.add(btnNuevoCamino);
-		
-		
-		
+		contentPane.add(btnNuevoCamino);	
 		
 	}
+
 }
