@@ -31,7 +31,7 @@ public class JPanelGestionarSucursal extends JPanel {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				JFramePrincipalSucursal.cerrar();
 			}
 		});
 		btnVolver.setBounds(238, 213, 123, 21);

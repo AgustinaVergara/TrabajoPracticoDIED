@@ -41,11 +41,7 @@ public class JFramePrincipalSucursal extends JFrame {
         // Establecemos las coordenadas y el tamaño
         setBounds(x, y, width, height);
 
-		//contentPane = new JPanel(); YA ESTA ABAJO
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		//setContentPane(contentPane);
-		
+	
 		//Crear paneles
 		panelGestionarSucursal = new  JPanelGestionarSucursal();
 		panelAltaSucursal = new JPanelAltaSucursal();
@@ -72,6 +68,16 @@ public class JFramePrincipalSucursal extends JFrame {
 	public static void mostrarPanel(String nombrePanel) {
 		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
         cardLayout.show(contentPane, nombrePanel);
+	}
+	
+	public static void cerrar() {
+		final MenuPrincipal ventanaMenu = new MenuPrincipal();
+		ventanaMenu.setVisible(true);
+		for (java.awt.Window window : java.awt.Window.getWindows()) {
+            if (window instanceof JFramePrincipalSucursal) {
+                window.dispose(); // Cierra el JFrame actual
+            }
+        }
 	}
 
 }

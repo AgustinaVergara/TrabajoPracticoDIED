@@ -31,7 +31,7 @@ public class JPanelListadoSucursal extends JPanel {
 	private JTextField txtMinutoApertura;
 	private JTextField txtHoraCierre;
 	private JTextField txtMinutoCierre;
-	//private List<Sucursal> listaSucursales;
+	
 	
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 	
@@ -181,11 +181,12 @@ public class JPanelListadoSucursal extends JPanel {
 	}
 	
 	public void llenarTabla() {
+		model.setRowCount(0);
 		List<Sucursal> listaSucursales = gestorSucursal.getSucursales();
-		//this.listaSucursales = listaSucursales;
+		
 		
 		for(Sucursal s : listaSucursales) {
-			Object[] fila = new Object[6];//columnas
+			Object[] fila = new Object[6];
 			
 			fila[0] = s.getNombre();
 			fila[1] = s.getHorarioApertura();
