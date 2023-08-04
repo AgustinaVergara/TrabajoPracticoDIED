@@ -2,6 +2,7 @@ package interfaces;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gestores.GestorProducto;
+import clases.Producto;
 
 public class InterfazGestionarProducto extends JFrame {
 
@@ -19,7 +21,7 @@ public class InterfazGestionarProducto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InterfazGestionarProducto() {
+	public InterfazGestionarProducto(MenuPrincipal ventanaMenu) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -28,7 +30,7 @@ public class InterfazGestionarProducto extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		final AltaProducto ventanaAltaProducto = new AltaProducto();
+		final AltaProducto ventanaAltaProducto = new AltaProducto(this);
 		JButton btnAltaProducto = new JButton("+ Nueva Producto");
 		btnAltaProducto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -42,13 +44,12 @@ public class InterfazGestionarProducto extends JFrame {
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				ventanaMenu.setVisible(true);
+				dispose();
 			}
 		});
 		botonVolver.setBounds(181, 203, 85, 21);
 		contentPane.add(botonVolver);
-		
 		
 		final ListarProducto ventanaListadoProducto = new ListarProducto(this);
 		JButton btnListarProducto = new JButton("Listado de productos");

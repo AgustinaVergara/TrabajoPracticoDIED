@@ -28,7 +28,7 @@ import java.awt.event.ActionEvent;
 public class AltaProducto extends JFrame {
 	
 	private GestorProducto gestorProducto = GestorProducto.getInstance();
-	
+	private InterfazGestionarProducto ventana;
 	private JPanel contentPane;
 	private JTextField txtnombre;
 	private JTextField txtdescripcion;
@@ -38,7 +38,7 @@ public class AltaProducto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AltaProducto() {
+	public AltaProducto(InterfazGestionarProducto ventana) {
 		setTitle("ALTA DE PRODUCTO ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 446, 342);
@@ -133,6 +133,8 @@ public class AltaProducto extends JFrame {
 						    "Error",
 						    JOptionPane.ERROR_MESSAGE);
 				}
+				ventana.setVisible(true);
+				dispose();
 			}
 		});
 	}
@@ -170,7 +172,6 @@ public class AltaProducto extends JFrame {
 	 public void cerrar() {
 			String [] botones = {"Si", "Cancelar"};
 			int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de cancelar la operacion?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
-			/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
 			if(i==0) 
 				System.exit((WIDTH));
 			
