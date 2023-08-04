@@ -43,18 +43,18 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(btnGestionarSucursal);
 		
 		// GESTIONANDO CAMINOS
-		final InterfazGestionarCaminos ventanaGestionarCaminos = new InterfazGestionarCaminos(); //crea la proxima
+		//final InterfazGestionarCaminos ventanaGestionarCaminos = new InterfazGestionarCaminos(); //crea la proxima
 		JButton btnGestionarCamino = new JButton("Gestionar caminos");
 		btnGestionarCamino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventanaGestionarCaminos.setVisible(true);
+				//ventanaGestionarCaminos.setVisible(true);
 				dispose(); //cierra la ventana actual
 			}
 		});
 		btnGestionarCamino.setBounds(264, 64, 215, 37);
 		contentPane.add(btnGestionarCamino);
 		
-		final InterfazGestionarProducto ventanaGestionarProducto = new InterfazGestionarProducto();
+		final InterfazGestionarProducto ventanaGestionarProducto = new InterfazGestionarProducto(this);
 		JButton btnGestionarProducto = new JButton("Gestionar productos");
 		btnGestionarProducto.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
