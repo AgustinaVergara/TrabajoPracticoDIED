@@ -86,7 +86,6 @@ public class ProductoDaoImpl implements ProductoDao {
 			
 			return id;
 		}
-
 		
 		@Override
 		public List<Producto> buscarProducto(){

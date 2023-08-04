@@ -24,7 +24,6 @@ public class ListarProducto extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableProductos;
-	//private DefaultTableModel model;
 	private MyTableModel model;
 	
 	private InterfazGestionarProducto ventanaGestionarProducto;
@@ -38,7 +37,7 @@ public class ListarProducto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ListarProducto(InterfazGestionarProducto ventanaGestionarProductp) {
+	public ListarProducto(InterfazGestionarProducto ventanaGestionarProducto) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 605, 421);
 		contentPane = new JPanel();
@@ -53,10 +52,11 @@ public class ListarProducto extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 205, 571, 127);
+		scrollPane.setBounds(10, 208, 571, 124);
 		contentPane.add(scrollPane);
 		
 		tableProductos = new JTable();
+		scrollPane.add(tableProductos);
 		tableProductos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -70,11 +70,10 @@ public class ListarProducto extends JFrame {
 						JButton boton = (JButton) value;
 						if(boton.getName().equals("Eliminar")) {
 							Producto p = listaProductos.get(row); 
-							 // Mostrar ventana de confirmación
+							
 						    int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres eliminar el producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 						    
 						    if (option == JOptionPane.YES_OPTION) {
-						        // El usuario confirmó eliminar la sucursal
 						        gestorProducto.eliminarProducto(p);
 						        model.setRowCount(0);
 						        llenarTabla(gestorProducto.getProductos());						    
@@ -92,9 +91,8 @@ public class ListarProducto extends JFrame {
 			}
 		});
 		
-		//Defino mi propio default table model para cargar los datos en la tabla
 		model = new MyTableModel();
-		tableProductos.setDefaultRenderer(Object.class, new RenderTabla()); //renderizar tabla
+		tableProductos.setDefaultRenderer(Object.class, new RenderTabla()); 
 		tableProductos.setModel(model);
 		
 		model.addColumn("Nombre");
@@ -109,7 +107,6 @@ public class ListarProducto extends JFrame {
 		tableProductos.getColumnModel().getColumn(2).setPreferredWidth(80);
 		tableProductos.getColumnModel().getColumn(2).setMinWidth(80);
 		scrollPane.setViewportView(tableProductos);
-		
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
