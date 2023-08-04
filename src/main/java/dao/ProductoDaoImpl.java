@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import conexion.Conexion;
 public class ProductoDaoImpl implements ProductoDao {
 	
 		public void crearProducto(Producto p) {
-			List<Producto> productos = new ArrayList<>();
 			
 			String consulta = "INSERT INTO tpdied.producto "
 					+ 	"VALUES (?,?,?, ?, ?);";
@@ -110,15 +108,13 @@ public class ProductoDaoImpl implements ProductoDao {
 				rs = st.executeQuery();
 				
 				while(rs.next()) {
-					String nombre = rs.getString(1);
-					String descripcion = rs.getString(2);
-					Double precioUnitario = rs.getDouble(3);
-					Double peso = rs.getDouble(4);
+					Integer id = rs.getInt(1);
+					String nombre = rs.getString(2);
+					String descripcion = rs.getString(3);
+					Double precioUnitario = rs.getDouble(4);
+					Double peso = rs.getDouble(5);
 					
-					
-					
-					System.out.println(nombre + " " + descripcion + " " + precioUnitario + " " + peso);
-					
+					System.out.println(id + " " + nombre + " " + descripcion + " " + precioUnitario + " " + peso);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -191,7 +187,7 @@ public class ProductoDaoImpl implements ProductoDao {
 				}	
 			}	
 		}
-		
+		@Override
 		public void modificarProducto(Producto p) {
 			
 		}
