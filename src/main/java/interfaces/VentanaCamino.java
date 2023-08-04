@@ -41,7 +41,7 @@ public class VentanaCamino extends JFrame {
 	 */
 
 			
-	public VentanaCamino() {
+	public VentanaCamino(InterfazGestionarCaminos ventanaGestionarCaminos) {
 		JLabel tituloVentana = new JLabel("ALTA CAMINO");
 		JLabel idCaminoLabel = new JLabel("ID (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
@@ -254,11 +254,13 @@ public class VentanaCamino extends JFrame {
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
 				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
 				gestorCamino.agregarCamino(nuevoCamino);
-				
+				ventanaGestionarCaminos.setVisible(true);
+				dispose();
 				}
 			});
 		botonGuardar.setBounds(326, 285, 116, 23);
 		contentPane.add(botonGuardar);
+		
 
 		//Boton Cancelar
 		botonCancelar.setBounds(188, 285, 116, 23);
@@ -273,6 +275,7 @@ public class VentanaCamino extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				cerrar();
+				ventanaGestionarCaminos.setVisible(true);
 			}
 		 
 		 });

@@ -29,7 +29,7 @@ public class InterfazGestionarCaminos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InterfazGestionarCaminos() {
+	public InterfazGestionarCaminos(MenuPrincipal ventanaMenu) {
 		caminoDAO = new CaminoSQLimplementacion();
 		listacaminos = caminoDAO.buscarCaminos();
 		
@@ -41,9 +41,16 @@ public class InterfazGestionarCaminos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Volver");
-		btnNewButton.setBounds(181, 203, 85, 21);
-		contentPane.add(btnNewButton);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaMenu.setVisible(true);
+				dispose();
+				//ventanaGestionarCaminos.setVisible(true);
+			}
+		});
+		btnVolver.setBounds(181, 203, 85, 21);
+		contentPane.add(btnVolver);
 		
 		final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
@@ -57,7 +64,7 @@ public class InterfazGestionarCaminos extends JFrame {
 		btnListadoDeCaminos.setBounds(96, 129, 248, 21);
 		contentPane.add(btnListadoDeCaminos);
 		
-		final VentanaCamino ventanaAltaCaminos = new VentanaCamino();
+		final VentanaCamino ventanaAltaCaminos = new VentanaCamino(this);
 		JButton btnNuevoCamino = new JButton("+ Nuevo Camino");
 		btnNuevoCamino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
