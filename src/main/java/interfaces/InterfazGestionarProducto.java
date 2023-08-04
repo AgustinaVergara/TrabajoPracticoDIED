@@ -1,6 +1,5 @@
 package interfaces;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +13,7 @@ import gestores.GestorProducto;
 public class InterfazGestionarProducto extends JFrame {
 
 	private JPanel contentPane;
-	
+	private MenuPrincipal ventanaMenu;
 	private GestorProducto gestorProducto = GestorProducto.getInstance();
 
 	/**
@@ -40,16 +39,16 @@ public class InterfazGestionarProducto extends JFrame {
 		btnAltaProducto.setBounds(100, 50, 248, 21);
 		contentPane.add(btnAltaProducto);
 	
-		final MenuPrincipal ventanaV = new MenuPrincipal();
 		JButton botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			ventanaV.setVisible(true);
-			dispose(); //cierra la ventana actual
-		}
-	});
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ventanaMenu.setVisible(true);
+			}
+		});
 		botonVolver.setBounds(181, 203, 85, 21);
 		contentPane.add(botonVolver);
+		
 		
 		final ListarProducto ventanaListadoProducto = new ListarProducto(this);
 		JButton btnListarProducto = new JButton("Listado de productos");

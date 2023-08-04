@@ -1,9 +1,6 @@
 package interfaces;
 
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,9 +70,9 @@ public class ModificarProducto extends JFrame {
 		contentPane.add(txtPeso);
 		txtPeso.setColumns(10);
 		
-		JButton btnGuardarSucursal = new JButton("Guardar");
-		btnGuardarSucursal.setBounds(214, 232, 85, 21);
-		contentPane.add(btnGuardarSucursal);
+		JButton btnGuardarProducto = new JButton("Guardar");
+		btnGuardarProducto.setBounds(214, 232, 85, 21);
+		contentPane.add(btnGuardarProducto);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(119, 232, 85, 21);
