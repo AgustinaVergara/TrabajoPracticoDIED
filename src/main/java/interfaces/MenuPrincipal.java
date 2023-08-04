@@ -43,7 +43,7 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(btnGestionarSucursal);
 		
 		// GESTIONANDO CAMINOS
-		final InterfazGestionarCaminos ventanaGestionarCaminos = new InterfazGestionarCaminos(); //crea la proxima
+		final InterfazGestionarCaminos ventanaGestionarCaminos = new InterfazGestionarCaminos(this); //crea la proxima
 		JButton btnGestionarCamino = new JButton("Gestionar caminos");
 		btnGestionarCamino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

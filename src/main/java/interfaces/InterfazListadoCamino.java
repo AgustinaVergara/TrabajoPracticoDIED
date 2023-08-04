@@ -38,7 +38,7 @@ public class InterfazListadoCamino extends JFrame {
 	//private DefaultTableModel model;
 	private MyTableModel model;
 	
-	private InterfazGestionarSucursal ventanaGestionarCaminos;
+	private InterfazGestionarCaminos ventanaGestionarCaminos;
 	private JTextField textId;
 	private JTextField txtSucursalOrigen;
 	private JTextField txtSucursalDestino;
@@ -230,12 +230,12 @@ public class InterfazListadoCamino extends JFrame {
 					int id = Integer.parseInt(textId.getText());
 					listaCaminosFiltro= gestorCamino.buscarCaminoxId(id);
 				}
-				if (modeloOrigen.getSelectedItem().toString()!= null) {
+				/*if (modeloOrigen.getSelectedItem().toString()!= null) {
 					listaCaminosFiltro= gestorCamino.buscarCaminoxNombreSO(listaCaminosFiltro, modeloOrigen.getSelectedItem().toString());
 				}
 				if (comboBoxSDestino.getSelectedItem().toString()!= null) {
 					listaCaminosFiltro= gestorCamino.buscarCaminoxNombreSD(listaCaminosFiltro, comboBoxSDestino.getSelectedItem().toString());
-				}
+				}*/
 				
 				
 				model.setRowCount(0);
