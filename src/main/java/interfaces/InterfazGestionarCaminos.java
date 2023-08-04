@@ -1,6 +1,8 @@
 package interfaces;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import clases.Camino;
 import gestores.GestorCamino;
 import gestores.GestorSucursal;
 import dao.*;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 public class InterfazGestionarCaminos extends JFrame {
 
 	private JPanel contentPane;
@@ -34,7 +38,23 @@ public class InterfazGestionarCaminos extends JFrame {
 		listacaminos = caminoDAO.buscarCaminos();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		
+		// Tamaño deseado para el JFrame
+        int width = 600;
+        int height = 400;
+        
+        // Obtenemos el tamaño de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        // Calculamos las coordenadas (x, y) para centrar el JFrame
+        int x = (screenWidth - width) / 2;
+        int y = (screenHeight - height) / 2;
+        
+        // Establecemos las coordenadas y el tamaño
+        setBounds(x, y, width, height);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,7 +69,7 @@ public class InterfazGestionarCaminos extends JFrame {
 				//ventanaGestionarCaminos.setVisible(true);
 			}
 		});
-		btnVolver.setBounds(181, 203, 85, 21);
+		btnVolver.setBounds(251, 217, 85, 21);
 		contentPane.add(btnVolver);
 		
 		final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
@@ -61,7 +81,7 @@ public class InterfazGestionarCaminos extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnListadoDeCaminos.setBounds(96, 129, 248, 21);
+		btnListadoDeCaminos.setBounds(166, 143, 248, 21);
 		contentPane.add(btnListadoDeCaminos);
 		
 		final VentanaCamino ventanaAltaCaminos = new VentanaCamino(this);
@@ -72,8 +92,13 @@ public class InterfazGestionarCaminos extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnNuevoCamino.setBounds(96, 64, 248, 23);
+		btnNuevoCamino.setBounds(166, 78, 248, 23);
 		contentPane.add(btnNuevoCamino);	
+		
+		JLabel lblNewLabel = new JLabel("GESTIÓN DE CAMINOS");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(166, 38, 248, 13);
+		contentPane.add(lblNewLabel);
 		
 	}
 

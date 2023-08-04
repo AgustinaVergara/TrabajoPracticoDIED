@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import gestores.GestorProducto;
 import clases.Producto;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class InterfazGestionarProducto extends JFrame {
 
@@ -23,7 +27,22 @@ public class InterfazGestionarProducto extends JFrame {
 	 */
 	public InterfazGestionarProducto(MenuPrincipal ventanaMenu) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		// Tamaño deseado para el JFrame
+        int width = 600;
+        int height = 400;
+        
+        // Obtenemos el tamaño de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        // Calculamos las coordenadas (x, y) para centrar el JFrame
+        int x = (screenWidth - width) / 2;
+        int y = (screenHeight - height) / 2;
+        
+        // Establecemos las coordenadas y el tamaño
+        setBounds(x, y, width, height);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -38,7 +57,7 @@ public class InterfazGestionarProducto extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnAltaProducto.setBounds(100, 50, 248, 21);
+		btnAltaProducto.setBounds(164, 96, 248, 21);
 		contentPane.add(btnAltaProducto);
 	
 		JButton botonVolver = new JButton("Volver");
@@ -48,7 +67,7 @@ public class InterfazGestionarProducto extends JFrame {
 				dispose();
 			}
 		});
-		botonVolver.setBounds(181, 203, 85, 21);
+		botonVolver.setBounds(252, 204, 85, 21);
 		contentPane.add(botonVolver);
 		
 		final ListarProducto ventanaListadoProducto = new ListarProducto(this);
@@ -60,7 +79,12 @@ public class InterfazGestionarProducto extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnListarProducto.setBounds(100, 91, 248, 21);
+		btnListarProducto.setBounds(164, 137, 248, 21);
 		contentPane.add(btnListarProducto);
+		
+		JLabel lblNewLabel = new JLabel("GESTIÓN DE PRODUCTOS");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(164, 54, 239, 13);
+		contentPane.add(lblNewLabel);
 	}
 }

@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -20,6 +21,8 @@ import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -75,7 +78,23 @@ public class VentanaCamino extends JFrame {
 		CaminoDao daocamino = new CaminoSQLimplementacion();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 468, 366);
+		
+		// Tamaño deseado para el JFrame
+        int width = 600;
+        int height = 400;
+        
+        // Obtenemos el tamaño de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        // Calculamos las coordenadas (x, y) para centrar el JFrame
+        int x = (screenWidth - width) / 2;
+        int y = (screenHeight - height) / 2;
+        
+        // Establecemos las coordenadas y el tamaño
+        setBounds(x, y, width, height);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -255,7 +274,8 @@ public class VentanaCamino extends JFrame {
 				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
 				gestorCamino.agregarCamino(nuevoCamino);
 				ventanaGestionarCaminos.setVisible(true);
-				dispose();
+				JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
+                dispose();
 				}
 			});
 		botonGuardar.setBounds(326, 285, 116, 23);
@@ -289,7 +309,7 @@ public class VentanaCamino extends JFrame {
 		int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de cancelar la operacion?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
 		/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
 		if(i==0) 
-			System.exit((WIDTH));
+			dispose();
 		
 	}
 }

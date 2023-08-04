@@ -126,6 +126,8 @@ public class JPanelModificarSucursal extends JPanel {
 				    	
 				    	
 				        if (result == JOptionPane.OK_OPTION) {
+				        	
+				        	panelListadoSucursal.llenarTabla();
 				        	JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
 				        }
 				        }

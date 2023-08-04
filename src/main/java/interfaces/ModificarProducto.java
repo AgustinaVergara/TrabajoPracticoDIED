@@ -1,5 +1,8 @@
 package interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +25,22 @@ public class ModificarProducto extends JFrame {
 	 */
 	public ModificarProducto() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		// Tamaño deseado para el JFrame
+        int width = 600;
+        int height = 400;
+        
+        // Obtenemos el tamaño de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        // Calculamos las coordenadas (x, y) para centrar el JFrame
+        int x = (screenWidth - width) / 2;
+        int y = (screenHeight - height) / 2;
+        
+        // Establecemos las coordenadas y el tamaño
+        setBounds(x, y, width, height);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

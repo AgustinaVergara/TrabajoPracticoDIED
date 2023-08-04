@@ -95,7 +95,15 @@ public class JPanelAltaSucursal extends JPanel {
 		JButton btnCancelarSucursal = new JButton("Cancelar");
 		btnCancelarSucursal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
+				int respuesta = JOptionPane.showConfirmDialog(null,
+		                "¿Está seguro de que desea cancelar y volver?", 
+		                "Confirmar Cancelar", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+		        if (respuesta == JOptionPane.YES_OPTION) {
+		        	vaciarCampos();
+		        	JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
+		        }
+				
 			}
 		});
 		btnCancelarSucursal.setBounds(211, 248, 96, 21);
@@ -123,6 +131,7 @@ public class JPanelAltaSucursal extends JPanel {
 					gestorSucursal.agregarSucursal(nuevaSucursal);
 					
 					JOptionPane.showMessageDialog(frame, "Sucursal creada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					vaciarCampos();
 					JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
 					
 				}catch(CampoVacioException e1) {
@@ -267,5 +276,14 @@ public class JPanelAltaSucursal extends JPanel {
 			return false;
 		}
 	}
+	
+	public void vaciarCampos() {
+		txtNombre.setText("");
+		txtHoraApertura.setText("");
+		txtMinutoApertura.setText("");
+		txtHoraCierre.setText("");
+		txtMinutoCierre.setText("");
+	}
+	
 
 }

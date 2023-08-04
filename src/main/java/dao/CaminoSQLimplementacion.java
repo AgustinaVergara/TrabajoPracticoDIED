@@ -118,7 +118,6 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				}
 				else caminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
 				
-				System.out.println(id + " " + so + " " + sd + " " + tiempo + " " + estado+" "+capacidad );
 				
 			}
 			
