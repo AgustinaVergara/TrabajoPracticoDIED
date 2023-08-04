@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import clases.Sucursal;
 import dao.SucursalDao;
 import dao.SucursalDaoImpl;
@@ -64,6 +65,16 @@ public class GestorSucursal {
 
 	}
 	
+	public void modificarSucursal(Integer id,String nombre, LocalTime horarioApertura, LocalTime horarioCierre, EstadoSucursal estado ) {
+		Sucursal s = this.getSucursalPorId(id);
+		s.modificarse(nombre, horarioApertura, horarioCierre, estado);
+		
+		dao.modificar(s);
+	}
+	
+	public Sucursal getSucursalPorId(Integer id) {
+		return (sucursales.stream().filter(e -> e.getId() == id).findFirst()).get();
+	}
 
 
 }

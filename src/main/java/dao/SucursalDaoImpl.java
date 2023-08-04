@@ -85,7 +85,6 @@ public class SucursalDaoImpl implements SucursalDao{
 				if (estado.equals("OPERATIVA")) sucursales.add(new Sucursal(id, nombre, horarioApertura, horarioCierre, EstadoSucursal.OPERATIVA ));
 				else sucursales.add(new Sucursal(id, nombre, horarioApertura, horarioCierre, EstadoSucursal.NO_OPERATIVA));
 				
-				System.out.println(id + " " + nombre + " " + horarioApertura + " " + horarioCierre + " " + estado );
 				
 			}
 		} catch (SQLException e) {
@@ -207,8 +206,56 @@ public class SucursalDaoImpl implements SucursalDao{
 	}
 
 	@Override
-	public void modificar(Sucursal s) {
-		// TODO Auto-generated method stub
+	public void modificar(Sucursal sucursal) {
+		
+		String consulta = "UPDATE tpdied.sucursal "
+				+ "SET nombre = ?, "
+				+ "    horarioApertura = ?, "
+				+ "    horarioCierre = ?, "
+				+ "    estado = ? "
+				+ "WHERE idsucursal = ?;";
+		
+		Conexion conexion = new Conexion();
+		
+		Connection cn = null;
+		PreparedStatement st = null;
+		
+		try {
+			cn = conexion.conectar();
+		
+			
+			st = cn.prepareStatement(consulta);
+			
+			st.setString(1, sucursal.getNombre());
+			st.setTime(2, Time.valueOf(sucursal.getHorarioApertura()));
+			st.setTime(3, Time.valueOf(sucursal.getHorarioCierre()));	
+			st.setString(4, sucursal.getEstado().toString());
+			st.setInt(5, sucursal.getId());
+			st.executeUpdate();
+			
+			
+		}  catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (st != null) {
+				try {
+					st.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (cn != null) {
+				try {
+					cn.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}	
+		}
+		
 		
 	}	
 

@@ -18,9 +18,6 @@ public class InterfazGestionarSucursal extends JFrame {
 	
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 
-	/**
-	 * Create the frame.
-	 */
 	public InterfazGestionarSucursal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

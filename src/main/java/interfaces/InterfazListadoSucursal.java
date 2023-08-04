@@ -28,10 +28,9 @@ public class InterfazListadoSucursal extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableSucursales;
-	//private DefaultTableModel model;
 	private MyTableModel model;
 	
-	private InterfazGestionarSucursal ventanaGestionarSucursal;
+	private InterfazGestionarSucursal ventanaGestionarSucursal; 
 	private JTextField txtNombre;
 	private JTextField txtHoraApertura;
 	private JTextField txtMinutoApertura;
@@ -87,10 +86,11 @@ public class InterfazListadoSucursal extends JFrame {
 						}
 						if(boton.getName().equals("Modificar")) {
 							Sucursal s = listaSucursales.get(row); 
-							final InterfazModificarSucursal ventanaModificarSucursal = new InterfazModificarSucursal();
+
+							final InterfazModificarSucursal ventanaModificarSucursal = new InterfazModificarSucursal(s);
+
 							ventanaModificarSucursal.setVisible(true); 
 							setVisible(false);
-							System.out.println("modificar");
 						}
 						
 					}
