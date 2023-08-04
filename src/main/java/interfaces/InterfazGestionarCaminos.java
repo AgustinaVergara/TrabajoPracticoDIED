@@ -45,11 +45,11 @@ public class InterfazGestionarCaminos extends JFrame {
 		btnNewButton.setBounds(181, 203, 85, 21);
 		contentPane.add(btnNewButton);
 		
-		final VentanaModificarCamino ventanaListadoCamino = new VentanaModificarCamino(this);
+		final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
 		btnListadoDeCaminos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventanaListadoCamino.llenarTablaCamino(caminoDAO.buscarCaminos());
+				ventanaListadoCamino.llenarTabla(caminoDAO.buscarCaminos());
 				ventanaListadoCamino.setVisible(true);
 				setVisible(false);
 			}

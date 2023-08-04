@@ -86,6 +86,7 @@ public class InterfazListadoSucursal extends JFrame {
 						    }
 						}
 						if(boton.getName().equals("Modificar")) {
+							Sucursal s = listaSucursales.get(row); 
 							final InterfazModificarSucursal ventanaModificarSucursal = new InterfazModificarSucursal();
 							ventanaModificarSucursal.setVisible(true); 
 							setVisible(false);

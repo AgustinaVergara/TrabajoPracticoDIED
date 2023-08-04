@@ -1,32 +1,33 @@
 package interfaces;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import clases.Camino;
 import clases.Sucursal;
-import dao.*;
+import dao.CaminoDao;
+import dao.CaminoSQLimplementacion;
+import dao.SucursalDao;
 import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-public class VentanaCamino extends JFrame {
 
-	private static final WindowListener WindowAdapter = null;
+public class InterfazModificarCamino extends JFrame {
+
 	private JPanel contentPane;
 	private JTextField idRutaTxt;
 	private JTextField sucursalOtxt;
@@ -39,10 +40,15 @@ public class VentanaCamino extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public InterfazModificarCamino(Camino caminoAModificar) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-			
-	public VentanaCamino() {
-		JLabel tituloVentana = new JLabel("ALTA CAMINO");
+		setContentPane(contentPane);
+		
+		JLabel tituloVentana = new JLabel("MODIFICAR CAMINO");
 		JLabel idCaminoLabel = new JLabel("ID (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
 		JLabel sucursalDLabel = new JLabel("Sucursal Destino (*)");
@@ -58,17 +64,15 @@ public class VentanaCamino extends JFrame {
 		idRutaTxt.setEditable(false);
 		tiemTransitoTxt = new JTextField();
 		capacidadKgTxt = new JTextField();
-		JButton botonCancelar = new JButton("Cancelar");
-		JButton botonGuardar = new JButton("Guardar");
+		JButton botonCancelar = new JButton("Cancelar cambios");
+		JButton botonGuardar = new JButton("Guardar cambios");
 		JComboBox estadoComBox = new JComboBox();
 		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"OPERATIVA", "NO OPERTATIVA"}));
 		JComboBox comboBoxSO = new JComboBox();
 		comboBoxSO.setEditable(true);
 		JComboBox comboBoxSD = new JComboBox();
-		//CREO UN MODELO A SEGUIR PARA EL COMBO BOX DE SUCURSALES
-		DefaultComboBoxModel modelo;
+		DefaultComboBoxModel modelo;// modelos para los combobox
 		DefaultComboBoxModel modelo2;
-		
 		List<Sucursal> sucursales = new ArrayList<Sucursal>();
 		SucursalDao dao = new SucursalDaoImpl();;
 		sucursales = dao.buscarSucursales();
@@ -88,9 +92,7 @@ public class VentanaCamino extends JFrame {
 		contentPane.add(idCaminoLabel);
 		
 		// TXT id Camino
-		String id;
-		int idInt= daocamino.getUltimoIdCamino() +1;
-		id= Integer.toString(idInt);
+		String id= Integer.toString(caminoAModificar.getId());
 		idRutaTxt.setText(id);
 		idRutaTxt.setBounds(204, 40, 116, 20);
 		contentPane.add(idRutaTxt);
@@ -99,7 +101,7 @@ public class VentanaCamino extends JFrame {
 		// titulo de la ventana 
 		tituloVentana.setBackground(Color.BLACK);
 		tituloVentana.setToolTipText("");
-		tituloVentana.setBounds(157, 11, 122, 14);
+		tituloVentana.setBounds(176, 11, 122, 14);
 		contentPane.add(tituloVentana);
 		
 		// Label Sucursal
@@ -252,19 +254,16 @@ public class VentanaCamino extends JFrame {
 						else  if(estadoS == "-SELECCIONE")
 							labelErrorEstado.setText("Por favor ingrese un estado para el camino");
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
-				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
-				gestorCamino.agregarCamino(nuevoCamino);
+				
+				gestorCamino.modificarCamino(caminoAModificar);
+				//Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
+				//gestorCamino.agregarCamino(nuevoCamino);
 				
 				}
 			});
-		botonGuardar.setBounds(326, 285, 116, 23);
+		botonGuardar.setBounds(285,293,157,23);
 		contentPane.add(botonGuardar);
 
-		//Boton Cancelar
-		botonCancelar.setBounds(188, 285, 116, 23);
-		contentPane.add(botonCancelar);
-		
-		
 		// EN BOTON CANCELAR SOLO LIMPIAMOS LOS DATOS INGRESADOS 
 		
 		 botonCancelar.addActionListener(new ActionListener(){
@@ -276,6 +275,12 @@ public class VentanaCamino extends JFrame {
 			}
 		 
 		 });
+		//Boton Cancelar
+		botonCancelar.setBounds(113,293,162,23);
+		contentPane.add(botonCancelar);
+		
+		
+
 		
 	}
 	

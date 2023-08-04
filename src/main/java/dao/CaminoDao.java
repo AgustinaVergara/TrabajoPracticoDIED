@@ -11,9 +11,11 @@ public interface CaminoDao   {
 	public List<Camino> buscarCaminos();
 	public void eliminar(Camino camino);
 	
-	public void modificarCaminos(List<Camino> listaCaminosAEditar);
+	public void modificarCamino(Camino caminoEditar);
 	public void crearCamino(Camino camino);
 	public Integer getUltimoIdCamino();
+	public List<Camino> buscarxId(int id) ;
+	public List<Camino> buscarxNombreSucursalOrigen(String nombreSucursal) ;
 	
 	
 	
