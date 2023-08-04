@@ -1,33 +1,27 @@
 package interfaces;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import javax.swing.JTextField;
 
 import clases.Sucursal;
 import excepciones.CampoInvalidoException;
 import excepciones.CampoVacioException;
 import excepciones.NombreSucursalExistenteException;
 import gestores.GestorSucursal;
-import enums.EstadoSucursal;
+import javax.swing.SwingConstants;
 
+public class JPanelAltaSucursal extends JPanel {
 
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
-public class InterfazAltaSucursal extends JFrame {
-
-	private JPanel contentPane;
+	//private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtHoraApertura;
 	private JTextField txtMinutoApertura;
@@ -35,89 +29,81 @@ public class InterfazAltaSucursal extends JFrame {
 	private JTextField txtMinutoCierre;
 	
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
+	
+	public JPanelAltaSucursal() {
+		setLayout(null);
 
-	/**
-	 * Create the frame.
-	 */
-	public InterfazAltaSucursal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
 		JLabel tituloAltaSucursal = new JLabel("CREAR NUEVA SUCURSAL");
-		tituloAltaSucursal.setBounds(161, 23, 190, 13);
-		contentPane.add(tituloAltaSucursal);
-		
+		tituloAltaSucursal.setHorizontalAlignment(SwingConstants.CENTER);
+		tituloAltaSucursal.setBounds(188, 37, 230, 13);
+		add(tituloAltaSucursal);
 		txtNombre = new JTextField();
-		txtNombre.setBounds(161, 46, 160, 19);
-		contentPane.add(txtNombre);
+		txtNombre.setBounds(276, 71, 142, 19);
+		add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JLabel nombreSucursal = new JLabel("Nombre ");
-		nombreSucursal.setBounds(36, 49, 96, 13);
-		contentPane.add(nombreSucursal);
+		JLabel nombreSucursal = new JLabel("Nombre (*)");
+		nombreSucursal.setBounds(151, 74, 87, 13);
+		add(nombreSucursal);
 
-		JLabel horarioApertura = new JLabel("Hora apertura");
-		horarioApertura.setBounds(37, 90, 114, 13);
-		contentPane.add(horarioApertura);
+		JLabel horarioApertura = new JLabel("Hora apertura (*)");
+		horarioApertura.setBounds(151, 110, 116, 13);
+		add(horarioApertura);
 		
 		txtHoraApertura = new JTextField();
-		txtHoraApertura.setBounds(161, 87, 45, 19);
-		contentPane.add(txtHoraApertura);
+		txtHoraApertura.setBounds(276, 107, 48, 19);
+		add(txtHoraApertura);
 		txtHoraApertura.setColumns(10);
 		
 		txtMinutoApertura = new JTextField();
 		txtMinutoApertura.setColumns(10);
-		txtMinutoApertura.setBounds(216, 87, 45, 19);
-		contentPane.add(txtMinutoApertura);
+		txtMinutoApertura.setBounds(344, 107, 48, 19);
+		add(txtMinutoApertura);
 		
-		JLabel horarioCierre = new JLabel("Hora cierre");
-		horarioCierre.setBounds(36, 128, 80, 13);
-		contentPane.add(horarioCierre);
+		JLabel horarioCierre = new JLabel("Hora cierre (*)");
+		horarioCierre.setBounds(151, 148, 96, 13);
+		add(horarioCierre);
 		
 		txtHoraCierre = new JTextField();
 		txtHoraCierre.setColumns(10);
-		txtHoraCierre.setBounds(161, 122, 45, 19);
-		contentPane.add(txtHoraCierre);
+		txtHoraCierre.setBounds(276, 145, 48, 19);
+		add(txtHoraCierre);
 		
 		txtMinutoCierre = new JTextField();
 		txtMinutoCierre.setColumns(10);
-		txtMinutoCierre.setBounds(216, 122, 45, 19);
-		contentPane.add(txtMinutoCierre);
+		txtMinutoCierre.setBounds(344, 145, 48, 19);
+		add(txtMinutoCierre);
 		
 		JLabel separador_1 = new JLabel(":");
-		separador_1.setBounds(210, 90, 27, 13);
-		contentPane.add(separador_1);
+		separador_1.setBounds(334, 110, 30, 13);
+		add(separador_1);
 		
 		JLabel separador_2 = new JLabel(":");
-		separador_2.setBounds(210, 125, 27, 13);
-		contentPane.add(separador_2);
+		separador_2.setBounds(334, 148, 13, 13);
+		add(separador_2);
 		
-		JLabel EstadoSucursal = new JLabel("Estado");
-		EstadoSucursal.setBounds(37, 169, 45, 13);
-		contentPane.add(EstadoSucursal);
+		JLabel EstadoSucursal = new JLabel("Estado (*)");
+		EstadoSucursal.setBounds(151, 185, 96, 13);
+		add(EstadoSucursal);
 		
 		JComboBox<String> comboBoxEstado = new JComboBox<String>();
-		comboBoxEstado.setBounds(161, 165, 160, 21);
-		contentPane.add(comboBoxEstado);
+		comboBoxEstado.setBounds(276, 181, 142, 21);
+		add(comboBoxEstado);
 		comboBoxEstado.addItem("OPERATIVA");
 		comboBoxEstado.addItem("NO_OPERATIVA");
-		
-		JButton btnGuardarSucursal = new JButton("Guardar");
-		btnGuardarSucursal.setBounds(222, 214, 85, 21);
-		contentPane.add(btnGuardarSucursal);
 		
 		JButton btnCancelarSucursal = new JButton("Cancelar");
 		btnCancelarSucursal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
 			}
 		});
-		btnCancelarSucursal.setBounds(127, 214, 85, 21);
-		contentPane.add(btnCancelarSucursal);
+		btnCancelarSucursal.setBounds(211, 248, 96, 21);
+		add(btnCancelarSucursal);
+		
+		JButton btnGuardarSucursal = new JButton("Guardar");
+		btnGuardarSucursal.setBounds(312, 248, 87, 21);
+		add(btnGuardarSucursal);
 		
 		
 		btnGuardarSucursal.addActionListener(new ActionListener() {
@@ -136,6 +122,8 @@ public class InterfazAltaSucursal extends JFrame {
 					
 					gestorSucursal.agregarSucursal(nuevaSucursal);
 					
+					JOptionPane.showMessageDialog(frame, "Sucursal creada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
 					
 				}catch(CampoVacioException e1) {
 					JOptionPane.showMessageDialog(frame,
@@ -161,7 +149,6 @@ public class InterfazAltaSucursal extends JFrame {
 			}
 		});
 		
-			
 	}
 	
 	public void campoVacio() throws CampoVacioException{
@@ -280,4 +267,5 @@ public class InterfazAltaSucursal extends JFrame {
 			return false;
 		}
 	}
+
 }

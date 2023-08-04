@@ -57,6 +57,12 @@ public class Sucursal {
 		this.estado = estado;
 	}
 	
+	public void modificarse(String nombre, LocalTime horarioApertura, LocalTime horarioCierre, EstadoSucursal estado) {
+		this.nombre = nombre;
+		this.horarioApertura = horarioApertura;
+		this.horarioCierre = horarioCierre;
+		this.estado = estado;
+	}
 	
 	
 
