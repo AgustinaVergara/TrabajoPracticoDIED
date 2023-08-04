@@ -76,6 +76,31 @@ public class GestorCamino {
 		caminos.remove(camino);
 	}
 	
+	public void modificarCamino(Camino camino) {
+		caminos = caminoDAO.buscarCaminos();
+		caminoDAO.modificarCamino(camino);;
+		
+	}
+	public List<Camino> buscarCaminoxId(int id){
+		List<Camino> caminos = new ArrayList<>();
+		caminos = caminoDAO.buscarxId(id);
+		return caminos;
+		
+	}
+	public List<Camino> buscarCaminoxNombreSO(List<Camino> caminos, String nombreS){
+		List<Camino> lista = new ArrayList<>();
+		for(Camino camino: caminos) {
+			if(camino.getSO().getNombre()== nombreS) lista.add(camino);
+		}
+		return lista;
+	}
+	public List<Camino> buscarCaminoxNombreSD(List<Camino> caminos, String nombreS){
+		List<Camino> lista = new ArrayList<>();
+		for(Camino camino: caminos) {
+			if(camino.getSO().getNombre()== nombreS) lista.add(camino);
+		}
+		return lista;
+	}
 	
 }
 	
