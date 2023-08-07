@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -56,7 +57,6 @@ public class ListarProducto extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tableProductos = new JTable();
-		scrollPane.add(tableProductos);
 		tableProductos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -89,7 +89,7 @@ public class ListarProducto extends JFrame {
 					}
 				}
 			}
-		});
+		});	
 		
 		model = new MyTableModel();
 		tableProductos.setDefaultRenderer(Object.class, new RenderTabla()); 
@@ -136,40 +136,56 @@ public class ListarProducto extends JFrame {
 		precioUnitario.setBounds(97, 106, 70, 13);
 		contentPane.add(precioUnitario);
 		
-		JLabel pesoKG = new JLabel("Peso KG:");
-		pesoKG.setBounds(97, 136, 51, 13);
-		contentPane.add(pesoKG);
-		
-		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
-		btnAplicarFiltros.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//hacer esto
-			}
-		});
-		btnAplicarFiltros.setBounds(247, 165, 113, 21);
-		contentPane.add(btnAplicarFiltros);
-		
 		txtPrecio = new JTextField();
 		txtPrecio.setBounds(171, 103, 96, 19);
 		contentPane.add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
+		JLabel pesoKG = new JLabel("Peso KG:");
+		pesoKG.setBounds(97, 136, 51, 13);
+		contentPane.add(pesoKG);
+		
+		
 		txtPeso = new JTextField();
 		txtPeso.setBounds(171, 133, 96, 19);
 		contentPane.add(txtPeso);
 		txtPeso.setColumns(10);
+		
+		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
+		btnAplicarFiltros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Producto> listaFiltrarProducto = new ArrayList<>();
+				
+				if (!(txtNombre.getText().isEmpty())) {
+					String nom = txtNombre.getText();
+					listaFiltrarProducto = gestorProducto.buscarProductoNombre(nom);
+				}
+				if (!(txtPrecio.getText().isEmpty())) {
+					double precio = Double.parseDouble(txtPrecio.getText());
+					listaFiltrarProducto = gestorProducto.buscarProductoPrecio(precio);
+				}
+				if (!(txtPeso.getText().isEmpty())) {
+					double peso = Double.parseDouble(txtPeso.getText());
+					listaFiltrarProducto = gestorProducto.buscarProductoPeso(peso);
+				}
+				model.setRowCount(0);
+				llenarTabla(listaFiltrarProducto);
+			}
+		});
+		btnAplicarFiltros.setBounds(247, 165, 113, 21);
+		contentPane.add(btnAplicarFiltros);
 	}
 	
-	public void llenarTabla(List<Producto> listaProductos) {
+	public void llenarTabla(List<Producto> listaP) {
+		model.setRowCount(0);
 		
-		this.listaProductos = listaProductos;
-		
-		for(Producto p : listaProductos) {
-			Object[] fila = new Object[5];//columnas
+		for(Producto p : listaP) {
+			Object[] fila = new Object[6];
 			
 			fila[0] = p.getNombre();
-			fila[1] = p.getPrecioUnitario();
-			fila[2] = p.getPesoKg();
+			fila[1] = p.getDescripcion();
+			fila[2] = p.getPrecioUnitario();
+			fila[3] = p.getPesoKg();
 			
 			JButton btnEliminar = new JButton("Eliminar");
 			btnEliminar.setName("Eliminar");
