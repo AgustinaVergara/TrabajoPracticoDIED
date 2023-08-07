@@ -1,5 +1,9 @@
 package clases;
 
+import java.time.LocalTime;
+
+import enums.EstadoSucursal;
+
 public class Producto {
 	public String nombre;
 	public String descripcion; 
@@ -45,5 +49,12 @@ public class Producto {
 		this.descripcion = descrip;
 		this.precioUnitario = precioU;
 		this.pesoKg = peso; 
+	}
+	
+	public void modificarProd(String nombre, String descrip, double precio, double peso) {
+		this.nombre = nombre;
+		this.descripcion = descrip;
+		this.precioUnitario = precio;
+		this.pesoKg = peso;
 	}
 }

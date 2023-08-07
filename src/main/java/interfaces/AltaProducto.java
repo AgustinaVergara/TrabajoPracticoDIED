@@ -24,7 +24,6 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.time.LocalTime;
 import java.awt.event.ActionEvent;
 
 public class AltaProducto extends JFrame {
