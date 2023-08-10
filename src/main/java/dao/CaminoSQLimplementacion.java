@@ -109,7 +109,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				String estado = rs.getString(4);
 				Double capacidad= rs.getDouble(5);
 				Integer tiempo= rs.getInt(6);
-				
+				System.out.println("ESTE ES EL ESTADO QUE ENCUENTRA:"+ estado);
 				Sucursal so = gestorCamino.buscarSucursal(nombreSo);
 				Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
 				
@@ -117,7 +117,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 					caminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.OPERATIVA, capacidad));
 				}
 				else caminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
-				
+		
 				
 			}
 			
@@ -195,42 +195,52 @@ public class CaminoSQLimplementacion implements CaminoDao{
 	public void modificarCamino(Camino caminoAEditar) {
 		// TODO Auto-generated method stub
 		// CONECTAMOS A LA BD
+		String consulta = "UPDATE tpdied.camino "
+				+ "SET   estado= ?, "
+				+ "    capacidad_max= ? "
+				+ "    tiempo_transito= ?" 
+				+ "WHERE id_camino= ?;";
+		
 		Conexion conexion = new Conexion();
-				
-		Connection cn = null; //para conectar a la bd
-		PreparedStatement st = null; //para hacer las consultas SQL
-		//ResultSet rs = null;
-		String consultaModificacion = "update tpdied.camino set sucursal_origen = ?, sucursal_destino = ?,estado= ?, capacidad_max= ?,tiempo_transito=? where id_camino= ?;";
-				
-			
+		
+		Connection cn = null;
+		PreparedStatement st = null;
+		
 		try {
 			cn = conexion.conectar();
-			cn.setAutoCommit(false);
-			st = cn.prepareStatement(consultaModificacion);
 			
-			st.setInt(6, caminoAEditar.getId());
-			st.setString(1, caminoAEditar.getSO().getNombre());
-			st.setString(2, caminoAEditar.getSD().getNombre());
-				if(caminoAEditar.getEsOperativa() == EstadoSucursal.NO_OPERATIVA) {
-					String estado = "NO OPERATIVA";
-					st.setString(3, estado);
-				} else {
-					String estado = "OPERATIVA";
-					st.setString(3, estado);}
-			st.setDouble(4, caminoAEditar.getCapacidadMax());
-			st.setInt(5, caminoAEditar.getTiempoTransito());
-			// 	EJECUTAMOS
+			st = cn.prepareStatement(consulta);
+		
+			st.setString(1, caminoAEditar.getEsOperativa().toString());	
+			st.setDouble(2, caminoAEditar.getCapacidadMax());
+			st.setInt(3, caminoAEditar.getTiempoTransito());
+			st.setInt(4, caminoAEditar.getId());
 			st.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
-		}
-		catch(SQLException e){
+			
+		}  catch(SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al modificar los datos"+ e.toString());
-			//e.printStackTrace();
-			}finally {
-				//if (rs != null) {try {rs.close();} catch (Exception e) {e.printStackTrace();}}
-				if (st != null) {try {st.close();} catch (Exception e) {e.printStackTrace();}}
-				if (cn != null) {try {cn.close();} catch (Exception e) {e.printStackTrace();}}
+		}
+		finally {
+			if (st != null) {
+				try {
+					st.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			if (cn != null) {
+				try {
+					cn.close();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+			
+
 	}
 
 	@Override
@@ -270,65 +280,8 @@ public class CaminoSQLimplementacion implements CaminoDao{
 		return id;
 	}
 	
-	public List<Camino> buscarxId(int id) {
-		List<Camino> listacaminos = new ArrayList<>();
-		GestorCamino gestorCamino = GestorCamino.getInstance();
-		String consulta = "select * from tpdied.camino where id_camino= ?";
-		
-		Conexion conexion = new Conexion();
-		
-		Connection cn = null; //para conectar a la bd
-		PreparedStatement st = null; //para hacer las consultas SQL
-		ResultSet rs = null;
-		try {
-			cn = conexion.conectar();
-			st = cn.prepareStatement(consulta);
-			st.setInt(1, id);
-			rs = st.executeQuery();
-			
-			//En rs esta la tabla y ahora hay que recorrerla fila por fila
-			while(rs.next()) {
-				//Integer idCamino = rs.getInt(1);
-				String nombreSo = rs.getString(2);
-				String nombreSD = rs.getString(3);
-				String estado = rs.getString(4);
-				Double capacidad= rs.getDouble(5);
-				Integer tiempo= rs.getInt(6);
-				
-				Sucursal so = gestorCamino.buscarSucursal(nombreSo);
-				Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
-				
-				if (estado.equals("OPERATIVA")) {
-					listacaminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.OPERATIVA, capacidad));
-				}
-				else listacaminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
-				
-				//System.out.println(id + " " + so + " " + sd + " " + tiempo + " " + estado+" "+capacidad );
-				
-			}
-			
-			if(rs != null) {
-				rs.close();
-			}
-			if(st != null) {
-				st.close();
-			}
-			if(cn != null) {
-				cn.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			//Para liberar recursos
 
-			if (rs != null) {try {rs.close();} catch (Exception e) {e.printStackTrace();}}
-			if (st != null) {try {st.close();} catch (Exception e) {e.printStackTrace();}}
-			if (cn != null) {try {cn.close();} catch (Exception e) {e.printStackTrace();}}
-		}
-		
-		return listacaminos;
-		
-	}
+
 	public List<Camino> buscarxNombreSucursalOrigen(String nombreSucursal) {
 		List<Camino> listaCaminos= null;
 		GestorCamino gestorCamino = GestorCamino.getInstance();

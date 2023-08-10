@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.stream.Collectors;
+import java.util.stream.Collectors;
 
 import clases.*;
 import conexion.Conexion;
@@ -76,17 +76,27 @@ public class GestorCamino {
 		caminos.remove(camino);
 	}
 	
-	public void modificarCamino(Camino camino) {
-		caminos = caminoDAO.buscarCaminos();
-		caminoDAO.modificarCamino(camino);;
+	public Camino buscarCaminoxId(Integer id) {
+		List<Camino> caminos = caminoDAO.buscarCaminos();
+		Camino camino = null;
+		for(Camino c: caminos) {
+			if (c.getId()== id) {
+				camino =  c;
+				return camino;
+			}
+		}
+		return camino;
+	}
+	
+	public void modificarCamino(int id, double capacidad, int tiempo, EstadoSucursal estado) {
+		
+		Camino camino = this.buscarCaminoxId(id);
+		camino.modificar(tiempo, estado, capacidad);
+		camino = this.buscarCaminoxId(id);
+		caminoDAO.modificarCamino(camino);
 		
 	}
-	public List<Camino> buscarCaminoxId(int id){
-		List<Camino> caminos = new ArrayList<>();
-		caminos = caminoDAO.buscarxId(id);
-		return caminos;
-		
-	}
+	
 	public List<Camino> buscarCaminoxNombreSO(List<Camino> caminos, String nombreS){
 		List<Camino> lista = new ArrayList<>();
 		for(Camino camino: caminos) {

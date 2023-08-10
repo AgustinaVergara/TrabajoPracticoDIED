@@ -89,6 +89,12 @@ public class Camino  {
 		if (this.estado== EstadoSucursal.OPERATIVA) return true;
 		else return false;
 	}
+	public void modificar(int tiempo, EstadoSucursal estado, double capacidad) {
+
+		this.setEsOperativa(estado);
+		this.setTiempoTransito(tiempo);
+		this.setCapacidadMax(capacidad);
+	}
 	
 	
 }
