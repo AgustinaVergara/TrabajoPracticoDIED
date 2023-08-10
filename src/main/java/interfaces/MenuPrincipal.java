@@ -103,7 +103,7 @@ public class MenuPrincipal extends JFrame {
 
 		contentPane.add(btnGestionarProducto);
 		
-		JButton btnRegistrarStock = new JButton("Control de stock");
+		JButton btnRegistrarStock = new JButton("Gestionar órdenes de provisión");
 		btnRegistrarStock.setBounds(301, 143, 215, 37);
 		contentPane.add(btnRegistrarStock);
 		

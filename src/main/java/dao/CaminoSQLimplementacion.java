@@ -303,7 +303,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				}
 				else listacaminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
 				
-				System.out.println(id + " " + so + " " + sd + " " + tiempo + " " + estado+" "+capacidad );
+				//System.out.println(id + " " + so + " " + sd + " " + tiempo + " " + estado+" "+capacidad );
 				
 			}
 			

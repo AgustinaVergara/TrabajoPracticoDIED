@@ -2,16 +2,21 @@ package interfaces;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import clases.Sucursal;
+import gestores.GestorSucursal;
+
 public class JPanelGestionarSucursal extends JPanel {
 	
 	private JPanelListadoSucursal panelListadoSucursal;
 
+	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 	/**
 	 * Create the panel.
 	 */
@@ -40,7 +45,8 @@ public class JPanelGestionarSucursal extends JPanel {
 		JButton btnListadoDeSucursales = new JButton("Listado de sucursales");
 		btnListadoDeSucursales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelListadoSucursal.llenarTabla();
+				List<Sucursal> listaSucursales = gestorSucursal.getSucursales();
+				panelListadoSucursal.llenarTabla(listaSucursales);
 				JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
 			}
 		});
@@ -57,5 +63,4 @@ public class JPanelGestionarSucursal extends JPanel {
 	public void setPanelListadoSucursal(JPanelListadoSucursal panelListadoSucursal) {
 	    this.panelListadoSucursal = panelListadoSucursal;
 	}
-
 }

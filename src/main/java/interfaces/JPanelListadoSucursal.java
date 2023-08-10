@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import clases.Sucursal;
+import enums.EstadoSucursal;
+import excepciones.CampoInvalidoException;
+import excepciones.NombreSucursalExistenteException;
 import gestores.GestorSucursal;
 
 public class JPanelListadoSucursal extends JPanel {
@@ -31,6 +36,7 @@ public class JPanelListadoSucursal extends JPanel {
 	private JTextField txtMinutoApertura;
 	private JTextField txtHoraCierre;
 	private JTextField txtMinutoCierre;
+	private JComboBox<String> comboBoxEstado;
 	
 	
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
@@ -62,8 +68,10 @@ public class JPanelListadoSucursal extends JPanel {
 		lblNewLabel_3.setBounds(48, 126, 77, 13);
 		add(lblNewLabel_3);
 		
-		JComboBox<String> comboBoxEstado = new JComboBox<String>();
+		comboBoxEstado = new JComboBox<String>();
 		comboBoxEstado.setBounds(124, 122, 138, 21);
+		comboBoxEstado.setSelectedItem(null);
+		comboBoxEstado.addItem("Seleccione");
 		comboBoxEstado.addItem("OPERATIVA");
 		comboBoxEstado.addItem("NO_OPERATIVA");
 		add(comboBoxEstado);
@@ -107,11 +115,17 @@ public class JPanelListadoSucursal extends JPanel {
 		add(txtMinutoCierre);
 		
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
+		btnAplicarFiltros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Sucursal> totalSucursales = gestorSucursal.getSucursales();
+				llenarTabla(filtrar(totalSucursales));
+			}
+		});
 		btnAplicarFiltros.setBounds(239, 164, 113, 21);
 		add(btnAplicarFiltros);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 195, 555, 112);
+		scrollPane.setBounds(10, 195, 580, 112);
 		add(scrollPane);
 		
 		tableSucursales = new JTable();
@@ -135,7 +149,7 @@ public class JPanelListadoSucursal extends JPanel {
 						        // El usuario confirmó eliminar la sucursal
 						        gestorSucursal.eliminarSucursal(s);
 						        model.setRowCount(0);
-						        llenarTabla();						    
+						        llenarTabla(gestorSucursal.getSucursales());						    
 						    }
 						}
 						if(boton.getName().equals("Modificar")) {
@@ -180,10 +194,8 @@ public class JPanelListadoSucursal extends JPanel {
 		add(btnVolver);
 	}
 	
-	public void llenarTabla() {
+	public void llenarTabla(List<Sucursal> listaSucursales) {
 		model.setRowCount(0);
-		List<Sucursal> listaSucursales = gestorSucursal.getSucursales();
-		
 		
 		for(Sucursal s : listaSucursales) {
 			Object[] fila = new Object[6];
@@ -208,5 +220,42 @@ public class JPanelListadoSucursal extends JPanel {
 	public void setPanelModificarSucursal(JPanelModificarSucursal panelModificarSucursal) {
 	    this.panelModificarSucursal = panelModificarSucursal;
 	}
-
+	
+	public List<Sucursal> filtrar(List<Sucursal> totalSucursales){
+		List<Sucursal> sucursalesFiltradas;
+		
+	 		String nombre = txtNombre.getText();
+	 	    LocalTime apertura;
+	 	    LocalTime cierre;
+	 	    EstadoSucursal estado;
+	 	   
+	 	    if(!txtHoraApertura.getText().isEmpty() && !txtMinutoApertura.getText().isEmpty()) {
+	 	    	apertura = LocalTime.of(Integer.parseInt(txtHoraApertura.getText()), Integer.parseInt(txtMinutoApertura.getText()));
+	 	    } else {
+	 	    	apertura = null;
+	 	    }
+	 	    
+	 	   if(!txtHoraCierre.getText().isEmpty() && !txtMinutoCierre.getText().isEmpty()) {
+	 	    	cierre = LocalTime.of(Integer.parseInt(txtHoraCierre.getText()), Integer.parseInt(txtMinutoCierre.getText()));
+	 	    }else {
+	 	    	cierre = null;
+	 	    }
+	 	    
+	 		if (comboBoxEstado.getSelectedItem() != "Seleccione") {
+	 	        estado = EstadoSucursal.valueOf(comboBoxEstado.getSelectedItem().toString());
+	 	    }else {
+	 	    	estado = null;
+	 	    }
+	 		 
+	        sucursalesFiltradas = totalSucursales.stream()
+	                .filter(sucursal -> nombre.isEmpty()|| sucursal.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+	                .filter(sucursal -> apertura == null || sucursal.getHorarioApertura().equals(apertura))
+	                .filter(sucursal -> cierre == null || sucursal.getHorarioCierre().equals(cierre))
+	                .filter(sucursal -> estado == null || sucursal.getEstado().equals(estado))
+	                .collect(Collectors.toList());
+	        
+	 	
+        return sucursalesFiltradas;
+	}
+	
 }

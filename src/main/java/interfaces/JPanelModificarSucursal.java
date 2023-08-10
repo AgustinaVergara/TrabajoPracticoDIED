@@ -127,7 +127,7 @@ public class JPanelModificarSucursal extends JPanel {
 				    	
 				        if (result == JOptionPane.OK_OPTION) {
 				        	
-				        	panelListadoSucursal.llenarTabla();
+				        	panelListadoSucursal.llenarTabla(gestorSucursal.getSucursales());
 				        	JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
 				        }
 				        }
@@ -163,7 +163,13 @@ public class JPanelModificarSucursal extends JPanel {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
+				int respuesta = JOptionPane.showConfirmDialog(null,
+		                "¿Está seguro de que desea cancelar y volver?", 
+		                "Confirmar Cancelar", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+		        if (respuesta == JOptionPane.YES_OPTION) {
+		        	JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
+		        }
 			}
 		});
 		btnCancelar.setBounds(204, 249, 85, 21);

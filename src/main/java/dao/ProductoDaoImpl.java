@@ -113,7 +113,7 @@ public class ProductoDaoImpl implements ProductoDao {
 					Double precioUnitario = rs.getDouble(4);
 					Double peso = rs.getDouble(5);
 					
-					System.out.println(id + " " + nombre + " " + descripcion + " " + precioUnitario + " " + peso);
+					productos.add(new Producto(id, nombre, descripcion, precioUnitario, peso));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

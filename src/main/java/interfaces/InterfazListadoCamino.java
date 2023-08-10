@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import gestores.GestorCamino;
 import dao.CaminoDao;
 import dao.SucursalDao;
 import dao.SucursalDaoImpl;
+import enums.EstadoSucursal;
 import dao.CaminoSQLimplementacion;
 
 import javax.swing.DefaultComboBoxModel;
@@ -242,22 +244,31 @@ public class InterfazListadoCamino extends JFrame {
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
 		btnAplicarFiltros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Camino> listaCaminosFiltro = new ArrayList<>();
+				int id;
+				String  sucursalOrigen, sucursalDestino;
+				EstadoSucursal estado;
+				// DEFINIMOS LOS FILTROS A UTILIZAR 
+				if(textId.getText().isEmpty()) id=-1;
+					else id = Integer.parseInt(textId.getText());
+				if(comboBoxOrigen.getSelectedItem().toString().equals("-SELECCIONE-")) sucursalOrigen = null;
+					else sucursalOrigen= comboBoxOrigen.getSelectedItem().toString();
+				if(comboBoxSDestino.getSelectedItem().toString().equals("-SELECCIONE-")) sucursalDestino= null;
+					else sucursalDestino = comboBoxSDestino.getSelectedItem().toString();
+				if(comboBoxEstado.getSelectedItem().toString().equals("-SELECCIONE-")) estado = null;
+					else estado = EstadoSucursal.valueOf(comboBoxEstado.getSelectedItem().toString());
 				
-				if (textId.getText()!= null) {
-					int id = Integer.parseInt(textId.getText());
-					listaCaminosFiltro= gestorCamino.buscarCaminoxId(id);
-				}
-				/*if (modeloOrigen.getSelectedItem().toString()!= null) {
-					listaCaminosFiltro= gestorCamino.buscarCaminoxNombreSO(listaCaminosFiltro, modeloOrigen.getSelectedItem().toString());
-				}
-				if (comboBoxSDestino.getSelectedItem().toString()!= null) {
-					listaCaminosFiltro= gestorCamino.buscarCaminoxNombreSD(listaCaminosFiltro, comboBoxSDestino.getSelectedItem().toString());
-				}*/
+				List<Camino> caminosList = new ArrayList<>();
+				caminosList= caminoDAO.buscarCaminos();
 				
+				List<Camino> caminosFiltrados = (List<Camino>) caminosList.stream()
+					.filter(camino ->  id == -1 || camino.getId()==(id))
+					.filter(camino -> sucursalOrigen== null || camino.getSO().getNombre().equals(sucursalOrigen))
+					.filter(camino -> sucursalDestino == null || camino.getSD().getNombre().equals(sucursalDestino))
+					.filter(camino -> estado== null || camino.getEsOperativa().equals(estado))
+					.collect(Collectors.toList());
 				
 				model.setRowCount(0);
-				llenarTabla(listaCaminosFiltro);
+				llenarTabla(caminosFiltrados);
 				//limpiarTabla();
 				
 				//switch(){}

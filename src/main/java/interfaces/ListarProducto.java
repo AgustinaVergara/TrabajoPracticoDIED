@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -39,7 +41,22 @@ public class ListarProducto extends JFrame {
 	 */
 	public ListarProducto(InterfazGestionarProducto ventanaGestionarProducto) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 605, 421);
+		// Tamaño deseado para el JFrame
+        int width = 600;
+        int height = 400;
+        
+        // Obtenemos el tamaño de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        // Calculamos las coordenadas (x, y) para centrar el JFrame
+        int x = (screenWidth - width) / 2;
+        int y = (screenHeight - height) / 2;
+        
+        // Establecemos las coordenadas y el tamaño
+        setBounds(x, y, width, height);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -52,7 +69,7 @@ public class ListarProducto extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 208, 571, 124);
+		scrollPane.setBounds(10, 196, 571, 124);
 		contentPane.add(scrollPane);
 		
 		tableProductos = new JTable();
@@ -76,6 +93,7 @@ public class ListarProducto extends JFrame {
 						    if (option == JOptionPane.YES_OPTION) {
 						        gestorProducto.eliminarProducto(p);
 						        model.setRowCount(0);
+						        System.out.println(gestorProducto.getProductos());
 						        llenarTabla(gestorProducto.getProductos());						    
 						    }
 						}
@@ -116,7 +134,7 @@ public class ListarProducto extends JFrame {
 				ventanaGestionarProducto.setVisible(true);
 			}
 		});
-		btnVolver.setBounds(260, 353, 85, 21);
+		btnVolver.setBounds(259, 330, 85, 21);
 		contentPane.add(btnVolver);
 		
 		JLabel lblNewLabel_1 = new JLabel("Filtrar por:");
@@ -165,11 +183,12 @@ public class ListarProducto extends JFrame {
 		this.listaProductos = listaProductos;
 		
 		for(Producto p : listaProductos) {
-			Object[] fila = new Object[5];//columnas
+			Object[] fila = new Object[6];//columnas
 			
 			fila[0] = p.getNombre();
-			fila[1] = p.getPrecioUnitario();
-			fila[2] = p.getPesoKg();
+			fila[1] = p.getDescripcion();
+			fila[2] = p.getPrecioUnitario();
+			fila[3] = p.getPesoKg();
 			
 			JButton btnEliminar = new JButton("Eliminar");
 			btnEliminar.setName("Eliminar");
