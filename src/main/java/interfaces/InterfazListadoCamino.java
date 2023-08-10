@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 
 import clases.Camino;
 import clases.Sucursal;
+import enums.EstadoSucursal;
 import gestores.GestorCamino;
 import dao.CaminoDao;
 import dao.SucursalDao;
@@ -32,7 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.util.stream.Collectors;
 public class InterfazListadoCamino extends JFrame {
 
 	private JPanel contentPane;
@@ -213,7 +214,7 @@ public class InterfazListadoCamino extends JFrame {
  		}
 		comboBoxOrigen.setModel(modeloOrigen);
 		contentPane.add(comboBoxOrigen);
-		String eleccion = modeloOrigen.getSelectedItem().toString();
+		String eleccion = comboBoxOrigen.getSelectedItem().toString();
 		
 		// SUCURSAL DESTINO
 		JLabel sucursalDestino = new JLabel("Sucursal Destino:");
@@ -235,9 +236,7 @@ public class InterfazListadoCamino extends JFrame {
 		 		}
 		comboBoxSDestino.setModel(modeloDestino);
 		contentPane.add(comboBoxSDestino);
-		
-		
-		
+
 		
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
 		btnAplicarFiltros.addActionListener(new ActionListener() {

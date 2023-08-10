@@ -84,7 +84,7 @@ public class InterfazModificarCamino extends JFrame {
 		JButton botonCancelar = new JButton("Cancelar cambios");
 		JButton botonGuardar = new JButton("Guardar cambios");
 		JComboBox estadoComBox = new JComboBox();
-		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"OPERATIVA", "NO OPERTATIVA"}));
+		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONAR-","OPERATIVA", "NO OPERTATIVA"}));
 		JComboBox comboBoxSO = new JComboBox();
 		comboBoxSO.setEditable(true);
 		JComboBox comboBoxSD = new JComboBox();
@@ -126,20 +126,12 @@ public class InterfazModificarCamino extends JFrame {
 		contentPane.add(SucursalOlabel);
 		
 		// ARMANDO COMBOBOX Sucursal Origen
+		
 		modelo =new DefaultComboBoxModel();
-		// COMENZAMOS CON MODELO DEL COMBOBOX
-				String seleccionar = "-SELECCIONE-";
-				modelo.addElement(seleccionar);
-		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
-				for(Sucursal s: sucursales) {
-					Object nombre = new Object();
-					nombre = s.getNombre();
-					modelo.addElement(nombre);
-		 		}
+		String nombreSO = caminoAModificar.getSO().getNombre();
+		modelo.addElement(nombreSO);
+		comboBoxSO.setEditable(false);
 		comboBoxSO.setModel(modelo);
-		String eleccion= comboBoxSO.getToolTipText();
-		//comboBoxSO.setToolTipText(eleccion);
-		//comboBoxSO.setEditable(false);
 		comboBoxSO.setBounds(204, 70, 116, 22);
 		contentPane.add(comboBoxSO);
 		
@@ -147,23 +139,13 @@ public class InterfazModificarCamino extends JFrame {
 		sucursalDLabel.setBounds(25, 115, 128, 14);
 		contentPane.add(sucursalDLabel);
 		
-		// COMBOBOX Sucursal Destino
-		
 		// ARMANDO COMBOBOX Sucursal Destino
 		modelo2 =new DefaultComboBoxModel();
-		// COMENZAMOS CON MODELO DEL COMBOBOX
-				String seleccionar2 = "-SELECCIONE-";
-				modelo2.addElement(seleccionar2);
-		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
-				for(Sucursal s2: sucursales) {
-					Object nombre2 = new Object();
-					if (eleccion != s2.getNombre()) {
-					nombre2 = s2.getNombre();
-					modelo2.addElement(nombre2);
-					}
-		 		}
+		
+		String nombreSD = caminoAModificar.getSD().getNombre();
+		modelo2.addElement(nombreSD);
 		comboBoxSD.setModel(modelo2);
-		comboBoxSD.setEditable(true);
+		comboBoxSD.setEditable(false);
 		comboBoxSD.setBounds(204, 111, 116, 22);
 		contentPane.add(comboBoxSD);
 		
@@ -226,16 +208,17 @@ public class InterfazModificarCamino extends JFrame {
 		botonGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String sucursalO, sucursalD, capMaxS, estadoS;
+				String capMaxS, estadoS;//sucursalO, sucursalD, 
+						
 				int tiempo;
-				Sucursal so, sd;
-				EstadoSucursal estado = EstadoSucursal.OPERATIVA;
+				//Sucursal so, sd;
+				EstadoSucursal estado = null;
 				double capacidad;
 				
 				// COMENZAMOS VALIDACION DE DATOS
 				
 				//SUCURSAL ORIGEN
-				sucursalO= comboBoxSO.getSelectedItem().toString();
+				/*sucursalO= comboBoxSO.getSelectedItem().toString();
 				
 				// SUCURSAL NO SELECCIONADA
 				if(sucursalO == "-SELECCIONE-") {
@@ -247,7 +230,7 @@ public class InterfazModificarCamino extends JFrame {
 				//SUCURSAL NO SELECCIONADA
 				if(sucursalD == "-SELECCIONE-") {
 					labelErrorSD.setText("Por favor, ingrese una sucursal de Destino");
-				}
+				}*/
 				
 				// CAPACIDAD DE LA RUTA EN KG VACIA
 				
@@ -259,8 +242,8 @@ public class InterfazModificarCamino extends JFrame {
 				if (tiemTransitoTxt.getText().isEmpty()) {
 					labelErrorTiempo.setText("Por favor ingrese el tiempo de transito para el camino");
 				}
-				so= Camino.buscarSucursal(sucursalO);
-				sd= Camino.buscarSucursal(sucursalD);
+				/*so= Camino.buscarSucursal(sucursalO);
+				sd= Camino.buscarSucursal(sucursalD);*/
 				capMaxS= capacidadKgTxt.getText();
 				capacidad= Double.parseDouble(capMaxS);
 				estadoS= estadoComBox.getSelectedItem().toString();
@@ -268,13 +251,12 @@ public class InterfazModificarCamino extends JFrame {
 					estado = EstadoSucursal.OPERATIVA;
 					else if(estadoS== "NO OPERATIVA")
 							estado = EstadoSucursal.NO_OPERATIVA;
-						else  if(estadoS == "-SELECCIONE")
+						else  if(estadoS == "-SELECCIONAR-")
 							labelErrorEstado.setText("Por favor ingrese un estado para el camino");
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
 				
-				gestorCamino.modificarCamino(caminoAModificar);
-				//Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
-				//gestorCamino.agregarCamino(nuevoCamino);
+				gestorCamino.modificarCamino(caminoAModificar.getId(), capacidad, tiempo, estado);
+				
 				
 				}
 			});

@@ -64,7 +64,7 @@ public class VentanaCamino extends JFrame {
 		JButton botonCancelar = new JButton("Cancelar");
 		JButton botonGuardar = new JButton("Guardar");
 		JComboBox estadoComBox = new JComboBox();
-		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"OPERATIVA", "NO OPERTATIVA"}));
+		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-","OPERATIVA", "NO OPERTATIVA"}));
 		JComboBox comboBoxSO = new JComboBox();
 		comboBoxSO.setEditable(true);
 		JComboBox comboBoxSD = new JComboBox();
@@ -275,7 +275,7 @@ public class VentanaCamino extends JFrame {
 				gestorCamino.agregarCamino(nuevoCamino);
 				ventanaGestionarCaminos.setVisible(true);
 				JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
-                dispose();
+
 				}
 			});
 		botonGuardar.setBounds(326, 285, 116, 23);
@@ -308,8 +308,13 @@ public class VentanaCamino extends JFrame {
 		String [] botones = {"Si", "Cancelar"};
 		int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de cancelar la operacion?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
 		/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
+
 		if(i==0) 
 			dispose();
+
+			// ventanaGestionarCaminos.setVisible(true);
+			//System.exit((WIDTH));
+
 		
 	}
 }
