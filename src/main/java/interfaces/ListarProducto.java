@@ -196,9 +196,9 @@ public class ListarProducto extends JFrame {
 	
 	public void llenarTabla(List<Producto> listaP) {
 		model.setRowCount(0);
+
 		
-		
-		for(Producto p : listaProductos) {
+		for(Producto p : listaP) {
 			Object[] fila = new Object[6];//columnas
 			
 			fila[0] = p.getNombre();
