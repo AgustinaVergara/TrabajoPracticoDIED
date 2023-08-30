@@ -65,6 +65,7 @@ public class InterfazModificarCamino extends JFrame {
 
 		setContentPane(contentPane);
 		
+		
 		JLabel tituloVentana = new JLabel("MODIFICAR CAMINO");
 		JLabel idCaminoLabel = new JLabel("ID (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
