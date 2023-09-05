@@ -209,28 +209,9 @@ public class InterfazModificarCamino extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String capMaxS, estadoS;//sucursalO, sucursalD, 
-						
 				int tiempo;
-				//Sucursal so, sd;
 				EstadoSucursal estado = null;
 				double capacidad;
-				
-				// COMENZAMOS VALIDACION DE DATOS
-				
-				//SUCURSAL ORIGEN
-				/*sucursalO= comboBoxSO.getSelectedItem().toString();
-				
-				// SUCURSAL NO SELECCIONADA
-				if(sucursalO == "-SELECCIONE-") {
-					labelErrorSucursalO.setText("Por favor, ingrese una sucursal de Origen");}
-				
-				// SUCURSAL DESTINO
-				 sucursalD= comboBoxSD.getSelectedItem().toString();
-				 
-				//SUCURSAL NO SELECCIONADA
-				if(sucursalD == "-SELECCIONE-") {
-					labelErrorSD.setText("Por favor, ingrese una sucursal de Destino");
-				}*/
 				
 				// CAPACIDAD DE LA RUTA EN KG VACIA
 				

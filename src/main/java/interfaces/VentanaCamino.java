@@ -15,11 +15,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import clases.Camino;
+import clases.Grafo;
 import clases.Sucursal;
 import dao.*;
 import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
+import gestores.GestorGrafo;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -38,6 +41,7 @@ public class VentanaCamino extends JFrame {
 	private JTextField tiemTransitoTxt;
 	
 	public GestorCamino gestorCamino= GestorCamino.getInstance();
+	private static GestorGrafo gestorGrafo = GestorGrafo.getInstance();
 
 	/**
 	 * Create the frame.
@@ -273,6 +277,12 @@ public class VentanaCamino extends JFrame {
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
 				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
 				gestorCamino.agregarCamino(nuevoCamino);
+				
+				
+				Grafo nuevoGrafo = new Grafo();
+				nuevoGrafo= gestorGrafo.crearGrafo(nuevoCamino, so, sd);
+				gestorGrafo.agregarGrafo(nuevoGrafo);
+				
 				ventanaGestionarCaminos.setVisible(true);
 				JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
 

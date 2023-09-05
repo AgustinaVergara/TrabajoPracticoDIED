@@ -14,11 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clases.Camino;
+import clases.Grafo;
 import gestores.GestorCamino;
 import gestores.GestorSucursal;
 import dao.*;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 public class InterfazGestionarCaminos extends JFrame {
 
 	private JPanel contentPane;
@@ -69,7 +71,7 @@ public class InterfazGestionarCaminos extends JFrame {
 				//ventanaGestionarCaminos.setVisible(true);
 			}
 		});
-		btnVolver.setBounds(251, 217, 85, 21);
+		btnVolver.setBounds(254, 270, 85, 21);
 		contentPane.add(btnVolver);
 		
 		final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
@@ -100,6 +102,23 @@ public class InterfazGestionarCaminos extends JFrame {
 		lblNewLabel.setBounds(166, 38, 248, 13);
 		contentPane.add(lblNewLabel);
 		
+		JButton btnVerGrafos = new JButton("Ver Grafo");
+		btnVerGrafos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Grafo g = new Grafo();
+				//JPanelGrafo jPanelGrafo = new JPanelGrafo();
+				//jPanelGrafo.setVisible(true);
+		        SwingUtilities.invokeLater(() -> {
+		        	JPanelGrafo graphDrawing = new JPanelGrafo();
+		            graphDrawing.setVisible(true);
+		        });
+				//JPanelGrafo jPanelGrafo;// = new JPanelGrafo(g);
+			//	jPanelGrafo.setVisible(true);;
+				//setVisible(false);
+			}
+		});
+		btnVerGrafos.setBounds(166, 213, 248, 21);
+		contentPane.add(btnVerGrafos);
+		
 	}
-
 }

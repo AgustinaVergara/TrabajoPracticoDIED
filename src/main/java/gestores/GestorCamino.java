@@ -17,6 +17,7 @@ import enums.*;
 public class GestorCamino {
 	private List<Camino> caminos;
 	private static GestorCamino gestor;
+	private static GestorGrafo gestorGrafo;
 	private CaminoDao caminoDAO;
 	private static Integer siguienteIdCamino; 
 	
@@ -68,6 +69,7 @@ public class GestorCamino {
 	public void agregarCamino(Camino camino) {
 		caminos.add(camino);
 		caminoDAO.crearCamino(camino);
+		
 	}
 	
 	public void eliminarCamino(Camino camino) {

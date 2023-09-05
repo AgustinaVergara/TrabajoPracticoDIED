@@ -1,10 +1,12 @@
 package clases;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 import enums.EstadoSucursal;
 
 public class Sucursal {
+	
 	private Integer id;
 	private String nombre;
 	private LocalTime horarioApertura;
@@ -63,7 +65,24 @@ public class Sucursal {
 		this.horarioCierre = horarioCierre;
 		this.estado = estado;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sucursal other = (Sucursal) obj;
+		return Objects.equals(id, other.id);
+	}
 	
+	
+
 	
 
 }
