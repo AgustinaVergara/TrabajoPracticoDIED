@@ -1,51 +1,52 @@
 package interfaces;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import clases.Camino;
 import clases.Sucursal;
-import dao.*;
+import dao.CaminoDao;
+import dao.CaminoSQLimplementacion;
+import dao.SucursalDao;
 import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
-import java.awt.Color;
-import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-public class VentanaCamino extends JFrame {
+public class JPanelAltaCamino extends JPanel {
 
-	private static final WindowListener WindowAdapter = null;
-	private JPanel contentPane;
 	private JTextField idRutaTxt;
-	private JTextField sucursalOtxt;
-	private JTextField sucursalDtxt;
+	private JComboBox<String> comboBoxSO;
+	private JComboBox<String> comboBoxSD;
+	private JComboBox<String> estadoComBox;
 	private JTextField capacidadKgTxt;
 	private JTextField tiemTransitoTxt;
 	
 	public GestorCamino gestorCamino= GestorCamino.getInstance();
-
+	
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
-
-			
-	public VentanaCamino(InterfazGestionarCaminos ventanaGestionarCaminos) {
+	public JPanelAltaCamino() {
+		setLayout(null);
+		
 		JLabel tituloVentana = new JLabel("ALTA CAMINO");
+		tituloVentana.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel idCaminoLabel = new JLabel("ID (*)");
 		JLabel SucursalOlabel = new JLabel("Sucursal Origen (*)");
 		JLabel sucursalDLabel = new JLabel("Sucursal Destino (*)");
@@ -62,12 +63,13 @@ public class VentanaCamino extends JFrame {
 		tiemTransitoTxt = new JTextField();
 		capacidadKgTxt = new JTextField();
 		JButton botonCancelar = new JButton("Cancelar");
+		
 		JButton botonGuardar = new JButton("Guardar");
-		JComboBox estadoComBox = new JComboBox();
-		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"-SELECCIONE-","OPERATIVA", "NO OPERTATIVA"}));
-		JComboBox comboBoxSO = new JComboBox();
+		estadoComBox = new JComboBox();
+		estadoComBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccione","OPERATIVA", "NO OPERTATIVA"}));
+		comboBoxSO = new JComboBox();
 		comboBoxSO.setEditable(true);
-		JComboBox comboBoxSD = new JComboBox();
+		comboBoxSD = new JComboBox();
 		//CREO UN MODELO A SEGUIR PARA EL COMBO BOX DE SUCURSALES
 		DefaultComboBoxModel modelo;
 		DefaultComboBoxModel modelo2;
@@ -77,58 +79,33 @@ public class VentanaCamino extends JFrame {
 		sucursales = dao.buscarSucursales();
 		CaminoDao daocamino = new CaminoSQLimplementacion();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		// Tamaño deseado para el JFrame
-        int width = 600;
-        int height = 400;
-        
-        // Obtenemos el tamaño de la pantalla
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        
-        // Calculamos las coordenadas (x, y) para centrar el JFrame
-        int x = (screenWidth - width) / 2;
-        int y = (screenHeight - height) / 2;
-        
-        // Establecemos las coordenadas y el tamaño
-        setBounds(x, y, width, height);
-		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		
 		// Label camino ID
 		idCaminoLabel.setBounds(25, 43, 107, 14);
-		contentPane.add(idCaminoLabel);
+		add(idCaminoLabel);
 		
 		// TXT id Camino
 		String id;
 		int idInt= daocamino.getUltimoIdCamino() +1;
 		id= Integer.toString(idInt);
 		idRutaTxt.setText(id);
-		idRutaTxt.setBounds(204, 40, 116, 20);
-		contentPane.add(idRutaTxt);
+		idRutaTxt.setBounds(188, 37, 116, 20);
+		add(idRutaTxt);
 		idRutaTxt.setColumns(10);
 		
 		// titulo de la ventana 
 		tituloVentana.setBackground(Color.BLACK);
 		tituloVentana.setToolTipText("");
-		tituloVentana.setBounds(157, 11, 122, 14);
-		contentPane.add(tituloVentana);
+		tituloVentana.setBounds(261, 10, 122, 14);
+		add(tituloVentana);
 		
 		// Label Sucursal
 		SucursalOlabel.setBounds(25, 74, 128, 14);
-		contentPane.add(SucursalOlabel);
+		add(SucursalOlabel);
 		
 		// ARMANDO COMBOBOX Sucursal Origen
 		modelo =new DefaultComboBoxModel();
 		// COMENZAMOS CON MODELO DEL COMBOBOX
-				String seleccionar = "-SELECCIONE-";
+				String seleccionar = "Seleccione";
 				modelo.addElement(seleccionar);
 		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
 				for(Sucursal s: sucursales) {
@@ -138,21 +115,19 @@ public class VentanaCamino extends JFrame {
 		 		}
 		comboBoxSO.setModel(modelo);
 		String eleccion= comboBoxSO.getToolTipText();
-		//comboBoxSO.setToolTipText(eleccion);
-		//comboBoxSO.setEditable(false);
-		comboBoxSO.setBounds(204, 70, 116, 22);
-		contentPane.add(comboBoxSO);
+		comboBoxSO.setBounds(188, 67, 116, 22);
+		add(comboBoxSO);
 		
 		// Label Sucursal Destino
 		sucursalDLabel.setBounds(25, 115, 128, 14);
-		contentPane.add(sucursalDLabel);
+		add(sucursalDLabel);
 		
 		// COMBOBOX Sucursal Destino
 		
 		// ARMANDO COMBOBOX Sucursal Destino
 		modelo2 =new DefaultComboBoxModel();
 		// COMENZAMOS CON MODELO DEL COMBOBOX
-				String seleccionar2 = "-SELECCIONE-";
+				String seleccionar2 = "Seleccione";
 				modelo2.addElement(seleccionar2);
 		//CARGAMOS LOS NOMBRES DE LAS SUCURSALES
 				for(Sucursal s2: sucursales) {
@@ -164,62 +139,62 @@ public class VentanaCamino extends JFrame {
 		 		}
 		comboBoxSD.setModel(modelo2);
 		comboBoxSD.setEditable(true);
-		comboBoxSD.setBounds(204, 111, 116, 22);
-		contentPane.add(comboBoxSD);
+		comboBoxSD.setBounds(188, 108, 116, 22);
+		add(comboBoxSD);
 		
 		// Label estado de camino
 		estadoLabel.setBounds(25, 159, 56, 14);
-		contentPane.add(estadoLabel);
+		add(estadoLabel);
 		
 		// Label capacidad de camino en kg
 		capacidadLabel.setBounds(25, 195, 177, 14);
-		contentPane.add(capacidadLabel);
+		add(capacidadLabel);
 		
 		// TXT capacidad de ruta en kilogramos
-		capacidadKgTxt.setBounds(204, 194, 116, 20);
-		contentPane.add(capacidadKgTxt);
+		capacidadKgTxt.setBounds(188, 191, 116, 20);
+		add(capacidadKgTxt);
 		capacidadKgTxt.setColumns(10);
 		
 		// Label Tiempo de transito en min
-		tiempTransitoLabel.setBounds(25, 245, 177, 14);
-		contentPane.add(tiempTransitoLabel);
+		tiempTransitoLabel.setBounds(25, 235, 165, 14);
+		add(tiempTransitoLabel);
 		
 		// TXT tiempo de transito en minutos
-		tiemTransitoTxt.setBounds(204, 242, 116, 20);
-		contentPane.add(tiemTransitoTxt);
+		tiemTransitoTxt.setBounds(188, 233, 116, 20);
+		add(tiemTransitoTxt);
 		tiemTransitoTxt.setColumns(10);
 		
 		//Combo box de Estado Ruta
 		
 		estadoComBox.setEditable(true);
-		estadoComBox.setBounds(204, 155, 116, 22);
-		contentPane.add(estadoComBox);
+		estadoComBox.setBounds(188, 152, 116, 22);
+		add(estadoComBox);
 				
 				
 		//label Error Sucursal Origen
 		labelErrorSucursalO.setBounds(145, 93, 257, 14);;
 		labelErrorSucursalO.setForeground(Color.RED);
-		contentPane.add(labelErrorSucursalO);
+		add(labelErrorSucursalO);
 			
 		//labelError Sucursal Destino
 		labelErrorSD.setBounds(145, 132, 257, 14);
 		labelErrorSD.setForeground(Color.RED);
-		contentPane.add(labelErrorSD);
+		add(labelErrorSD);
 				
 		//Label Error Estado
 		labelErrorEstado.setBounds(233, 152, 46, 14);
 		labelErrorEstado.setForeground(Color.RED);
-		contentPane.add(labelErrorEstado);
+		add(labelErrorEstado);
 				
 		//Label Error Tiempo
 		labelErrorTiempo.setBounds(126, 268, 316, 14);
 		labelErrorTiempo.setForeground(Color.RED);
-		contentPane.add(labelErrorTiempo);
+		add(labelErrorTiempo);
 				
 		//label Error Capacidad
-		labelErrorCapacidad.setBounds(81, 220, 391, 14);
+		labelErrorCapacidad.setBounds(25, 219, 391, 14);
 		labelErrorCapacidad.setForeground(Color.RED);
-		contentPane.add(labelErrorCapacidad);
+		add(labelErrorCapacidad);
 		
 
 		//Boton Guardar
@@ -238,19 +213,18 @@ public class VentanaCamino extends JFrame {
 				sucursalO= comboBoxSO.getSelectedItem().toString();
 				
 				// SUCURSAL NO SELECCIONADA
-				if(sucursalO == "-SELECCIONE-") {
+				if(sucursalO == "Seleccione") {
 					labelErrorSucursalO.setText("Por favor, ingrese una sucursal de Origen");}
 				
 				// SUCURSAL DESTINO
 				 sucursalD= comboBoxSD.getSelectedItem().toString();
 				 
 				//SUCURSAL NO SELECCIONADA
-				if(sucursalD == "-SELECCIONE-") {
+				if(sucursalD == "Seleccione") {
 					labelErrorSD.setText("Por favor, ingrese una sucursal de Destino");
 				}
 				
 				// CAPACIDAD DE LA RUTA EN KG VACIA
-				
 				if(capacidadKgTxt.getText().isEmpty()) {
 					labelErrorCapacidad.setText("Por favor ingrese una capacidad maxima en kg para el camino");
 				}
@@ -268,53 +242,48 @@ public class VentanaCamino extends JFrame {
 					estado = EstadoSucursal.OPERATIVA;
 					else if(estadoS== "NO OPERATIVA")
 							estado = EstadoSucursal.NO_OPERATIVA;
-						else  if(estadoS == "-SELECCIONE")
+						else  if(estadoS == "Seleccione")
 							labelErrorEstado.setText("Por favor ingrese un estado para el camino");
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
 				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
 				gestorCamino.agregarCamino(nuevoCamino);
-				ventanaGestionarCaminos.setVisible(true);
 				JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
+				vaciarCampos();
+				MenuPrincipal.mostrarPanel("GestionarCamino");
 
 				}
 			});
 		botonGuardar.setBounds(326, 285, 116, 23);
-		contentPane.add(botonGuardar);
+		add(botonGuardar);
 		
 
 		//Boton Cancelar
-		botonCancelar.setBounds(188, 285, 116, 23);
-		contentPane.add(botonCancelar);
-		
-		
-		// EN BOTON CANCELAR SOLO LIMPIAMOS LOS DATOS INGRESADOS 
-		
-		 botonCancelar.addActionListener(new ActionListener(){
-
-			@Override
+		botonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				cerrar();
-				ventanaGestionarCaminos.setVisible(true);
+				int respuesta = JOptionPane.showConfirmDialog(null,
+		                "¿Está seguro de que desea cancelar y volver?", 
+		                "Confirmar Cancelar", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+		        if (respuesta == JOptionPane.YES_OPTION) {
+		        	vaciarCampos();
+		        	MenuPrincipal.mostrarPanel("GestionarCamino");
 			}
-		 
-		 });
+			}
+		});
+		botonCancelar.setBounds(188, 285, 116, 23);
+		add(botonCancelar);
 		
 	}
 	
-	// METODO PARA CONFIRMAR EL CIERRE DEL JFRAME CDO SELECCIONAMOS BOTON CANCELAR
-	
-	public void cerrar() {
-		String [] botones = {"Si", "Cancelar"};
-		int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de cancelar la operacion?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
-		/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
-
-		if(i==0) 
-			dispose();
-
-			// ventanaGestionarCaminos.setVisible(true);
-			//System.exit((WIDTH));
-
-		
+	public void vaciarCampos() {
+		comboBoxSO.setSelectedItem(null);
+		comboBoxSO.setSelectedItem("Seleccione");
+		comboBoxSD.setSelectedItem(null);
+		comboBoxSD.setSelectedItem("Seleccione");
+		estadoComBox.setSelectedItem(null);
+		estadoComBox.setSelectedItem("Seleccione");
+		capacidadKgTxt.setText("");
+		tiemTransitoTxt.setText("");
 	}
+
 }

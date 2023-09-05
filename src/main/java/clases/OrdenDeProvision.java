@@ -9,7 +9,8 @@ public class OrdenDeProvision {
 	private Integer idOrdenProvision;
 	private LocalTime fechaOrden;
 	private Sucursal sucursalDestino;
-	private Double tiempoMaxEnHs;
+	private LocalTime horaMax;
+	private LocalTime minutoMax;
 	private Map<Producto, Integer> productosCantidad;
 	private EstadoOrden estado;
 	
@@ -38,14 +39,23 @@ public class OrdenDeProvision {
 		this.sucursalDestino = sucursalDestino;
 	}
 	
-	public Double getTiempoMaxEnHs() {
-		return tiempoMaxEnHs;
-	}
 	
-	public void setTiempoMaxEnHs(Double tiempoMaxEnHs) {
-		this.tiempoMaxEnHs = tiempoMaxEnHs;
+	public LocalTime getHoraMax() {
+		return horaMax;
 	}
-	
+
+	public void setHoraMax(LocalTime horaMax) {
+		this.horaMax = horaMax;
+	}
+
+	public LocalTime getMinutoMax() {
+		return minutoMax;
+	}
+
+	public void setMinutoMax(LocalTime minutoMax) {
+		this.minutoMax = minutoMax;
+	}
+
 	public Map<Producto, Integer> getProductosCantidad() {
 		return productosCantidad;
 	}
