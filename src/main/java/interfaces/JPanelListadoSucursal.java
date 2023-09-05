@@ -117,6 +117,7 @@ public class JPanelListadoSucursal extends JPanel {
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
 		btnAplicarFiltros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				model.setRowCount(0);
 				List<Sucursal> totalSucursales = gestorSucursal.getSucursales();
 				llenarTabla(filtrar(totalSucursales));
 			}
@@ -153,10 +154,12 @@ public class JPanelListadoSucursal extends JPanel {
 						    }
 						}
 						if(boton.getName().equals("Modificar")) {
-							Sucursal s = gestorSucursal.getSucursales().get(row); //obtener sucursal seleccionada
+							//obtener sucursal seleccionada
+							List<Sucursal> sucursalesEnTabla = filtrar(gestorSucursal.getSucursales());
+							Sucursal s = sucursalesEnTabla.get(row);
 					        panelModificarSucursal.setSucursalSeleccionada(s);
-					        panelModificarSucursal.setCamposAModificar();
-							JFramePrincipalSucursal.mostrarPanel("ModificarSucursal");
+					        panelModificarSucursal.setCamposAModificar();					  
+					        MenuPrincipal.mostrarPanel("ModificarSucursal");
 							
 						}
 						
@@ -187,7 +190,8 @@ public class JPanelListadoSucursal extends JPanel {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setRowCount(0);
-				JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
+				limpiarFiltros();
+				MenuPrincipal.mostrarPanel("GestionarSucursal");
 			}
 		});
 		btnVolver.setBounds(239, 317, 113, 21);
@@ -256,6 +260,17 @@ public class JPanelListadoSucursal extends JPanel {
 	        
 	 	
         return sucursalesFiltradas;
+	}
+	
+	public void limpiarFiltros () {
+		txtNombre.setText("");
+		txtHoraApertura.setText("");
+		txtMinutoApertura.setText("");
+		txtHoraCierre.setText("");
+		txtMinutoCierre.setText("");		
+		comboBoxEstado.setSelectedItem(null);
+		comboBoxEstado.setSelectedItem("Seleccione");
+		
 	}
 	
 }

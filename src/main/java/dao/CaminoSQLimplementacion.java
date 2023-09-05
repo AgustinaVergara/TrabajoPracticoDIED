@@ -109,7 +109,6 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				String estado = rs.getString(4);
 				Double capacidad= rs.getDouble(5);
 				Integer tiempo= rs.getInt(6);
-				System.out.println("ESTE ES EL ESTADO QUE ENCUENTRA:"+ estado);
 				Sucursal so = gestorCamino.buscarSucursal(nombreSo);
 				Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
 				
@@ -196,10 +195,11 @@ public class CaminoSQLimplementacion implements CaminoDao{
 		// TODO Auto-generated method stub
 		// CONECTAMOS A LA BD
 		String consulta = "UPDATE tpdied.camino "
-				+ "SET   estado= ?, "
-				+ "    capacidad_max= ? "
-				+ "    tiempo_transito= ?" 
-				+ "WHERE id_camino= ?;";
+				+ "SET estado = ?, "
+				+ "    capacidad_max = ?, "
+				+ "    tiempo_transito = ? " 
+				+ " WHERE id_camino = ?;";
+	
 		
 		Conexion conexion = new Conexion();
 		

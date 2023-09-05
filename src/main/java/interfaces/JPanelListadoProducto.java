@@ -21,57 +21,37 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import clases.Producto;
+import clases.Sucursal;
 import gestores.GestorProducto;
 
-public class ListarProducto extends JFrame {
-
-	private JPanel contentPane;
+public class JPanelListadoProducto extends JPanel {
+	
 	private JTable tableProductos;
 	private MyTableModel model;
 	
-	private InterfazGestionarProducto ventanaGestionarProducto;
 	private JTextField txtNombre;
 	private JTextField txtPrecio;
 	private JTextField txtPeso;
 	private List<Producto> listaProductos;
 	
 	private GestorProducto gestorProducto = GestorProducto.getInstance();
+	
+	private JPanelModificarProducto panelModificarProducto;
 
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
-	public ListarProducto(InterfazGestionarProducto ventanaGestionarProducto) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Tamaño deseado para el JFrame
-        int width = 600;
-        int height = 400;
-        
-        // Obtenemos el tamaño de la pantalla
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        
-        // Calculamos las coordenadas (x, y) para centrar el JFrame
-        int x = (screenWidth - width) / 2;
-        int y = (screenHeight - height) / 2;
-        
-        // Establecemos las coordenadas y el tamaño
-        setBounds(x, y, width, height);
-		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public JPanelListadoProducto() {
+		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("LISTADO DE PRODUCTOS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(197, 23, 196, 13);
-		contentPane.add(lblNewLabel);
+		lblNewLabel.setBounds(199, 22, 198, 13);
+		add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 196, 571, 124);
-		contentPane.add(scrollPane);
+		scrollPane.setBounds(10, 159, 580, 100);
+		add(scrollPane);
 		
 		tableProductos = new JTable();
 		tableProductos.addMouseListener(new MouseAdapter() {
@@ -86,7 +66,7 @@ public class ListarProducto extends JFrame {
 						((JButton)value).doClick();
 						JButton boton = (JButton) value;
 						if(boton.getName().equals("Eliminar")) {
-							Producto p = listaProductos.get(row); 
+							Producto p =  gestorProducto.getProductos().get(row); 
 							
 						    int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres eliminar el producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 						    
@@ -98,10 +78,11 @@ public class ListarProducto extends JFrame {
 						    }
 						}
 						if(boton.getName().equals("Modificar")) {
-							final ModificarProducto ventanaModificarProducto = new ModificarProducto();
-							ventanaModificarProducto.setVisible(true); 
-							setVisible(false);
-							System.out.println("modificar");
+							List<Producto> productosEnTabla = gestorProducto.getProductos(); //deberia agregar un filtrado
+							Producto p = productosEnTabla.get(row);
+							panelModificarProducto.setProductoSeleccionado(p);
+							panelModificarProducto.setCamposAModificar();
+							MenuPrincipal.mostrarPanel("ModificarProducto");
 						}
 						
 					}
@@ -129,44 +110,43 @@ public class ListarProducto extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				model.setRowCount(0); //Limpiar tabla
-				ventanaGestionarProducto.setVisible(true);
+				model.setRowCount(0); 
+				MenuPrincipal.mostrarPanel("GestionarProducto");
 			}
 		});
-		btnVolver.setBounds(259, 330, 85, 21);
-		contentPane.add(btnVolver);
+		btnVolver.setBounds(248, 269, 86, 21);
+		add(btnVolver);
 		
 		JLabel lblNewLabel_1 = new JLabel("Filtrar por:");
-		lblNewLabel_1.setBounds(97, 46, 79, 13);
-		contentPane.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(51, 49, 95, 13);
+		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setBounds(97, 69, 64, 13);
-		contentPane.add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(51, 75, 86, 13);
+		add(lblNewLabel_2);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(171, 69, 138, 19);
-		contentPane.add(txtNombre);
+		txtNombre.setBounds(148, 72, 96, 19);
+		add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel precioUnitario = new JLabel("Precio Unitario:");
-		precioUnitario.setBounds(97, 106, 70, 13);
-		contentPane.add(precioUnitario);
+		precioUnitario.setBounds(51, 104, 95, 13);
+		add(precioUnitario);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(171, 103, 96, 19);
-		contentPane.add(txtPrecio);
+		txtPrecio.setBounds(148, 101, 96, 19);
+		add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
 		JLabel pesoKG = new JLabel("Peso KG:");
-		pesoKG.setBounds(97, 136, 51, 13);
-		contentPane.add(pesoKG);
+		pesoKG.setBounds(337, 72, 71, 13);
+		add(pesoKG);
 		
 		
 		txtPeso = new JTextField();
-		txtPeso.setBounds(171, 133, 96, 19);
-		contentPane.add(txtPeso);
+		txtPeso.setBounds(413, 69, 96, 19);
+		add(txtPeso);
 		txtPeso.setColumns(10);
 		
 		JButton btnAplicarFiltros = new JButton("Aplicar  filtros");
@@ -190,8 +170,13 @@ public class ListarProducto extends JFrame {
 				llenarTabla(listaFiltrarProducto);
 			}
 		});
-		btnAplicarFiltros.setBounds(247, 165, 113, 21);
-		contentPane.add(btnAplicarFiltros);
+		btnAplicarFiltros.setBounds(214, 128, 142, 21);
+		add(btnAplicarFiltros);
+
+	}
+	
+	public void setPanelModificarProducto(JPanelModificarProducto panelModificarProducto) {
+	    this.panelModificarProducto = panelModificarProducto;
 	}
 	
 	public void llenarTabla(List<Producto> listaP) {

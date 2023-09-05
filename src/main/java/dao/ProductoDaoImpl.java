@@ -192,7 +192,7 @@ public class ProductoDaoImpl implements ProductoDao {
 			String consulta = "UPDATE tpdied.producto "
 					+ "SET nombre = ?, "
 					+ "    descripcion = ?, "
-					+ "    precioUniario = ?, "
+					+ "    precioUnitario = ?, "
 					+ "    pesokg = ? "
 					+ "WHERE idProducto = ?;";
 			
@@ -206,12 +206,12 @@ public class ProductoDaoImpl implements ProductoDao {
 			
 				
 				st = cn.prepareStatement(consulta);
-				
-				st.setInt(1, p.getidP());
-				st.setString(2, p.getNombre());
-				st.setString(3, p.getDescripcion());
-				st.setDouble(4, p.getPrecioUnitario());	
-				st.setDouble(5, p.getPesoKg());
+										
+				st.setString(1, p.getNombre());
+				st.setString(2, p.getDescripcion());
+				st.setDouble(3, p.getPrecioUnitario());	
+				st.setDouble(4, p.getPesoKg());
+				st.setInt(5, p.getidP());
 				
 				st.executeUpdate();
 				
