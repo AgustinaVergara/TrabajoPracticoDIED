@@ -1,102 +1,79 @@
 package interfaces;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
+
 import clases.Producto;
+import clases.Sucursal;
 import excepciones.CampoVacioException;
 import gestores.GestorProducto;
 
-public class ModificarProducto extends JFrame {
+public class JPanelModificarProducto extends JPanel {
 
-	private JPanel contentPane;
+
+	private JPanelListadoProducto panelListadoProducto;
+
 	private JTextField txtNombre;
 	private JTextField txtDescripcion;
 	private JTextField txtPrecio;
 	private JTextField txtPeso;
-	private Producto productoSelec;
-	private ListarProducto ventanaListar; 
-	private ListarProducto ListadoProd;
-	private GestorProducto gestorProd = GestorProducto.getInstance();
-	
+	private Producto productoSeleccionado;
 
+	private GestorProducto gestorProducto = GestorProducto.getInstance();
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
-	public ModificarProducto() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Tamaño deseado para el JFrame
-        int width = 600;
-        int height = 400;
-        
-        // Obtenemos el tamaño de la pantalla
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        
-        // Calculamos las coordenadas (x, y) para centrar el JFrame
-        int x = (screenWidth - width) / 2;
-        int y = (screenHeight - height) / 2;
-        
-        // Establecemos las coordenadas y el tamaño
-        setBounds(x, y, width, height);
+	public JPanelModificarProducto() {
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+setLayout(null);
 		
 		JLabel tituloModificarSucursal = new JLabel("MODIFICAR PRODUCTO");
 		tituloModificarSucursal.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloModificarSucursal.setBounds(132, 24, 190, 13);
-		contentPane.add(tituloModificarSucursal);
+		add(tituloModificarSucursal);
 		
 		JLabel nombreSucursal = new JLabel("Nombre ");
 		nombreSucursal.setBounds(57, 51, 96, 13);
-		contentPane.add(nombreSucursal);
+		add(nombreSucursal);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(182, 48, 160, 19);
-		contentPane.add(txtNombre);
+		txtNombre.setBounds(200, 47, 160, 19);
+		add(txtNombre);
 		
 		JLabel descripcion = new JLabel("Descripcion");
 		descripcion.setBounds(58, 92, 114, 13);
-		contentPane.add(descripcion);
+		add(descripcion);
 		
 		txtDescripcion = new JTextField();
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(182, 89, 160, 38);
-		contentPane.add(txtDescripcion);
+		txtDescripcion.setBounds(200, 88, 160, 38);
+		add(txtDescripcion);
 		
 		JLabel Precio = new JLabel("Precio");
 		Precio.setBounds(57, 151, 80, 13);
-		contentPane.add(Precio);
+		add(Precio);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(182, 148, 160, 19);
-		contentPane.add(txtPrecio);
+		txtPrecio.setBounds(200, 147, 160, 19);
+		add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
 		JLabel Peso = new JLabel("Peso KG");
-		Peso.setBounds(57, 190, 45, 13);
-		contentPane.add(Peso);
+		Peso.setBounds(57, 190, 80, 13);
+		add(Peso);
 		
 		txtPeso = new JTextField();
-		txtPeso.setBounds(182, 187, 160, 19);
-		contentPane.add(txtPeso);
+		txtPeso.setBounds(200, 186, 160, 19);
+		add(txtPeso);
 		txtPeso.setColumns(10);
 		
 		JButton btnGuardarProducto = new JButton("Guardar");
@@ -110,16 +87,15 @@ public class ModificarProducto extends JFrame {
 								"Confirmar modificación", JOptionPane.YES_NO_OPTION);
 					    
 					    if (option == JOptionPane.YES_OPTION) {
-					    	gestorProd.modificarProducto(productoSelec.getidP(), txtNombre.getText(),
+					    	gestorProducto.modificarProducto(productoSeleccionado.getidP(), txtNombre.getText(),
 					    			txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()),
 					    			Double.parseDouble(txtPeso.getText()));
-				    	int result = JOptionPane.showConfirmDialog(null, "Producto modificada con éxito", "Confirmación", JOptionPane.DEFAULT_OPTION);
+				    	int result = JOptionPane.showConfirmDialog(null, "Producto modificado con éxito", "Confirmación", JOptionPane.DEFAULT_OPTION);
 				    	
 				    	
 				        if (result == JOptionPane.OK_OPTION) {
-				        	ListadoProd.llenarTabla(gestorProd.getProductos());
-				        	ventanaListar.setVisible(true);
-							dispose();
+				        	panelListadoProducto.llenarTabla(gestorProducto.getProductos());				        
+				        	MenuPrincipal.mostrarPanel("ListadoProducto");
 				        }
 				        }
 			    	}catch(CampoVacioException e1) {
@@ -133,7 +109,7 @@ public class ModificarProducto extends JFrame {
 		});
 
 		btnGuardarProducto.setBounds(214, 232, 85, 21);
-		contentPane.add(btnGuardarProducto);
+		add(btnGuardarProducto);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -142,53 +118,57 @@ public class ModificarProducto extends JFrame {
 		                "Confirmar Cancelar", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 
 		        if (respuesta == JOptionPane.YES_OPTION) {
-					ventanaListar.setVisible(true);
-					dispose();
+					MenuPrincipal.mostrarPanel("ListadoProducto");
 		        }
 			}
 		});
 		btnCancelar.setBounds(119, 232, 85, 21);
-		contentPane.add(btnCancelar);
+		add(btnCancelar);
+
+	}
+
+	public void setProductoSeleccionado(Producto p) {
+		this.productoSeleccionado = p;
+	}
+
+	public void setPanelListadoProducto(JPanelListadoProducto panelListadoProducto) {
+		this.panelListadoProducto = panelListadoProducto;
+	}
+
+	public void setCamposAModificar() {
+		txtNombre.setText(productoSeleccionado.getNombre());
+		txtDescripcion.setText(productoSeleccionado.getDescripcion());
+		txtPrecio.setText(productoSeleccionado.getPrecioUnitario().toString());
+		txtPeso.setText(productoSeleccionado.getPrecioUnitario().toString());
 	}
 	
-	public void setProducto(Producto p) {
-		this.productoSelec= p;
-	}
-	 
-	public void setModificar() {
-		 txtNombre.setText(productoSelec.getNombre());
-		 txtDescripcion.setText(productoSelec.getDescripcion());
-		 txtPrecio.setText(productoSelec.getPrecioUnitario().toString());
-		 txtPeso.setText(productoSelec.getPrecioUnitario().toString());
-	 }
-	public void campoVacio() throws CampoVacioException{
+	public void campoVacio() throws CampoVacioException {
 		String error = "";
 		boolean algunoVacio = false;
-		
-		if(txtNombre.getText().isEmpty()) {
+
+		if (txtNombre.getText().isEmpty()) {
 			error += "- Nombre del producto\n";
 			algunoVacio = true;
 		}
-		
-		if(txtDescripcion.getText().isEmpty()) {
+
+		if (txtDescripcion.getText().isEmpty()) {
 			error += "- Descripcion del producto\n";
 			algunoVacio = true;
 		}
-		
-		if(txtPrecio.getText().isEmpty()) {
+
+		if (txtPrecio.getText().isEmpty()) {
 			error += "- Precio unitario\n";
 			algunoVacio = true;
 		}
-		if(txtPeso.getText().isEmpty()) {
+		if (txtPeso.getText().isEmpty()) {
 			error += "- Peso en kg\n";
 			algunoVacio = true;
 		}
-		
-		if(algunoVacio) {
-			
+
+		if (algunoVacio) {
+
 			throw new CampoVacioException(error);
 		}
-				
-	}
 
+	}
 }

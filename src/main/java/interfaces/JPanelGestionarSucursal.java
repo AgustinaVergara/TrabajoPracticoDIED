@@ -17,6 +17,7 @@ public class JPanelGestionarSucursal extends JPanel {
 	private JPanelListadoSucursal panelListadoSucursal;
 
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -25,7 +26,7 @@ public class JPanelGestionarSucursal extends JPanel {
 		JButton btnAltaSucursal = new JButton("+ Nueva sucursal");
 		btnAltaSucursal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFramePrincipalSucursal.mostrarPanel("AltaSucursal");
+				MenuPrincipal.mostrarPanel("AltaSucursal");
 			}
 		});
 		setLayout(null);
@@ -36,7 +37,7 @@ public class JPanelGestionarSucursal extends JPanel {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFramePrincipalSucursal.cerrar();
+				MenuPrincipal.mostrarPanel("Principal");
 			}
 		});
 		btnVolver.setBounds(238, 213, 123, 21);
@@ -47,7 +48,7 @@ public class JPanelGestionarSucursal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				List<Sucursal> listaSucursales = gestorSucursal.getSucursales();
 				panelListadoSucursal.llenarTabla(listaSucursales);
-				JFramePrincipalSucursal.mostrarPanel("ListadoSucursal");
+				MenuPrincipal.mostrarPanel("ListadoSucursal");
 			}
 		});
 		btnListadoDeSucursales.setBounds(180, 127, 248, 21);

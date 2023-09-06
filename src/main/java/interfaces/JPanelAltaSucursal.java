@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 
 public class JPanelAltaSucursal extends JPanel {
 
-	//private JPanel contentPane;
+	
 	private JTextField txtNombre;
 	private JTextField txtHoraApertura;
 	private JTextField txtMinutoApertura;
@@ -101,7 +101,7 @@ public class JPanelAltaSucursal extends JPanel {
 
 		        if (respuesta == JOptionPane.YES_OPTION) {
 		        	vaciarCampos();
-		        	JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
+		        	MenuPrincipal.mostrarPanel("GestionarSucursal");
 		        }
 				
 			}
@@ -132,7 +132,7 @@ public class JPanelAltaSucursal extends JPanel {
 					
 					JOptionPane.showMessageDialog(frame, "Sucursal creada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 					vaciarCampos();
-					JFramePrincipalSucursal.mostrarPanel("GestionarSucursal");
+					MenuPrincipal.mostrarPanel("GestionarSucursal");
 					
 				}catch(CampoVacioException e1) {
 					JOptionPane.showMessageDialog(frame,

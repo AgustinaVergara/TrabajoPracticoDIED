@@ -74,23 +74,23 @@ public class InterfazGestionarCaminos extends JFrame {
 		btnVolver.setBounds(254, 270, 85, 21);
 		contentPane.add(btnVolver);
 		
-		final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
+		//final InterfazListadoCamino ventanaListadoCamino = new InterfazListadoCamino(this);
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
 		btnListadoDeCaminos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventanaListadoCamino.llenarTabla(caminoDAO.buscarCaminos());
-				ventanaListadoCamino.setVisible(true);
+			//	ventanaListadoCamino.llenarTabla(caminoDAO.buscarCaminos());
+				//ventanaListadoCamino.setVisible(true);
 				setVisible(false);
 			}
 		});
 		btnListadoDeCaminos.setBounds(166, 143, 248, 21);
 		contentPane.add(btnListadoDeCaminos);
 		
-		final VentanaCamino ventanaAltaCaminos = new VentanaCamino(this);
+	//	final VentanaCamino ventanaAltaCaminos = new VentanaCamino(this);
 		JButton btnNuevoCamino = new JButton("+ Nuevo Camino");
 		btnNuevoCamino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventanaAltaCaminos.setVisible(true);
+				//ventanaAltaCaminos.setVisible(true);
 				setVisible(false);
 			}
 		});

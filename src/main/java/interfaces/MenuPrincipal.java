@@ -8,23 +8,48 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+//Probando para hacer que este sea el unico frame y luego cambien los paneles aca
 public class MenuPrincipal extends JFrame {
-
-	private JPanel contentPane;
+	
+	private static JPanel contentPane;
+	private CardLayout cardLayout;
+	private JPanelPrincipal panelPrincipal;
+	
+	private JPanelGestionarSucursal panelGestionarSucursal;
+	private JPanelAltaSucursal panelAltaSucursal;
+	private JPanelListadoSucursal panelListadoSucursal;
+	private JPanelModificarSucursal panelModificarSucursal;
+	
+	private JPanelGestionarCamino panelGestionarCamino;
+	private JPanelAltaCamino panelAltaCamino;
+	private JPanelListadoCamino panelListadoCamino;
+	private JPanelModificarCamino panelModificarCamino;
+	
+	private JPanelGestionarProducto panelGestionarProducto;
+	private JPanelAltaProducto panelAltaProducto;
+	private JPanelListadoProducto panelListadoProducto;
+	private JPanelModificarProducto panelModificarProducto;
+	
+	private JPanelGestionarOrden panelGestionarOrden;
+	private JPanelAltaOrden panelAltaOrden;
+	private JPanelListadoOrden panelListadoOrden;
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public MenuPrincipal() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Tamaño deseado para el JFrame
-        int width = 600;
+        int width = 625;
         int height = 400;
         
         // Obtenemos el tamaño de la pantalla
@@ -38,91 +63,76 @@ public class MenuPrincipal extends JFrame {
         
         // Establecemos las coordenadas y el tamaño
         setBounds(x, y, width, height);
-		//setBounds(100, 100, 544, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        //Crear paneles
+  		panelPrincipal = new JPanelPrincipal();
+  		
+  		panelGestionarSucursal = new  JPanelGestionarSucursal();
+  		panelAltaSucursal = new JPanelAltaSucursal();
+  		panelListadoSucursal = new JPanelListadoSucursal();
+  		panelModificarSucursal = new JPanelModificarSucursal();
+  		
+  		panelGestionarCamino = new  JPanelGestionarCamino();
+  		panelAltaCamino = new JPanelAltaCamino();
+  		panelListadoCamino = new JPanelListadoCamino();
+  		panelModificarCamino = new JPanelModificarCamino();
+  		
+  		panelGestionarProducto = new  JPanelGestionarProducto();
+  		panelAltaProducto = new JPanelAltaProducto();
+  		panelListadoProducto = new JPanelListadoProducto();
+  		panelModificarProducto = new JPanelModificarProducto();
+  		
+  		panelGestionarOrden = new  JPanelGestionarOrden();
+  		panelAltaOrden = new JPanelAltaOrden();
+  		panelListadoOrden = new JPanelListadoOrden();
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null); 
-		
-		JLabel tituloMenuPrincipal = new JLabel("SISTEMA DE GESTIÓN LOGÍSTICO");
-		tituloMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tituloMenuPrincipal.setHorizontalAlignment(SwingConstants.CENTER); 
-		tituloMenuPrincipal.setBounds(76, 38, 440, 13);
-		contentPane.add(tituloMenuPrincipal);
-		/*Esto lo uso  para pasar del menu a InterfazGestionarSucursal sin paneles
-		 * 
-		final InterfazGestionarSucursal ventanaGestionarSucursal = new InterfazGestionarSucursal(); //crea la proxima 
-		JButton btnGestionarSucursal = new JButton("Gestionar sucursales");
-		btnGestionarSucursal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventanaGestionarSucursal.setVisible(true);
-				dispose(); //cierra la ventana actual
-			}
-		});
-		btnGestionarSucursal.setBounds(39, 64, 215, 37);
-		contentPane.add(btnGestionarSucursal);*/
-		
-		//Este boton ahora abre el gestionar sucursal que trabaja con paneles
-		final JFramePrincipalSucursal ventanaGestionarSucursal = new JFramePrincipalSucursal();
-		JButton btnGestionarSucursal = new JButton("Gestionar sucursales");
-		btnGestionarSucursal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventanaGestionarSucursal.setVisible(true);
-				setVisible(false);
-				//dispose(); //cierra la ventana actual
-			}
-		});
-		btnGestionarSucursal.setBounds(76, 89, 215, 37);
-		contentPane.add(btnGestionarSucursal);
-		
-		// GESTIONANDO CAMINOS
-		final InterfazGestionarCaminos ventanaGestionarCaminos = new InterfazGestionarCaminos(this); //crea la proxima
+  		//Establecer referencias entre paneles
+  		panelGestionarSucursal.setPanelListadoSucursal(panelListadoSucursal); 
+  		panelListadoSucursal.setPanelModificarSucursal(panelModificarSucursal);
+  		panelModificarSucursal.setPanelListadoSucursal(panelListadoSucursal);
+  		
+  		panelGestionarCamino.setPanelListadoCamino(panelListadoCamino);
+  		panelListadoCamino.setPanelModificarCamino(panelModificarCamino);
+  		panelModificarCamino.setPanelListadoCamino(panelListadoCamino);
+  		
+  		panelGestionarProducto.setPanelListadoProducto(panelListadoProducto);
+  		panelListadoProducto.setPanelModificarProducto(panelModificarProducto);
+  		panelModificarProducto.setPanelListadoProducto(panelListadoProducto);
+      		
+		//Configura el layout del contenido de la ventana
+	    contentPane = new JPanel();
+	    cardLayout = new CardLayout();
+	    contentPane.setLayout(cardLayout);
+	    contentPane.add(panelPrincipal, "Principal");
+	    
+	    contentPane.add(panelGestionarSucursal, "GestionarSucursal");
+	    contentPane.add(panelAltaSucursal, "AltaSucursal");
+	    contentPane.add(panelListadoSucursal, "ListadoSucursal");
+	    contentPane.add(panelModificarSucursal,"ModificarSucursal");
+	    
+	    contentPane.add(panelGestionarCamino,"GestionarCamino");
+	    contentPane.add(panelAltaCamino,"AltaCamino");
+	    contentPane.add(panelListadoCamino,"ListadoCamino");
+	    contentPane.add(panelModificarCamino,"ModificarCamino");
+	    
+	    contentPane.add(panelGestionarProducto,"GestionarProducto");
+	    contentPane.add(panelAltaProducto,"AltaProducto");
+	    contentPane.add(panelListadoProducto,"ListadoProducto");
+	    contentPane.add(panelModificarProducto,"ModificarProducto");
+	    
+	    contentPane.add(panelGestionarOrden,"GestionarOrden");
+	    contentPane.add(panelAltaOrden,"AltaOrden");
+	    contentPane.add(panelListadoOrden,"ListadoOrden");
+	      
+	    getContentPane().add(contentPane);
 
-		JButton btnGestionarCamino = new JButton("Gestionar caminos");
-		btnGestionarCamino.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventanaGestionarCaminos.setVisible(true);
-				dispose(); //cierra la ventana actual
-			}
-		});
-		btnGestionarCamino.setBounds(301, 89, 215, 37);
-		contentPane.add(btnGestionarCamino);
-		
-		final InterfazGestionarProducto ventanaGestionarProducto = new InterfazGestionarProducto(this);
-		JButton btnGestionarProducto = new JButton("Gestionar productos");
-
-		btnGestionarProducto.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			ventanaGestionarProducto.setVisible(true);
-			dispose(); //cierra la ventana actual
-		}
-	});
-
-		btnGestionarProducto.setBounds(76, 143, 215, 37);
-
-		contentPane.add(btnGestionarProducto);
-		
-		JButton btnRegistrarStock = new JButton("Gestionar órdenes de provisión");
-		btnRegistrarStock.setBounds(301, 143, 215, 37);
-		contentPane.add(btnRegistrarStock);
-		
-		JButton btnFlujoMaximo = new JButton("Flujo máximo");
-		btnFlujoMaximo.setBounds(76, 201, 215, 37);
-		contentPane.add(btnFlujoMaximo);
-		
-		JButton btnPageRank = new JButton("PageRank");
-		btnPageRank.setBounds(301, 201, 215, 37);
-		contentPane.add(btnPageRank);
-		
-		JLabel lblNewLabel = new JLabel("Trabajo Práctico Integrador realizado por:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(76, 288, 440, 13);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("María Victoria Bertero, Valentina Ducasse y Agustina Vergara");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(86, 311, 430, 13);
-		contentPane.add(lblNewLabel_1);
 	}
+	
+	public static void mostrarPanel(String nombrePanel) {
+		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+        cardLayout.show(contentPane, nombrePanel);
+	}
+
 }
+
+
