@@ -1,17 +1,18 @@
 package clases;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Map;
+import java.util.List;
 
 import enums.EstadoOrden;
 
 public class OrdenDeProvision {
 	private Integer idOrdenProvision;
-	private LocalTime fechaOrden;
-	private Sucursal sucursalDestino;
-	private LocalTime horaMax;
-	private LocalTime minutoMax;
-	private Map<Producto, Integer> productosCantidad;
+	private LocalDate fechaOrden;
+	private Integer sucursalOrigenId;
+	private Integer sucursalDestinoId;
+	private LocalTime tiempoMax;
+	private List<ItemProducto> productosDeOrden;
 	private EstadoOrden estado;
 	
 	
@@ -23,51 +24,30 @@ public class OrdenDeProvision {
 		this.idOrdenProvision = idOrdenProvision;
 	}
 
-	public LocalTime getFechaOrden() {
+	public LocalDate getFechaOrden() {
 		return fechaOrden;
 	}
 	
-	public void setFechaOrden(LocalTime fechaOrden) {
+	public void setFechaOrden(LocalDate fechaOrden) {
 		this.fechaOrden = fechaOrden;
 	}
 	
-	public Sucursal getSucursalDestino() {
-		return sucursalDestino;
+	public LocalTime getTiempoMax() {
+		return tiempoMax;
+	}
+
+	public void setTiempoMax(LocalTime tiempoMax) {
+		this.tiempoMax = tiempoMax;
 	}
 	
-	public void setSucursalDestino(Sucursal sucursalDestino) {
-		this.sucursalDestino = sucursalDestino;
+	public List<ItemProducto> getProductosDeOrden() {
+		return productosDeOrden;
+	}
+
+	public void setProductosDeOrden(List<ItemProducto> productosDeOrden) {
+		this.productosDeOrden = productosDeOrden;
 	}
 	
-	
-	public LocalTime getHoraMax() {
-		return horaMax;
-	}
-
-	public void setHoraMax(LocalTime horaMax) {
-		this.horaMax = horaMax;
-	}
-
-	public LocalTime getMinutoMax() {
-		return minutoMax;
-	}
-
-	public void setMinutoMax(LocalTime minutoMax) {
-		this.minutoMax = minutoMax;
-	}
-
-	public Map<Producto, Integer> getProductosCantidad() {
-		return productosCantidad;
-	}
-	public void setProductosCantidad(Map<Producto, Integer> productosCantidad) {
-		this.productosCantidad = productosCantidad;
-	}
-	
-	//tener  en cuenta que este metodo agregar deberia ir en el dao
-	public void agregarProducto(Producto producto, Integer cantidad) {
-	     productosCantidad.put(producto, cantidad);
-	}
-
 	public EstadoOrden getEstado() {
 		return estado;
 	}
@@ -75,7 +55,43 @@ public class OrdenDeProvision {
 	public void setEstado(EstadoOrden estado) {
 		this.estado = estado;
 	}
+
+	public Integer getSucursalOrigenId() {
+		return sucursalOrigenId;
+	}
+
+	public void setSucursalOrigenId(Integer sucursalOrigenId) {
+		this.sucursalOrigenId = sucursalOrigenId;
+	}
+
+	public Integer getSucursalDestinoId() {
+		return sucursalDestinoId;
+	}
+
+	public void setSucursalDestinoId(Integer sucursalDestinoId) {
+		this.sucursalDestinoId = sucursalDestinoId;
+	}
+
+	public OrdenDeProvision(Integer idOrdenProvision, LocalDate fechaOrden, 
+			Integer sucursalDestinoId, LocalTime tiempoMax, List<ItemProducto> productosDeOrden, EstadoOrden estado) {
+		super();
+		this.idOrdenProvision = idOrdenProvision;
+		this.fechaOrden = fechaOrden;
+		this.sucursalDestinoId = sucursalDestinoId;
+		this.tiempoMax = tiempoMax;
+		this.productosDeOrden = productosDeOrden;
+		this.estado = estado;
+	}
 	
-	
+	//ver porque este no tiene los productos
+	public OrdenDeProvision(Integer idOrdenProvision, LocalDate fechaOrden, 
+			Integer sucursalDestinoId, LocalTime tiempoMax,  EstadoOrden estado) {
+		super();
+		this.idOrdenProvision = idOrdenProvision;
+		this.fechaOrden = fechaOrden;
+		this.sucursalDestinoId = sucursalDestinoId;
+		this.tiempoMax = tiempoMax;
+		this.estado = estado;
+	}
 }
 

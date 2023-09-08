@@ -24,7 +24,7 @@ public class GestorSucursal {
 	public static GestorSucursal getInstance() {
 		if (gestor == null) {
 			gestor = new GestorSucursal();
-		}
+	}
 		
 		return gestor;
 	}
