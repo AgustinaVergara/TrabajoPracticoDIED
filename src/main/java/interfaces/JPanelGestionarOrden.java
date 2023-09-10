@@ -3,11 +3,21 @@ package interfaces;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import clases.OrdenDeProvision;
+import clases.Sucursal;
+import gestores.GestorOrden;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class JPanelGestionarOrden extends JPanel {
+	
+	private JPanelListadoOrden panelListadoOrden;
+	
+	private GestorOrden gestorOrden = GestorOrden.getInstance();
 
 	/**
 	 * Create the panel.
@@ -32,6 +42,8 @@ public class JPanelGestionarOrden extends JPanel {
 		JButton btnListadoDeOrdenes = new JButton("Listado de ordenes");
 		btnListadoDeOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				List<OrdenDeProvision> listaOrdenes = gestorOrden.getOrdenes();
+				panelListadoOrden.llenarTablaOrdenes(listaOrdenes);
 				MenuPrincipal.mostrarPanel("ListadoOrden");
 			}
 		});
@@ -47,5 +59,9 @@ public class JPanelGestionarOrden extends JPanel {
 		btnVolver.setBounds(238, 207, 123, 21);
 		add(btnVolver);
 
+	}
+	
+	public void setPanelListadoOrden(JPanelListadoOrden panelListadoOrden) {
+	    this.panelListadoOrden = panelListadoOrden;
 	}
 }

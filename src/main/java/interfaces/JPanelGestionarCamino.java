@@ -13,11 +13,14 @@ import clases.Camino;
 import clases.Sucursal;
 import dao.CaminoDao;
 import dao.CaminoSQLimplementacion;
+import gestores.GestorCamino;
 
 public class JPanelGestionarCamino extends JPanel {
 	
 	private CaminoDao caminoDAO;
 	private List<Camino> listaCaminos;
+	
+	private GestorCamino gestorCamino = GestorCamino.getInstance();
 	
 	private JPanelListadoCamino panelListadoCamino;
 
@@ -26,7 +29,8 @@ public class JPanelGestionarCamino extends JPanel {
 	 */
 	public JPanelGestionarCamino() {
 		caminoDAO = new CaminoSQLimplementacion();
-		listaCaminos = caminoDAO.buscarCaminos();
+		//listaCaminos = caminoDAO.buscarCaminos();
+		listaCaminos = gestorCamino.getCaminos();
 		
 		JLabel lblNewLabel = new JLabel("GESTIÓN DE CAMINOS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

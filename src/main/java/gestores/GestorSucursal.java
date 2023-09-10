@@ -38,10 +38,12 @@ public class GestorSucursal {
 		
 		//que pasa si no existe esa sucursal? deberia hacer un try catch?
 		//List<Sucursal> sucursalesA = this.dao.buscarSucursales();
-		System.out.println("parametro nombre: " + nombre);
+		//System.out.println("parametro nombre: " + nombre);
 		for (int i=0; i<this.sucursales.size();i++) {
 			//System.out.println("esta es la sucursal: "+ this.sucursales.get(i).getNombre());
+			
 			if(this.sucursales.get(i).getNombre().equals(nombre)) return this.sucursales.get(i);
+		
 		}
 		
 		

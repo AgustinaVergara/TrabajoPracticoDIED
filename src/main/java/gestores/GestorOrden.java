@@ -57,4 +57,10 @@ public class GestorOrden {
 
 	    return nuevaOrden;
 	}
+
+	public void eliminarOrden(OrdenDeProvision o) {
+		dao.eliminar(o);
+		ordenes.remove(o);
+		
+	}
 }
