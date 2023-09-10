@@ -15,6 +15,7 @@ import clases.Sucursal;
 import conexion.Conexion;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
+import gestores.GestorSucursal;
 
 public class CaminoSQLimplementacion implements CaminoDao{
 	
@@ -93,7 +94,7 @@ public class CaminoSQLimplementacion implements CaminoDao{
 		Connection cn = null; //para conectar a la bd
 		PreparedStatement st = null; //para hacer las consultas SQL
 		ResultSet rs = null;
-		GestorCamino gestorCamino = GestorCamino.getInstance();
+		GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 		
 		try {
 			cn = conexion.conectar();
@@ -109,13 +110,13 @@ public class CaminoSQLimplementacion implements CaminoDao{
 				String estado = rs.getString(4);
 				Double capacidad= rs.getDouble(5);
 				Integer tiempo= rs.getInt(6);
-				Sucursal so = gestorCamino.buscarSucursal(nombreSo);
-				Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
+				//Sucursal so = gestorCamino.buscarSucursal(nombreSo);
+				//Sucursal sd = gestorCamino.buscarSucursal(nombreSD);
 				
 				if (estado.equals("OPERATIVA")) {
-					caminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.OPERATIVA, capacidad));
+					caminos.add(new Camino(id, gestorSucursal.buscarSucursalxNombre(nombreSo), gestorSucursal.buscarSucursalxNombre(nombreSD), tiempo, EstadoSucursal.OPERATIVA, capacidad));
 				}
-				else caminos.add(new Camino(id, so, sd, tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
+				else caminos.add(new Camino(id,gestorSucursal.buscarSucursalxNombre(nombreSo), gestorSucursal.buscarSucursalxNombre(nombreSD), tiempo, EstadoSucursal.NO_OPERATIVA, capacidad));
 		
 				
 			}

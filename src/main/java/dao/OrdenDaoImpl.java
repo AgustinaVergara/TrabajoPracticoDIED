@@ -18,39 +18,38 @@ import enums.EstadoOrden;
 public class OrdenDaoImpl implements OrdenDao {
 
 	public void crearOrden(OrdenDeProvision orden) {
-		
-		String consulta = "INSERT INTO tpdied.orden " +
-	            "(idOrden, fecha, tiempoMax, sucursalDestinoId, estado) " +
-	            "VALUES (?, ?, ?, ?, ?);";
-		
+
+		String consulta = "INSERT INTO tpdied.orden " + "(idOrden, fecha, tiempoMax, sucursalDestinoId, estado) "
+				+ "VALUES (?, ?, ?, ?, ?);";
+
 		Conexion conexion = new Conexion();
-		
-		Connection cn = null; //para conectar a la bd
-		PreparedStatement st = null;//para hacer las consultas SQL
+
+		Connection cn = null; // para conectar a la bd
+		PreparedStatement st = null;// para hacer las consultas SQL
 		ResultSet rs = null;
-		
+
 		try {
 			cn = conexion.conectar();
 			st = cn.prepareStatement(consulta);
-			st.setInt(1, this.getUltimoIdOrden()+1);
+			st.setInt(1, this.getUltimoIdOrden() + 1);
 			st.setDate(2, Date.valueOf(orden.getFechaOrden()));
 			st.setTime(3, Time.valueOf(orden.getTiempoMax()));
 			st.setInt(4, orden.getSucursalDestinoId());
 			st.setString(5, orden.getEstado().toString());
-			
+
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			//Para liberar recursos
+		} finally {
+			// Para liberar recursos
 			try {
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(st != null) {
+				if (st != null) {
 					st.close();
 				}
-				if(cn != null) {
+				if (cn != null) {
 					cn.close();
 				}
 			} catch (Exception e2) {
@@ -176,31 +175,82 @@ public class OrdenDaoImpl implements OrdenDao {
 		Conexion conexion = new Conexion();
 
 		Connection cn = null; // para conectar a la bd
-	    PreparedStatement st = null;// para hacer las consultas SQL
+		PreparedStatement st = null;// para hacer las consultas SQL
 
-	    try {
-	        cn = conexion.conectar();
-	        st = cn.prepareStatement(consulta);
-	        st.setInt(1, idOrdenProvision);
-	        st.setInt(2, productoId);
-	        st.setInt(3, cantidad);
+		try {
+			cn = conexion.conectar();
+			st = cn.prepareStatement(consulta);
+			st.setInt(1, idOrdenProvision);
+			st.setInt(2, productoId);
+			st.setInt(3, cantidad);
 
-	        st.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Para liberar recursos
-	        try {
-	            if (st != null) {
-	                st.close();
-	            }
-	            if (cn != null) {
-	                cn.close();
-	            }
-	        } catch (Exception e2) {
-	            e2.printStackTrace();
-	        }
-	    }
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Para liberar recursos
+			try {
+				if (st != null) {
+					st.close();
+				}
+				if (cn != null) {
+					cn.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+	}
+
+	@Override
+	public void eliminar(OrdenDeProvision o) {
 		
+		String consulta = "DELETE FROM tpdied.orden WHERE idOrden = (?);";
+
+		Conexion conexion = new Conexion();
+
+		Connection cn = null; // para conectar a la bd
+		PreparedStatement st = null; // para hacer las consultas SQL
+
+		try {
+			cn = conexion.conectar();
+			cn.setAutoCommit(false);
+
+			st = cn.prepareStatement(consulta);
+
+			/*
+			 * Esto se utiliza para establecer los valores de los parámetros (?) en la
+			 * declaración SQL usando el método setInt() del objeto st.
+			 */
+			st.setInt(1, o.getIdOrdenProvision());
+
+			Integer nro = st.executeUpdate();
+			cn.commit();
+
+		} catch (SQLException e) {
+			try {
+				cn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (cn != null) {
+				try {
+					cn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	};
 }

@@ -10,5 +10,6 @@ public interface OrdenDao {
 	public List<OrdenDeProvision> buscarOrdenes();
 	public Integer getUltimoIdOrden();
 	public void crearItemProducto(Integer idOrdenProvision, Integer productoId, Integer cantidad);
+	public void eliminar(OrdenDeProvision o);
 
 }

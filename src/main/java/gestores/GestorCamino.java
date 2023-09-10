@@ -23,9 +23,9 @@ public class GestorCamino {
 	//CONSTRUCTOR
 	public GestorCamino(){
 		caminoDAO = new CaminoSQLimplementacion();
-		this.caminos=new ArrayList<Camino>();
-		//caminos = new  ArrayList<>(caminoDAO.buscarCaminos());
-		
+		//this.caminos=new ArrayList<Camino>();
+		caminos = new ArrayList<>(caminoDAO.buscarCaminos());
+			
 	}
 	
 	public List<Camino> buscarCaminos() {
