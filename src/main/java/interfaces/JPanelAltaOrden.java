@@ -300,4 +300,17 @@ public class JPanelAltaOrden extends JPanel {
 		}
 
 	}
+	
+	public void actualizarSucursales() {
+		gestorSucursal.refreshSucursales();
+		listaSucursales = gestorSucursal.getSucursales();
+		
+		//comboBoxSD = new JComboBox<String>();
+	    modeloSD = new DefaultComboBoxModel<>();
+        modeloSD.addElement("Seleccione");
+        for(Sucursal s : listaSucursales) {
+        	modeloSD.addElement(s.getNombre());
+        }
+        comboBoxSD.setModel(modeloSD);		
+	}
 }

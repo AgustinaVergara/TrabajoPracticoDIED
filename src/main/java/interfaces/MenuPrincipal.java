@@ -110,6 +110,7 @@ public class MenuPrincipal extends JFrame {
   		panelModificarProducto.setPanelListadoProducto(panelListadoProducto);
   		
   		panelGestionarOrden.setPanelListadoOrden(panelListadoOrden);
+  		panelGestionarOrden.setPanelAltaOrden(panelAltaOrden);
       		
 		//Configura el layout del contenido de la ventana
 	    contentPane = new JPanel();

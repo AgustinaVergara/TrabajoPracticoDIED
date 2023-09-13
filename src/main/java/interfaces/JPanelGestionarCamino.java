@@ -65,22 +65,6 @@ public class JPanelGestionarCamino extends JPanel {
 		btnListadoDeCaminos.setBounds(166, 143, 248, 21);
 		add(btnListadoDeCaminos);
 		
-
-		JButton btnVerGrafos = new JButton("Ver Grafo");
-		btnVerGrafos.setBounds(251, 300, 200, 21);
-		add(btnVerGrafos);
-		btnVerGrafos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			// OBTENEMOS EL GRAFO A TRAVES DE LOS CAMINOS QUE TENEMOS EN LA BD
-			MenuPrincipal.mostrarPanel("VerGrafo");
-		      //  SwingUtilities.invokeLater(() -> {
-		       // 	JPanelGrafo graphDrawing = new JPanelGrafo();
-		        //    graphDrawing.setVisible(true);
-		      //  });
-
-			}
-		});
-		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

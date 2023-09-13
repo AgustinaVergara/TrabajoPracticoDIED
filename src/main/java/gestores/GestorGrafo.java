@@ -526,7 +526,7 @@ public class GestorGrafo {
 
 		int contador = 0;
 		int[] x = { 50, 150, 150, 150, 250, 250, 250, 350, 350, 350, 450, 450, 450 };
-		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 150, 250 };
+		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 50, 250 };
 
 		for (Sucursal s : listaSucursales) {
 			Nodo nodo = new Nodo(x[contador], y[contador], s.getNombre());
@@ -565,7 +565,7 @@ public class GestorGrafo {
 
 		int contador = 0;
 		int[] x = { 50, 150, 150, 150, 250, 250, 250, 350, 350, 350, 450, 450, 450 };
-		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 150, 250 };
+		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 50, 250 };
 
 		for (Sucursal s : listaSucursales) {
 			Nodo nodo = new Nodo(x[contador], y[contador], s.getNombre());
@@ -599,7 +599,7 @@ public class GestorGrafo {
 
 		int contador = 0;
 		int[] x = { 50, 150, 150, 150, 250, 250, 250, 350, 350, 350, 450, 450, 450 };
-		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 150, 250 };
+		int[] y = { 150, 50, 150, 250, 50, 150, 250, 50, 150, 250, 150, 50, 250 };
 
 		for (Sucursal s : listaSucursales) {
 			Nodo nodo = new Nodo(x[contador], y[contador], s.getNombre());
