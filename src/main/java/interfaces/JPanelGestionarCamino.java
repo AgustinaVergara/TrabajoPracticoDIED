@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import clases.Camino;
 import clases.Sucursal;
@@ -15,14 +16,17 @@ import dao.CaminoDao;
 import dao.CaminoSQLimplementacion;
 import gestores.GestorCamino;
 
+
 public class JPanelGestionarCamino extends JPanel {
 	
 	private CaminoDao caminoDAO;
 	private List<Camino> listaCaminos;
+
 	
 	private GestorCamino gestorCamino = GestorCamino.getInstance();
 	
 	private JPanelAltaCamino panelAltaCamino;
+
 	private JPanelListadoCamino panelListadoCamino;
 
 	/**
@@ -60,6 +64,22 @@ public class JPanelGestionarCamino extends JPanel {
 		});
 		btnListadoDeCaminos.setBounds(166, 143, 248, 21);
 		add(btnListadoDeCaminos);
+		
+
+		JButton btnVerGrafos = new JButton("Ver Grafo");
+		btnVerGrafos.setBounds(251, 300, 200, 21);
+		add(btnVerGrafos);
+		btnVerGrafos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			// OBTENEMOS EL GRAFO A TRAVES DE LOS CAMINOS QUE TENEMOS EN LA BD
+			MenuPrincipal.mostrarPanel("VerGrafo");
+		      //  SwingUtilities.invokeLater(() -> {
+		       // 	JPanelGrafo graphDrawing = new JPanelGrafo();
+		        //    graphDrawing.setVisible(true);
+		      //  });
+
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {

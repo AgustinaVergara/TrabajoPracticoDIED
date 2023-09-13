@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import clases.Sucursal;
 import excepciones.CampoInvalidoException;
 import excepciones.CampoVacioException;

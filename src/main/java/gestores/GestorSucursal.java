@@ -81,11 +81,21 @@ public class GestorSucursal {
 		return (sucursales.stream().filter(e -> e.getId() == id).findFirst()).get();
 	}
 
+
 	public List<Sucursal> getSucursalesOperativas() {
 		// TODO Auto-generated method stub
 		
 		return (sucursales.stream().filter(e  -> e.getEstado() == EstadoSucursal.OPERATIVA)).collect(Collectors.toList());
 	}
+
+
+	public static Integer getSiguienteIdSucursal() {
+		return siguienteIdSucursal;
+	}
+
+	
+	
+
 
 
 }

@@ -26,9 +26,18 @@ import dao.SucursalDao;
 import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
+
 import gestores.GestorSucursal;
 
+//:src/main/java/interfaces/VentanaCamino.java
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+
 import javax.swing.SwingConstants;
+//b2d0d23d3b8b5b2a702287b80e9e59113bba5ebe:src/main/java/interfaces/JPanelAltaCamino.java
 
 public class JPanelAltaCamino extends JPanel {
 
@@ -38,6 +47,7 @@ public class JPanelAltaCamino extends JPanel {
 	private JComboBox<String> estadoComBox;
 	private JTextField capacidadKgTxt;
 	private JTextField tiemTransitoTxt;
+
 	private List<Sucursal> sucursales;
 	private DefaultComboBoxModel modelo;
 	private DefaultComboBoxModel modelo2;
@@ -45,6 +55,16 @@ public class JPanelAltaCamino extends JPanel {
 
 	public GestorCamino gestorCamino = GestorCamino.getInstance();
 	public GestorSucursal gestorSucursal = GestorSucursal.getInstance();
+
+
+	
+	public GestorCamino gestorCamino= GestorCamino.getInstance();
+//:src/main/java/interfaces/VentanaCamino.java
+	
+
+
+	
+//b2d0d23d3b8b5b2a702287b80e9e59113bba5ebe:src/main/java/interfaces/JPanelAltaCamino.java
 
 	/**
 	 * Create the panel.
