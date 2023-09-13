@@ -76,5 +76,12 @@ public class GestorSucursal {
 		return (sucursales.stream().filter(e -> e.getId() == id).findFirst()).get();
 	}
 
+	public static Integer getSiguienteIdSucursal() {
+		return siguienteIdSucursal;
+	}
+
+	
+	
+
 
 }

@@ -12,6 +12,21 @@ public class Sucursal {
 	private LocalTime horarioApertura;
 	private LocalTime horarioCierre;
 	private EstadoSucursal estado;
+	int posicionx;
+	int posiciony;
+	
+	public void setPosicionX(int px) {
+		this.posicionx=px;
+	}
+	public void setPosicionY(int py) {
+		this.posiciony= py;
+	}
+	public int getPosicionX() {
+		return this.posicionx;
+	}
+	public int getPosicionY() {
+		return this.posiciony;
+	}
 	
 	//Getters y Setters
 	public Integer getId() {
@@ -58,6 +73,7 @@ public class Sucursal {
 		this.horarioCierre = horarioCierre;
 		this.estado = estado;
 	}
+	
 	
 	public void modificarse(String nombre, LocalTime horarioApertura, LocalTime horarioCierre, EstadoSucursal estado) {
 		this.nombre = nombre;

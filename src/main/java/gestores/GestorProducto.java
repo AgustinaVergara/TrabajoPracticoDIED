@@ -13,7 +13,7 @@ public class GestorProducto {
 	private List<Producto> productos;
 	private static Integer siguienteIdP;
 	
-	private GestorProducto(){
+	public GestorProducto(){
 		dao = new ProductoDaoImpl();
 		productos = new  ArrayList<>(dao.buscarProducto());
 	}

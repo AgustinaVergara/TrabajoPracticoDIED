@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import clases.Camino;
-import clases.Grafo;
 import clases.Sucursal;
 import dao.CaminoDao;
 import dao.CaminoSQLimplementacion;
@@ -28,7 +27,7 @@ import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
 //:src/main/java/interfaces/VentanaCamino.java
-import gestores.GestorGrafo;
+
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,7 +46,7 @@ public class JPanelAltaCamino extends JPanel {
 	
 	public GestorCamino gestorCamino= GestorCamino.getInstance();
 //:src/main/java/interfaces/VentanaCamino.java
-	private static GestorGrafo gestorGrafo = GestorGrafo.getInstance();
+	
 
 
 	
@@ -260,15 +259,6 @@ public class JPanelAltaCamino extends JPanel {
 				tiempo= Integer.parseInt(tiemTransitoTxt.getText());
 				Camino nuevoCamino = gestorCamino.crearCaminoGestor(idInt, so,sd,capacidad, estado, tiempo);
 				gestorCamino.agregarCamino(nuevoCamino);
-//:src/main/java/interfaces/VentanaCamino.java
-				
-				
-				Grafo nuevoGrafo = new Grafo();
-				nuevoGrafo= gestorGrafo.crearGrafo(nuevoCamino, so, sd);
-				gestorGrafo.agregarGrafo(nuevoGrafo);
-				
-				//ventanaGestionarCaminos.setVisible(true);
-//b2d0d23d3b8b5b2a702287b80e9e59113bba5ebe:src/main/java/interfaces/JPanelAltaCamino.java
 				JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
 				vaciarCampos();
 				MenuPrincipal.mostrarPanel("GestionarCamino");

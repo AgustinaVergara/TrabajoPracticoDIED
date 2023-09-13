@@ -40,6 +40,7 @@ public class MenuPrincipal extends JFrame {
 	private JPanelAltaOrden panelAltaOrden;
 	private JPanelListadoOrden panelListadoOrden;
 	
+	
 
 	/**
 	 * Create the frame.
@@ -85,6 +86,8 @@ public class MenuPrincipal extends JFrame {
   		panelGestionarOrden = new  JPanelGestionarOrden();
   		panelAltaOrden = new JPanelAltaOrden();
   		panelListadoOrden = new JPanelListadoOrden();
+  		
+  		
 
   		//Establecer referencias entre paneles
   		panelGestionarSucursal.setPanelListadoSucursal(panelListadoSucursal); 
@@ -94,6 +97,7 @@ public class MenuPrincipal extends JFrame {
   		panelGestionarCamino.setPanelListadoCamino(panelListadoCamino);
   		panelListadoCamino.setPanelModificarCamino(panelModificarCamino);
   		panelModificarCamino.setPanelListadoCamino(panelListadoCamino);
+  	
   		
   		panelGestionarProducto.setPanelListadoProducto(panelListadoProducto);
   		panelListadoProducto.setPanelModificarProducto(panelModificarProducto);
@@ -114,6 +118,7 @@ public class MenuPrincipal extends JFrame {
 	    contentPane.add(panelAltaCamino,"AltaCamino");
 	    contentPane.add(panelListadoCamino,"ListadoCamino");
 	    contentPane.add(panelModificarCamino,"ModificarCamino");
+	   
 	    
 	    contentPane.add(panelGestionarProducto,"GestionarProducto");
 	    contentPane.add(panelAltaProducto,"AltaProducto");

@@ -17,7 +17,6 @@ import enums.*;
 public class GestorCamino {
 	private List<Camino> caminos;
 	private static GestorCamino gestor;
-	private static GestorGrafo gestorGrafo;
 	private CaminoDao caminoDAO;
 	private static Integer siguienteIdCamino; 
 	
