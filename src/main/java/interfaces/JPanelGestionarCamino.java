@@ -22,6 +22,7 @@ public class JPanelGestionarCamino extends JPanel {
 	
 	private GestorCamino gestorCamino = GestorCamino.getInstance();
 	
+	private JPanelAltaCamino panelAltaCamino;
 	private JPanelListadoCamino panelListadoCamino;
 
 	/**
@@ -42,6 +43,7 @@ public class JPanelGestionarCamino extends JPanel {
 		JButton btnNuevoCamino = new JButton("+ Nuevo Camino");
 		btnNuevoCamino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelAltaCamino.actualizarSucursales();
 				MenuPrincipal.mostrarPanel("AltaCamino");
 			}
 		});
@@ -51,6 +53,7 @@ public class JPanelGestionarCamino extends JPanel {
 		JButton btnListadoDeCaminos = new JButton("Listado de caminos");
 		btnListadoDeCaminos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelListadoCamino.actualizarSucursales();
 				panelListadoCamino.llenarTabla(listaCaminos);
 				MenuPrincipal.mostrarPanel("ListadoCamino");
 			}
@@ -70,6 +73,10 @@ public class JPanelGestionarCamino extends JPanel {
 	
 	public void setPanelListadoCamino(JPanelListadoCamino panelListadoCamino) {
 	    this.panelListadoCamino = panelListadoCamino;
+	}
+	
+	public void setPanelAltaCamino(JPanelAltaCamino panelAltaCamino) {
+	    this.panelAltaCamino = panelAltaCamino;
 	}
 
 }

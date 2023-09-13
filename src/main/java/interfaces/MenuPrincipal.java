@@ -96,7 +96,7 @@ public class MenuPrincipal extends JFrame {
   		panelListadoSucursal.setPanelModificarSucursal(panelModificarSucursal);
   		panelModificarSucursal.setPanelListadoSucursal(panelListadoSucursal);
   		
-  		
+  		panelGestionarCamino.setPanelAltaCamino(panelAltaCamino);
   		panelGestionarCamino.setPanelListadoCamino(panelListadoCamino);
   		panelListadoCamino.setPanelModificarCamino(panelModificarCamino);
   		panelModificarCamino.setPanelListadoCamino(panelListadoCamino);
