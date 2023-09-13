@@ -4,11 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import clases.Producto;
 import clases.Sucursal;
 import gestores.GestorSucursal;
 
@@ -17,6 +20,7 @@ public class JPanelGestionarSucursal extends JPanel {
 	private JPanelListadoSucursal panelListadoSucursal;
 
 	private GestorSucursal gestorSucursal = GestorSucursal.getInstance();
+	
 	
 	/**
 	 * Create the panel.
@@ -58,6 +62,15 @@ public class JPanelGestionarSucursal extends JPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(176, 55, 248, 13);
 		add(lblNewLabel);
+		
+		JButton btnRegistrarStock = new JButton("Registrar stock");
+		btnRegistrarStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPrincipal.mostrarPanel("RegistrarStock");
+			}
+		});
+		btnRegistrarStock.setBounds(180, 167, 248, 21);
+		add(btnRegistrarStock);
 
 	}
 	

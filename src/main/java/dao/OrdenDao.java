@@ -11,5 +11,6 @@ public interface OrdenDao {
 	public Integer getUltimoIdOrden();
 	public void crearItemProducto(Integer idOrdenProvision, Integer productoId, Integer cantidad);
 	public void eliminar(OrdenDeProvision o);
+	public void setOrigen(Integer idSO, Integer idOrden);
 
 }

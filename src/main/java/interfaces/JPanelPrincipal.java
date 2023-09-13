@@ -10,10 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import clases.Sucursal;
+import gestores.GestorGrafo;
 
 import javax.swing.JButton;
 
 public class JPanelPrincipal extends JPanel {
+	
+	private GestorGrafo gestorGrafo = GestorGrafo.getInstance();
 	
 
 	/**
@@ -77,6 +80,7 @@ public class JPanelPrincipal extends JPanel {
 		JButton btnFlujoMaximo = new JButton("Flujo máximo");
 		btnFlujoMaximo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gestorGrafo.flujoMaximo("Puerto", "Centro");
 			}
 		});
 		btnFlujoMaximo.setBounds(79, 181, 202, 33);
@@ -85,6 +89,7 @@ public class JPanelPrincipal extends JPanel {
 		JButton btnPageRank = new JButton("Page rank");
 		btnPageRank.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gestorGrafo.pageRank();
 			}
 		});
 		btnPageRank.setBounds(311, 181, 202, 33);

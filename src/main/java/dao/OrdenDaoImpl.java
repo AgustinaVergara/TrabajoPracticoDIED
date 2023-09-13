@@ -33,7 +33,7 @@ public class OrdenDaoImpl implements OrdenDao {
 			st = cn.prepareStatement(consulta);
 			st.setInt(1, this.getUltimoIdOrden() + 1);
 			st.setDate(2, Date.valueOf(orden.getFechaOrden()));
-			st.setTime(3, Time.valueOf(orden.getTiempoMax()));
+			st.setInt(3, orden.getTiempoMax());
 			st.setInt(4, orden.getSucursalDestinoId());
 			st.setString(5, orden.getEstado().toString());
 
@@ -79,7 +79,7 @@ public class OrdenDaoImpl implements OrdenDao {
 			while (rs.next()) {
 				Integer idOrden = rs.getInt(1);
 				LocalDate fecha = rs.getDate(2).toLocalDate();
-				LocalTime tiempoMax = rs.getTime(3).toLocalTime();
+				Integer tiempoMax = rs.getInt(3);
 				Integer sucursalDestinoId = rs.getInt(4);
 				Integer sucursalOrigenId = rs.getInt(5);
 				String estado = rs.getString(6);
@@ -89,7 +89,7 @@ public class OrdenDaoImpl implements OrdenDao {
 							new OrdenDeProvision(idOrden, fecha, sucursalDestinoId, tiempoMax, EstadoOrden.PENDIENTE));
 				else
 					ordenes.add(
-							new OrdenDeProvision(idOrden, fecha, sucursalDestinoId, tiempoMax, EstadoOrden.EN_PROCESO));
+							new OrdenDeProvision(idOrden, fecha, sucursalDestinoId, sucursalOrigenId, tiempoMax, EstadoOrden.EN_PROCESO));
 
 			}
 		} catch (SQLException e) {
@@ -205,7 +205,7 @@ public class OrdenDaoImpl implements OrdenDao {
 
 	@Override
 	public void eliminar(OrdenDeProvision o) {
-		
+
 		String consulta = "DELETE FROM tpdied.orden WHERE idOrden = (?);";
 
 		Conexion conexion = new Conexion();
@@ -234,6 +234,50 @@ public class OrdenDaoImpl implements OrdenDao {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			e.printStackTrace();
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (cn != null) {
+				try {
+					cn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void setOrigen(Integer idSO, Integer idOrdenSeleccionada) {
+		// TODO Auto-generated method stub
+		
+		String consulta = "UPDATE tpdied.orden" 
+                + " SET sucursalOrigenId = ?, "
+                + " estado = ? "
+                + " WHERE idOrden = ?;";
+		Conexion conexion = new Conexion();
+
+		Connection cn = null;
+		PreparedStatement st = null;
+
+		try {
+			cn = conexion.conectar();
+
+			st = cn.prepareStatement(consulta);
+
+			st.setInt(1, idSO);
+			st.setString(2, EstadoOrden.EN_PROCESO.toString());
+			st.setInt(3, idOrdenSeleccionada);
+			st.executeUpdate();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			if (st != null) {
