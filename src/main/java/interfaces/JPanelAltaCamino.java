@@ -56,16 +56,6 @@ public class JPanelAltaCamino extends JPanel {
 	public GestorCamino gestorCamino = GestorCamino.getInstance();
 	public GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 
-
-	
-	public GestorCamino gestorCamino= GestorCamino.getInstance();
-//:src/main/java/interfaces/VentanaCamino.java
-	
-
-
-	
-//b2d0d23d3b8b5b2a702287b80e9e59113bba5ebe:src/main/java/interfaces/JPanelAltaCamino.java
-
 	/**
 	 * Create the panel.
 	 */

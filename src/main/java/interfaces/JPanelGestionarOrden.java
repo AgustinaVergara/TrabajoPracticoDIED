@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 public class JPanelGestionarOrden extends JPanel {
 	
 	private JPanelListadoOrden panelListadoOrden;
+	private JPanelAltaOrden panelAltaOrden;
 	
 	private GestorOrden gestorOrden = GestorOrden.getInstance();
 
@@ -33,6 +34,7 @@ public class JPanelGestionarOrden extends JPanel {
 		JButton btnNuevaOrden = new JButton("+ Nueva orden de provisión");
 		btnNuevaOrden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelAltaOrden.actualizarSucursales();
 				MenuPrincipal.mostrarPanel("AltaOrden");
 			}
 		});
@@ -63,5 +65,9 @@ public class JPanelGestionarOrden extends JPanel {
 	
 	public void setPanelListadoOrden(JPanelListadoOrden panelListadoOrden) {
 	    this.panelListadoOrden = panelListadoOrden;
+	}
+	
+	public void setPanelAltaOrden(JPanelAltaOrden panelAltaOrden) {
+	    this.panelAltaOrden = panelAltaOrden;
 	}
 }
