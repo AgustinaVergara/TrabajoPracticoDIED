@@ -10,6 +10,7 @@ public class Sucursal {
 	private LocalTime horarioApertura;
 	private LocalTime horarioCierre;
 	private EstadoSucursal estado;
+	 
 	
 	//Getters y Setters
 	public Integer getId() {

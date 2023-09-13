@@ -11,7 +11,7 @@ public class OrdenDeProvision {
 	private LocalDate fechaOrden;
 	private Integer sucursalOrigenId;
 	private Integer sucursalDestinoId;
-	private LocalTime tiempoMax;
+	private int tiempoMax;
 	private List<ItemProducto> productosDeOrden;
 	private EstadoOrden estado;
 	
@@ -32,11 +32,11 @@ public class OrdenDeProvision {
 		this.fechaOrden = fechaOrden;
 	}
 	
-	public LocalTime getTiempoMax() {
+	public int getTiempoMax() {
 		return tiempoMax;
 	}
 
-	public void setTiempoMax(LocalTime tiempoMax) {
+	public void setTiempoMax(int tiempoMax) {
 		this.tiempoMax = tiempoMax;
 	}
 	
@@ -73,7 +73,7 @@ public class OrdenDeProvision {
 	}
 
 	public OrdenDeProvision(Integer idOrdenProvision, LocalDate fechaOrden, 
-			Integer sucursalDestinoId, LocalTime tiempoMax, List<ItemProducto> productosDeOrden, EstadoOrden estado) {
+			Integer sucursalDestinoId, int tiempoMax, List<ItemProducto> productosDeOrden, EstadoOrden estado) {
 		super();
 		this.idOrdenProvision = idOrdenProvision;
 		this.fechaOrden = fechaOrden;
@@ -83,13 +83,24 @@ public class OrdenDeProvision {
 		this.estado = estado;
 	}
 	
-	//ver porque este no tiene los productos
+	//ver porque este no tiene los productos ni la sucursal origen
 	public OrdenDeProvision(Integer idOrdenProvision, LocalDate fechaOrden, 
-			Integer sucursalDestinoId, LocalTime tiempoMax,  EstadoOrden estado) {
+			Integer sucursalDestinoId, int tiempoMax,  EstadoOrden estado) {
 		super();
 		this.idOrdenProvision = idOrdenProvision;
 		this.fechaOrden = fechaOrden;
 		this.sucursalDestinoId = sucursalDestinoId;
+		this.tiempoMax = tiempoMax;
+		this.estado = estado;
+	}
+	
+	public OrdenDeProvision(Integer idOrdenProvision, LocalDate fechaOrden, 
+			Integer sucursalDestinoId, Integer sucursalOrigenId, int tiempoMax,  EstadoOrden estado) {
+		super();
+		this.idOrdenProvision = idOrdenProvision;
+		this.fechaOrden = fechaOrden;
+		this.sucursalDestinoId = sucursalDestinoId;
+		this.sucursalOrigenId = sucursalOrigenId;
 		this.tiempoMax = tiempoMax;
 		this.estado = estado;
 	}

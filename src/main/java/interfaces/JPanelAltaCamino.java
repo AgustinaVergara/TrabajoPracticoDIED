@@ -26,6 +26,8 @@ import dao.SucursalDao;
 import dao.SucursalDaoImpl;
 import enums.EstadoSucursal;
 import gestores.GestorCamino;
+import gestores.GestorSucursal;
+
 import javax.swing.SwingConstants;
 
 public class JPanelAltaCamino extends JPanel {
@@ -38,6 +40,7 @@ public class JPanelAltaCamino extends JPanel {
 	private JTextField tiemTransitoTxt;
 	
 	public GestorCamino gestorCamino= GestorCamino.getInstance();
+	public GestorSucursal gestorSucursal = GestorSucursal.getInstance();
 	
 	/**
 	 * Create the panel.
@@ -75,7 +78,8 @@ public class JPanelAltaCamino extends JPanel {
 		DefaultComboBoxModel modelo2;
 		
 		List<Sucursal> sucursales = new ArrayList<Sucursal>();
-		SucursalDao dao = new SucursalDaoImpl();;
+		SucursalDao dao = new SucursalDaoImpl();
+		gestorSucursal.refreshSucursales();
 		sucursales = dao.buscarSucursales();
 		CaminoDao daocamino = new CaminoSQLimplementacion();
 		

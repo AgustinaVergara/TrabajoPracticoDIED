@@ -28,7 +28,6 @@ public class JPanelAltaOrden extends JPanel {
 	
 	private JFormattedTextField fechaTextField;
 	private JTextField txtHora;
-	private JTextField txtMinuto;
 	private JComboBox<String> comboBoxSD;
 	private DefaultComboBoxModel<String> modeloSD;
 	private JComboBox<String> comboBoxProducto;
@@ -62,7 +61,7 @@ public class JPanelAltaOrden extends JPanel {
 		lblNewLabel_2.setBounds(44, 80, 140, 13);
 		add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("Tiempo máximo en hs (*)");
+		JLabel lblNewLabel_3 = new JLabel("Tiempo máximo en minutos (*)");
 		lblNewLabel_3.setBounds(288, 80, 163, 13);
 		add(lblNewLabel_3);
 		
@@ -91,16 +90,6 @@ public class JPanelAltaOrden extends JPanel {
 		txtHora.setBounds(440, 77, 56, 19);
 		add(txtHora);
 		txtHora.setColumns(10);
-		
-		txtMinuto = new JTextField();
-		txtMinuto.setColumns(10);
-		txtMinuto.setBounds(511, 77, 56, 19);
-		add(txtMinuto);
-		
-		JLabel lblNewLabel_4 = new JLabel(":");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(494, 80, 20, 13);
-		add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Lista de productos");
 		lblNewLabel_5.setBounds(44, 113, 127, 21);
@@ -135,7 +124,7 @@ public class JPanelAltaOrden extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Producto p = gestorProducto.getProdId(comboBoxProducto.getSelectedIndex());
-				productosDeOrden.add(new ItemProducto (p,(Integer) spinner.getValue()));
+				productosDeOrden.add(new ItemProducto ((Integer) spinner.getValue(),p));
 				agregarProductoATabla(p,(Integer) spinner.getValue());
 			}
 		});
@@ -217,7 +206,7 @@ public class JPanelAltaOrden extends JPanel {
 					    gestorOrden.crearOrdenGestor(
 								fechaLocalDate,
 								(gestorSucursal.buscarSucursalxNombre((String) comboBoxSD.getSelectedItem())).getId(),
-								LocalTime.of(Integer.parseInt(txtHora.getText()), Integer.parseInt(txtMinuto.getText())),
+								Integer.parseInt(txtHora.getText()),
 								productosDeOrden,
 								enums.EstadoOrden.PENDIENTE);
 						
@@ -263,7 +252,6 @@ public class JPanelAltaOrden extends JPanel {
 		
 		fechaTextField.setText("");
 		txtHora.setText("");
-		txtMinuto.setText("");
 		modeloSD.setSelectedItem("Seleccione");
 		modeloProducto.setSelectedItem("Seleccione");
 		spinner.setValue(1);

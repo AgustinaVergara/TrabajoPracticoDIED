@@ -3,7 +3,7 @@ package gestores;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import clases.Sucursal;
 import dao.SucursalDao;
@@ -27,6 +27,10 @@ public class GestorSucursal {
 	}
 		
 		return gestor;
+	}
+	
+	public void refreshSucursales() {
+	    sucursales = new ArrayList<>(dao.buscarSucursales());
 	}
 
 	public List<Sucursal> getSucursales() {
@@ -57,7 +61,6 @@ public class GestorSucursal {
 	
 	public Sucursal crearSucursalGestor(String nombre, LocalTime horarioApertura, LocalTime horarioCierre, EstadoSucursal estado ) {
 		siguienteIdSucursal = dao.getUltimoIdSucursal() + 1;
-		//System.out.println("SIGUIENTE SUCURSAL " +siguienteIdSucursal);
 		return new Sucursal(siguienteIdSucursal, nombre, horarioApertura, horarioCierre, estado);
 	}
 	
@@ -76,6 +79,12 @@ public class GestorSucursal {
 	
 	public Sucursal getSucursalPorId(Integer id) {
 		return (sucursales.stream().filter(e -> e.getId() == id).findFirst()).get();
+	}
+
+	public List<Sucursal> getSucursalesOperativas() {
+		// TODO Auto-generated method stub
+		
+		return (sucursales.stream().filter(e  -> e.getEstado() == EstadoSucursal.OPERATIVA)).collect(Collectors.toList());
 	}
 
 

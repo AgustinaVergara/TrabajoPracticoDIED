@@ -25,6 +25,10 @@ public class GestorOrden {
 		ordenes = new  ArrayList<>(dao.buscarOrdenes());
 	}
 	
+	public void refreshOrdenes() {
+	    ordenes = new ArrayList<>(dao.buscarOrdenes());
+	}
+	
 	public static GestorOrden getInstance() {
 		if (gestor == null) {
 			gestor = new GestorOrden();
@@ -42,7 +46,7 @@ public class GestorOrden {
 		
 	}*/
 	
-	public OrdenDeProvision crearOrdenGestor(LocalDate fecha, Integer SD, LocalTime tiempoMax, List<ItemProducto> productos, 
+	public OrdenDeProvision crearOrdenGestor(LocalDate fecha, Integer SD, int tiempoMax, List<ItemProducto> productos, 
 			EstadoOrden estado ) {
 		siguienteIdOrden = dao.getUltimoIdOrden() + 1;
 		
@@ -61,6 +65,12 @@ public class GestorOrden {
 	public void eliminarOrden(OrdenDeProvision o) {
 		dao.eliminar(o);
 		ordenes.remove(o);
+		
+	}
+
+	public void setSucursalOrigen(Sucursal s, Integer idOrden) {
+		// TODO Auto-generated method stub
+		dao.setOrigen(s.getId(), idOrden);
 		
 	}
 }

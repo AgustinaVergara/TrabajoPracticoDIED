@@ -25,6 +25,7 @@ public class MenuPrincipal extends JFrame {
 	private JPanelAltaSucursal panelAltaSucursal;
 	private JPanelListadoSucursal panelListadoSucursal;
 	private JPanelModificarSucursal panelModificarSucursal;
+	private JPanelRegistrarStock panelRegistrarStock;
 	
 	private JPanelGestionarCamino panelGestionarCamino;
 	private JPanelAltaCamino panelAltaCamino;
@@ -41,6 +42,8 @@ public class MenuPrincipal extends JFrame {
 	private JPanelListadoOrden panelListadoOrden;
 	
 
+
+	
 	/**
 	 * Create the frame.
 	 */
@@ -71,6 +74,7 @@ public class MenuPrincipal extends JFrame {
   		panelAltaSucursal = new JPanelAltaSucursal();
   		panelListadoSucursal = new JPanelListadoSucursal();
   		panelModificarSucursal = new JPanelModificarSucursal();
+  		panelRegistrarStock = new JPanelRegistrarStock();
   		
   		panelGestionarCamino = new  JPanelGestionarCamino();
   		panelAltaCamino = new JPanelAltaCamino();
@@ -86,10 +90,12 @@ public class MenuPrincipal extends JFrame {
   		panelAltaOrden = new JPanelAltaOrden();
   		panelListadoOrden = new JPanelListadoOrden();
 
+  		
   		//Establecer referencias entre paneles
   		panelGestionarSucursal.setPanelListadoSucursal(panelListadoSucursal); 
   		panelListadoSucursal.setPanelModificarSucursal(panelModificarSucursal);
   		panelModificarSucursal.setPanelListadoSucursal(panelListadoSucursal);
+  		
   		
   		panelGestionarCamino.setPanelListadoCamino(panelListadoCamino);
   		panelListadoCamino.setPanelModificarCamino(panelModificarCamino);
@@ -111,6 +117,7 @@ public class MenuPrincipal extends JFrame {
 	    contentPane.add(panelAltaSucursal, "AltaSucursal");
 	    contentPane.add(panelListadoSucursal, "ListadoSucursal");
 	    contentPane.add(panelModificarSucursal,"ModificarSucursal");
+	    contentPane.add(panelRegistrarStock, "RegistrarStock");
 	    
 	    contentPane.add(panelGestionarCamino,"GestionarCamino");
 	    contentPane.add(panelAltaCamino,"AltaCamino");
@@ -125,6 +132,7 @@ public class MenuPrincipal extends JFrame {
 	    contentPane.add(panelGestionarOrden,"GestionarOrden");
 	    contentPane.add(panelAltaOrden,"AltaOrden");
 	    contentPane.add(panelListadoOrden,"ListadoOrden");
+	    
 	      
 	    getContentPane().add(contentPane);
 
