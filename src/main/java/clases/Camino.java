@@ -2,6 +2,7 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import gestores.*;
 
 
 public class Camino  {
+
 	Integer id;
 	Sucursal sucursalOrigen;
 	Sucursal sucursalDestino;
@@ -90,11 +92,27 @@ public class Camino  {
 		else return false;
 	}
 	public void modificar(int tiempo, EstadoSucursal estado, double capacidad) {
-
-		this.setEsOperativa(estado);
 		this.setTiempoTransito(tiempo);
+		this.setEsOperativa(estado);
 		this.setCapacidadMax(capacidad);
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Camino other = (Camino) obj;
+		return Objects.equals(id, other.id);
+	}
+	
+	
 	
 	
 }

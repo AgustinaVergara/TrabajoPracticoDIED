@@ -29,6 +29,7 @@ import enums.EstadoSucursal;
 import gestores.GestorCamino;
 import gestores.GestorSucursal;
 
+
 public class JPanelListadoCamino extends JPanel {
 
 	private JTable tableCaminos;
@@ -251,6 +252,7 @@ public class JPanelListadoCamino extends JPanel {
 	}
 
 	public void eliminarCaminoElegido(Camino camino) {
+
 		String[] botones = { "Si", "Cancelar" };
 		int i = JOptionPane.showOptionDialog(this, "¿Estas seguro de eliminar el camino seleccionado?",
 				"Muchas respuestas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones,
@@ -263,6 +265,15 @@ public class JPanelListadoCamino extends JPanel {
 			gestorCamino.eliminarCamino(camino);
 			model.setRowCount(0);
 			llenarTabla(caminoDAO.buscarCaminos());
+
+		String [] botones = {"Si", "Cancelar"};
+		int i= JOptionPane.showOptionDialog(this, "¿Estas seguro de eliminar el camino seleccionado?", "Muchas respuestas",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
+		/*int i= JOptionPane.showConfirmDialog(this, "¿Estas seguro de cancelar la operacion?");*/
+		if(i==0) {
+			gestorCamino.eliminarCamino(camino);	
+	        model.setRowCount(0);
+	        llenarTabla(caminoDAO.buscarCaminos());	
+
 		}
 
 	}

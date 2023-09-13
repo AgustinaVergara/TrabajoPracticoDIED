@@ -68,6 +68,7 @@ public class GestorCamino {
 	public void agregarCamino(Camino camino) {
 		caminos.add(camino);
 		caminoDAO.crearCamino(camino);
+		
 	}
 	
 	public void eliminarCamino(Camino camino) {

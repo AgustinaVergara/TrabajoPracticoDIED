@@ -57,4 +57,11 @@ public class Producto {
 		this.precioUnitario = precio;
 		this.pesoKg = peso;
 	}
+	public Producto modificarPrododucto(String nombre, String descrip, double precio, double peso) {
+		this.nombre = nombre;
+		this.descripcion = descrip;
+		this.precioUnitario = precio;
+		this.pesoKg = peso;
+		return this;
+	}
 }
